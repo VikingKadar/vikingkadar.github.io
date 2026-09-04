@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-T7ZGSTLG');</script>
-<!-- End Google Tag Manager --> 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Viking Kadar – Strategist and growth marketer</title>
   <meta name="description" content="Viking Kadar. Strategy, growth and AI production. Insight, idea, impact. Studying Growth Marketing at Berghs. Looking for an internship.">
 
-  <!-- GTM: paste the snippet here once you have a container ID. dataLayer is already set up. -->
+  <!-- ============================================================
+       GOOGLE TAG MANAGER
+       Byt ut GTM-XXXXXXX (2 stallen i filen) mot ditt container-ID.
+       Du hittar det i tagmanager.google.com, uppe i listen, ser ut som GTM-AB12CD3.
+       dataLayer maste ligga FORE gtm.js-snippet, sa ror inte ordningen.
+       ============================================================ -->
   <script>window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'page_meta', page_type: 'portfolio' });</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  <!-- End Google Tag Manager -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -193,13 +197,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.hero h1 span,.hero-row{transform:none;opacity:1}.source.on .bar i{width:89.5%}}
   </style>
 </head>
-<body> <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T7ZGSTLG"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) --> 
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
   <nav class="nav" id="nav" aria-label="Main menu">
-    <a href="#top"><strong>Kung Viking Kadar</strong></a>
+    <a href="#top"><strong>Viking Kadar</strong></a>
     <ul>
       <li><a href="#opera">The Opera</a></li>
       <li><a href="#process">Process</a></li>
@@ -262,13 +266,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </figure>
 
     <div class="trio">
-      <div><div class="tag">Media</div><h4>Geofencing</h4><div class="media" data-img="geofencing"></div><p>The football poster shows up on phones around the stadiums on match nights. Gossip and heartbreak run downtown on nights out. We meet people in the middle of the feeling, not after it.</p></div>
+      <div><div class="tag">Media</div><h4>Geofencing</h4><div class="media" data-img="geofencing"><img src="images/fotboll.png"></div><p>The football poster shows up on phones around the stadiums on match nights. Gossip and heartbreak run downtown on nights out. We meet people in the middle of the feeling, not after it.</p></div>
       <div><div class="tag">Proof</div><h4>Heart rate</h4><div class="media" data-video="heartrate"></div><p>We track heart rates during what people think are everyday moments: a job interview, a first date, a decisive match. Then the reveal: the spike came from a seat inside the Opera. The concept proves itself. Made in Seedance.</p></div>
       <div><div class="tag">Conversion</div><h4>Madame O</h4><div class="media two" data-imgs="madameO"></div><p>An AI guide that asks: love, betrayal, jealousy or murder? She matches you with a performance, spills the tea on the plot and answers everything a first-timer doesn't dare to ask.</p></div>
     </div>
 
     <div class="quote">
-      <blockquote>Outside the box, but with a through-line. That's the balance I chase: as far out as you can go without losing grip of what's being sold.<cite>Summary of client feedback. My role: idea and concept; the group refined and packaged it together.</cite></blockquote>
+      <blockquote>Outside the box, but with a through-line. That's the balance I chase: as far out as you can go without losing grip of what's being sold.Summary of client feedback. My role: idea and concept; the group refined and packaged it together.</blockquote>
       <ul>
         <li>A strong concept is a format. That's what lets it grow.</li>
         <li>Recognition without a next step is wasted. Madame O takes you from "that's so me" to a ticket.</li>
@@ -370,20 +374,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     /* ============================================================
        ALL IMAGES AND VIDEOS ARE CONTROLLED FROM HERE.
        Empty string '' or empty list [] = the element is not shown.
-       Add the path once the file exists in images/ and it appears.
        If a file is missing on the server it disappears silently.
        ============================================================ */
     const MEDIA = {
-      hero: '',                       // e.g. 'images/banner.jpg' when you want a hero photo
-      portrait: 'images/viking.jpg',  // your portrait, shows up when the file exists
+      hero: 'images/fotboll.png',     // hero background; set to '' if you want the plain dark gradient
+      portrait: 'images/jag.png',     // your portrait in About
       geofencing: null,
       madameO: [],
       conceptfilm: { src: 'images/ai/konceptfilm-same-passion.mp4', poster: 'images/ai/konceptfilm-same-passion-poster.jpg' },
       heartrate: { youtube: 'NgQOyPT9oE8', title: 'Heart rate, concept film for the Royal Swedish Opera' },
       strip: [
-        { src: 'images/poster-final-act.jpg', title: 'Same passion. Different song.', text: 'Think about the final whistle of a football match. The crowd rises and releases everything. A ballet finale creates that same collective release: the audience stands and the room erupts.', alt: 'Poster: an opera singer in tails in front of a stand with flares' },
-        { src: 'images/poster-la-traviata.jpg', title: 'Same whispers. Different walls.', text: 'La Traviata is basically a group chat drama. Violetta leaves Alfredo without explaining why. He thinks she never cared; the truth comes out much later. Ghosting and misunderstandings, just on an opera stage.', alt: 'Poster: two women whispering over a martini' },
-        { src: 'images/poster-madama-butterfly.jpg', title: 'Same heartbreak. Different act.', text: 'Cio-Cio-San is abandoned by the man she loves. She waits years for him to return, and when he finally does, he has a new wife. Same heartbreak, different act.', alt: 'Poster: roses in a rubbish bin' },
+        { src: 'images/fotboll.png', title: 'Same passion. Different song.', text: 'Think about the final whistle of a football match. The crowd rises and releases everything. A ballet finale creates that same collective release: the audience stands and the room erupts.', alt: 'Poster: an opera singer in tails in front of a stand with flares' },
+        { src: 'images/gossip.png', title: 'Same whispers. Different walls.', text: 'La Traviata is basically a group chat drama. Violetta leaves Alfredo without explaining why. He thinks she never cared; the truth comes out much later. Ghosting and misunderstandings, just on an opera stage.', alt: 'Poster: two women whispering over a martini' },
+        { src: 'images/hearthbreak.png', title: 'Same heartbreak. Different act.', text: 'Cio-Cio-San is abandoned by the man there loves. She waits years for him to return, and when he finally does, he has a new wife. Same heartbreak, different act.', alt: 'Poster: roses in a rubbish bin' },
       ],
       pitch: [],
       aiWork: [],
@@ -478,7 +481,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     /* ============================================================
        COURSE BY COURSE. Fill in done/learned as courses finish.
        status: 'done' | 'ongoing' | 'next'
-       Leave done/learned empty and "Updates soon" shows automatically.
        ============================================================ */
     const COURSES = [
       { title: 'Royal Swedish Opera, cross-programme project', when: 'Aug 2026', status: 'done',
