@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Förorten vaknade – valdeltagande 2022 vs 2026 | Viking Kadar</title>
+  <meta name="description" content="Valdeltagandet sjönk i Sverige 2026. I storstädernas förorter hände det motsatta. Data, källor och förbehåll.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://vikingkadar.github.io/fororten.html">
+  <meta property="og:title" content="Förorten vaknade – valdistrikt under 50 % gick från 67 till 10">
+  <meta property="og:description" content="Sverige stannade hemma. Förorten gick och röstade. Interaktiv data från riksdagsvalet 2026.">
+  <meta property="og:image" content="https://vikingkadar.github.io/images/r%C3%B6stning.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='44' font-family='Arial Narrow,Arial' font-size='34' font-weight='bold' fill='%23fff' text-anchor='middle'%3EVK%3C/text%3E%3C/svg%3E">
+
+  <!-- Google Tag Manager (samma container som index.html) -->
+  <script>window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'page_meta', page_type: 'data_story', story: 'fororten_vaknade' });</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T7ZGSTLG');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+  <style>
+    :root{--w:#fff;--b:#000;--g:#6a6a6a;--gd:#9c9c9c;--line:rgba(0,0,0,.15);--linei:rgba(255,255,255,.22);
+      --up:#1f5cff;--down:#e5321d;--base:#cfd4dc;
+      --disp:"Anton",Impact,"Arial Narrow",sans-serif;--serif:"Instrument Serif",Georgia,serif;--sans:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;--gut:clamp(20px,5vw,80px)}
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--w);color:var(--b);font-family:var(--sans);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+    img,video,iframe{display:block;max-width:100%}
+    a{color:inherit}
+    a:focus-visible,button:focus-visible{outline:3px solid currentColor;outline-offset:3px}
+    p{margin:0 0 1em;max-width:62ch} p:last-child{margin-bottom:0}
+    h1,h2,h3{margin:0;font-weight:400}
+    .disp{font-family:var(--disp);text-transform:uppercase;line-height:.9}
+    .muted{color:var(--g)}
+    .sec{padding:clamp(56px,8vh,110px) var(--gut)}
+    .inv{background:var(--b);color:var(--w)}
+    .inv .muted{color:var(--gd)}
+
+    /* top bar */
+    .bar{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:14px var(--gut);font-size:14px;font-weight:500;color:#fff;mix-blend-mode:difference}
+    .bar a{text-decoration:none} .bar a:hover{text-decoration:underline;text-underline-offset:5px}
+
+    /* hero */
+    .hero{position:relative;min-height:92svh;display:grid;align-items:end;padding:110px var(--gut) 40px;color:var(--w);overflow:hidden;isolation:isolate;background:#111}
+    .hero-bg{position:absolute;inset:0;z-index:-1}
+    .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;filter:contrast(1.05) brightness(.55)}
+    .hero h1{font-size:clamp(56px,15vw,240px)}
+    .hero .sub{font-family:var(--serif);font-size:clamp(24px,3.4vw,48px);line-height:1.1;max-width:22ch;margin-top:16px}
+    .hero .meta{font-size:13px;color:rgba(255,255,255,.7);margin-top:22px;max-width:70ch}
+
+    /* the number */
+    .big{display:grid;grid-template-columns:1fr;gap:24px 60px;align-items:center}
+    .big .n{font-family:var(--disp);font-size:clamp(90px,22vw,320px);line-height:.85;letter-spacing:-.01em}
+    .big .n span{display:inline-block}
+    .big .n .to{color:var(--up)}
+    .big .n .arrow{font-family:var(--serif);font-size:.45em;vertical-align:.2em;padding:0 .1em;color:var(--g)}
+    .big .lead{font-family:var(--serif);font-size:clamp(24px,2.8vw,38px);line-height:1.15;max-width:24ch}
+    .big .lead b{font-weight:400;color:var(--up)}
+    @media(min-width:900px){.big{grid-template-columns:auto 1fr}}
+
+    /* chart blocks */
+    .block{display:grid;grid-template-columns:1fr;gap:20px 56px;padding:clamp(40px,6vh,72px) 0;border-top:1px solid var(--line)}
+    .inv .block{border-color:var(--linei)}
+    .block:first-of-type{border-top:0;padding-top:0}
+    .block h2{font-family:var(--serif);font-size:clamp(28px,3.4vw,46px);line-height:1.05;max-width:20ch}
+    .block .why{font-size:16px;margin-top:12px;max-width:44ch}
+    .block .src{font-size:13px;color:var(--g);margin-top:14px}
+    .inv .block .src{color:var(--gd)}
+    .chart{position:relative;width:100%;min-height:280px}
+    .chart canvas{width:100%!important;height:100%!important}
+    .chart.tall{min-height:360px}
+    @media(min-width:900px){.block{grid-template-columns:1fr 1.6fr;align-items:start}.chart{min-height:340px}.chart.tall{min-height:400px}}
+
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;padding:0;list-style:none}
+    .chips button{font:inherit;font-size:13px;font-weight:500;padding:8px 14px;border:1px solid currentColor;background:none;color:inherit;cursor:pointer}
+    .chips button[aria-pressed="true"]{background:var(--b);color:var(--w)}
+    .inv .chips button[aria-pressed="true"]{background:var(--w);color:var(--b)}
+    .toggle{display:inline-flex;align-items:center;gap:10px;font-size:14px;margin-bottom:14px;cursor:pointer}
+    .toggle input{width:18px;height:18px;accent-color:var(--down)}
+    .readout{font-family:var(--serif);font-size:clamp(20px,2.2vw,28px);line-height:1.2;margin-top:12px;min-height:1.4em}
+    .readout b{font-weight:400;color:var(--up)}
+
+    /* video */
+    .film iframe{width:100%;aspect-ratio:16/9;border:0;background:#000}
+    .film figcaption{margin-top:12px;font-size:15px;max-width:60ch}
+    .film figcaption b{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.4vw,30px);display:block;line-height:1.1;margin-bottom:6px}
+
+    /* caveats */
+    .caveats{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:12px}
+    .caveats li{border:1px solid var(--linei);padding:18px 20px;font-size:15px}
+    .caveats li b{display:block;font-family:var(--serif);font-weight:400;font-size:21px;margin-bottom:6px;line-height:1.1}
+    @media(min-width:860px){.caveats{grid-template-columns:1fr 1fr}}
+
+    /* sources */
+    .sources{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+    .sources li{display:grid;grid-template-columns:1fr;gap:4px 24px;padding:16px 0;border-bottom:1px solid var(--line);font-size:15px}
+    .sources li a{word-break:break-all;color:var(--g);text-decoration:none;border-bottom:1px solid var(--line)}
+    .sources li a:hover{color:var(--b);border-color:var(--b)}
+    .sources li i{font-style:normal;color:var(--g);font-size:13px}
+    @media(min-width:860px){.sources li{grid-template-columns:260px 1fr}}
+
+    .kv{display:grid;grid-template-columns:1fr;gap:10px 30px;font-size:14px;margin-top:28px;max-width:70ch}
+    .kv div{display:grid;grid-template-columns:110px 1fr;gap:12px}
+    .kv b{font-weight:500;color:var(--g)}
+
+    footer{padding:22px var(--gut) 34px;font-size:13px;color:var(--gd);background:var(--b);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-top:1px solid var(--linei)}
+    footer a{color:var(--w);text-decoration:none;border-bottom:1px solid var(--linei)}
+
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T7ZGSTLG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <nav class="bar" aria-label="Navigation">
+    <a href="index.html#journey" data-track="story_back" data-channel="top">← Viking Kadar</a>
+    <a href="#kallor">Källor</a>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-bg" id="hero-bg"></div>
+    <div>
+      <h1 class="disp">Förorten<br>vaknade</h1>
+      <p class="sub">Sverige stannade hemma. Förorten gick och röstade.</p>
+      <p class="meta">Riksdagsvalet 2026 (preliminärt 14 sep) jämfört med 2022 (slutligt). Stockholm, Göteborg och Malmö. Bilden är en illustration (AI).</p>
+    </div>
+  </header>
+
+  <section class="sec" id="siffran">
+    <div class="big">
+      <div class="n" aria-label="67 till 10"><span>67</span><span class="arrow">till</span><span class="to">10</span></div>
+      <p class="lead">Så många valdistrikt i de tre storstäderna hade <b>under 50 % valdeltagande</b>. Först 2022, sen 2026. Ett tapp på 85 procent, samtidigt som hela riket röstade mindre.</p>
+    </div>
+  </section>
+
+  <section class="sec inv" id="data">
+    <div class="block">
+      <div>
+        <h2>Var ökade det mest?</h2>
+        <p class="why">Sju förortsdistrikt med störst ökning, i procentenheter. Klicka på en stad för att jämföra. Håll över en stapel för siffran.</p>
+        <p class="readout" id="readout"></p>
+        <p class="src">Källa: Valmyndigheten via blog.zaramis.se (sekundärkälla, verifierad mot val.se), Göteborgs-Posten.</p>
+      </div>
+      <div>
+        <ul class="chips" id="cityChips" aria-label="Filtrera på stad">
+          <li><button type="button" data-city="all" aria-pressed="true">Alla</button></li>
+          <li><button type="button" data-city="Malmö" aria-pressed="false">Malmö</button></li>
+          <li><button type="button" data-city="Stockholm" aria-pressed="false">Stockholm</button></li>
+          <li><button type="button" data-city="Göteborg" aria-pressed="false">Göteborg</button></li>
+        </ul>
+        <div class="chart tall"><canvas id="cDistricts" role="img" aria-label="Stapeldiagram över ökning av valdeltagande per förortsdistrikt"></canvas></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div>
+        <h2>Samtidigt sjönk hela Sverige</h2>
+        <p class="why">Valdeltagande i riksdagsvalet, hela riket. 2026 är valnattssiffran. Slutligt resultat brukar landa runt tre procentenheter högre, kryssa i för att se det.</p>
+        <p class="src">Källa: Valmyndigheten, SVT Valresultat 2026.</p>
+      </div>
+      <div>
+        <label class="toggle"><input type="checkbox" id="estToggle"> Visa uppskattat slutligt 2026 (ca +3 pe)</label>
+        <div class="chart"><canvas id="cNation" role="img" aria-label="Linjediagram över valdeltagande i riket 2018, 2022 och 2026"></canvas></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div>
+        <h2>67 blev 10</h2>
+        <p class="why">Antal valdistrikt i Stockholm, Göteborg och Malmö där färre än hälften röstade.</p>
+        <p class="src">Källa: Sveriges Radio / P4 Göteborg, Valmyndigheten.</p>
+      </div>
+      <div class="chart"><canvas id="cUnder50" role="img" aria-label="Stapeldiagram: 67 distrikt 2022, 10 distrikt 2026"></canvas></div>
+    </div>
+
+    <div class="block">
+      <div>
+        <h2>Även Göteborg som helhet gick ned</h2>
+        <p class="why">Kommunnivå. Staden tappade 2,7 procentenheter, medan Rannebergen och Eriksbo i samma stad gick upp 6 till 8. Det är kontrasten som är storyn.</p>
+        <p class="src">Källa: Göteborgs-Posten, Valmyndigheten.</p>
+      </div>
+      <div class="chart"><canvas id="cGbg" role="img" aria-label="Stapeldiagram: Göteborg kommun 80,7 procent 2022 och 78 procent 2026"></canvas></div>
+    </div>
+  </section>
+
+  <section class="sec" id="film">
+    <figure class="film">
+      <iframe src="https://www.youtube-nocookie.com/embed/u7_VxeoVWJ0" title="Förorten vaknade, 30 sekunder" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      <figcaption><b>Samma data, 30 sekunder</b>Gjord för att spridas i feeden. Först tystnaden när Sverige stannar hemma, sen staplarna när förorten går och röstar.</figcaption>
+    </figure>
+  </section>
+
+  <section class="sec inv" id="innan">
+    <h2 class="disp" style="font-size:clamp(40px,8vw,110px);margin-bottom:28px">Innan du citerar</h2>
+    <ul class="caveats">
+      <li><b>Siffrorna för 2026 är preliminära.</b>Valnattsräkning. Slutligt valdeltagande brukar ligga cirka 3 procentenheter högre.</li>
+      <li><b>Distrikt har ritats om.</b>Många valdistrikt fick nya gränser inför 2026. Jämförelserna gäller distrikt som Valmyndigheten klassar som jämförbara.</li>
+      <li><b>Kontrasten är storyn.</b>Rikstrenden pekar nedåt samtidigt som förortsdistrikten går kraftigt uppåt. Inte det ena eller det andra, utan båda samtidigt.</li>
+      <li><b>Vilka områden det gäller.</b>Distrikt med tidigare lågt valdeltagande är ofta invandrartäta förorter med lägre medelinkomst.</li>
+    </ul>
+  </section>
+
+  <section class="sec" id="kallor">
+    <h2 class="disp" style="font-size:clamp(40px,8vw,110px);margin-bottom:28px">Källor</h2>
+    <ul class="sources">
+      <li><span>Sveriges Radio / P4 Göteborg</span><a href="https://www.sverigesradio.se/artikel/senaste-nytt-om-svenska-valet-2026" target="_blank" rel="noopener" data-track="source_click" data-channel="sr">sverigesradio.se/artikel/senaste-nytt-om-svenska-valet-2026</a></li>
+      <li><span>SVT Valresultat 2026</span><a href="https://valresultat.svt.se/2026/" target="_blank" rel="noopener" data-track="source_click" data-channel="svt">valresultat.svt.se/2026</a></li>
+      <li><span>Valmyndigheten</span><a href="https://www.val.se" target="_blank" rel="noopener" data-track="source_click" data-channel="val">val.se</a></li>
+      <li><span>Distriktsdata <i>(sekundärkälla, verifiera mot val.se)</i></span><a href="https://blog.zaramis.se/2026/09/14/valdeltagandet-ar-det-som-avgor-valet/" target="_blank" rel="noopener" data-track="source_click" data-channel="zaramis">blog.zaramis.se/2026/09/14/valdeltagandet-ar-det-som-avgor-valet</a></li>
+      <li><span>Göteborgs-Posten</span><a href="https://www.gp.se/nyheter/goteborg/sa-stort-var-valdeltagandet-i-din-stadsdel.531bb7c0-2e0e-4328-929f-eb88da4a1bae" target="_blank" rel="noopener" data-track="source_click" data-channel="gp">gp.se: Så stort var valdeltagandet i din stadsdel</a></li>
+    </ul>
+    <div class="kv">
+      <div><b>Fråga</b><span>Var ökade valdeltagandet mest i riksdagsvalet 2026 jämfört med 2022, och var minskade det?</span></div>
+      <div><b>Enhet</b><span>Procent (%) och procentenheter (pe)</span></div>
+      <div><b>Tidsperiod</b><span>Riksdagsvalet 2022 (slutligt) och 2026 (preliminärt 14 sep 2026)</span></div>
+      <div><b>Geografi</b><span>Stockholm, Göteborg och Malmö kommun</span></div>
+      <div><b>Verktyg</b><span>Chart.js, ren HTML, GitHub Pages. Diagrammen pushar egna dataLayer-events till GTM.</span></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Viking Kadar, Growth Toolbox, Berghs 2026</span>
+    <a href="index.html#journey" data-track="story_back" data-channel="footer">Tillbaka till portfolion</a>
+  </footer>
+
+  <script>
+    /* ============================================================
+       BILD OCH DATA. Ändra här, rör inte resten.
+       ============================================================ */
+    const HERO_IMG = 'images/röstning.png';
+
+    const DISTRICTS = [
+      { city: 'Malmö',     name: 'Rosengård centrum', pe: 12.8 },
+      { city: 'Malmö',     name: 'Herrgården',        pe: 9.4 },
+      { city: 'Stockholm', name: 'Rinkebysvängen',    pe: 8.8 },
+      { city: 'Göteborg',  name: 'Rannebergen C',     pe: 8.1 },
+      { city: 'Göteborg',  name: 'Eriksbo östra',     pe: 7.4 },
+      { city: 'Stockholm', name: 'Hjulsta V',         pe: 6.4 },
+      { city: 'Göteborg',  name: 'Eriksbo västra',    pe: 6.1 },
+    ];
+    const NATION  = { years: ['2018', '2022', '2026*'], pct: [87.2, 84.2, 80.3], est2026: 83.3 };
+    const UNDER50 = { years: ['2022', '2026'], n: [67, 10] };
+    const GBG     = { years: ['2022', '2026*'], pct: [80.7, 78.0] };
+
+    /* ---------- helpers ---------- */
+    const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+    const sv = (n, d = 1) => n.toLocaleString('sv-SE', { minimumFractionDigits: d, maximumFractionDigits: d });
+    const push = o => window.dataLayer.push(o);
+
+    /* ---------- hero image (hides silently if missing) ---------- */
+    if (HERO_IMG) {
+      const img = Object.assign(document.createElement('img'), { src: HERO_IMG, alt: '' });
+      img.addEventListener('error', () => img.remove());
+      document.getElementById('hero-bg').appendChild(img);
+    }
+
+    /* ---------- Chart.js defaults ---------- */
+    Chart.defaults.font.family = css('--sans');
+    Chart.defaults.font.size = 13;
+    Chart.defaults.animation.duration = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 900;
+    const tip = (fmt) => ({ displayColors: false, backgroundColor: '#000', titleFont: { weight: '600' }, padding: 12, callbacks: { label: c => fmt(c) } });
+    const onWhite = { ticks: '#6a6a6a', grid: 'rgba(0,0,0,.1)' };
+    const onBlack = { ticks: '#9c9c9c', grid: 'rgba(255,255,255,.14)' };
+
+    /* ---------- 1. Districts (horizontal, filterable) ---------- */
+    const dctx = document.getElementById('cDistricts');
+    const readout = document.getElementById('readout');
+    const districtChart = new Chart(dctx, {
+      type: 'bar',
+      data: { labels: [], datasets: [{ data: [], backgroundColor: css('--up'), borderRadius: 0, barThickness: 26 }] },
+      options: {
+        indexAxis: 'y', maintainAspectRatio: false,
+        scales: {
+          x: { beginAtZero: true, suggestedMax: 14, ticks: { color: onBlack.ticks, callback: v => '+' + v }, grid: { color: onBlack.grid }, title: { display: true, text: 'Procentenheter, 2022 till 2026', color: onBlack.ticks } },
+          y: { ticks: { color: '#fff', font: { size: 14 } }, grid: { display: false } }
+        },
+        plugins: { legend: { display: false }, tooltip: tip(c => '+' + sv(c.raw) + ' procentenheter') },
+        onHover: (e, els) => { dctx.style.cursor = els.length ? 'pointer' : 'default'; }
+      }
+    });
+    function renderDistricts(city) {
+      const rows = DISTRICTS.filter(d => city === 'all' || d.city === city).sort((a, b) => b.pe - a.pe);
+      districtChart.data.labels = rows.map(d => city === 'all' ? d.name + ' (' + d.city + ')' : d.name);
+      districtChart.data.datasets[0].data = rows.map(d => d.pe);
+      districtChart.update();
+      const avg = rows.reduce((s, d) => s + d.pe, 0) / rows.length;
+      readout.innerHTML = (city === 'all' ? 'Snitt för alla sju: ' : city + ', snitt: ') + '<b>+' + sv(avg) + ' pe</b>. Riket: −3,9 pe.';
+    }
+    renderDistricts('all');
+    document.querySelectorAll('#cityChips button').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('#cityChips button').forEach(b => b.setAttribute('aria-pressed', 'false'));
+      btn.setAttribute('aria-pressed', 'true');
+      renderDistricts(btn.dataset.city);
+      push({ event: 'chart_filter', chart: 'districts', city: btn.dataset.city });
+    }));
+
+    /* ---------- 2. Nation line + estimate toggle ---------- */
+    const nationChart = new Chart(document.getElementById('cNation'), {
+      type: 'line',
+      data: { labels: NATION.years, datasets: [
+        { label: 'Valdeltagande', data: NATION.pct, borderColor: css('--down'), backgroundColor: css('--down'), borderWidth: 3, pointRadius: 6, pointHoverRadius: 8, tension: 0 },
+        { label: 'Om slutligt landar ca +3 pe', data: [null, null, NATION.est2026], borderColor: '#fff', backgroundColor: '#fff', pointRadius: 6, pointStyle: 'rectRot', hidden: true, showLine: false }
+      ]},
+      options: {
+        maintainAspectRatio: false,
+        scales: {
+          y: { min: 76, max: 90, ticks: { color: onBlack.ticks, callback: v => v + ' %' }, grid: { color: onBlack.grid } },
+          x: { ticks: { color: '#fff', font: { size: 14 } }, grid: { display: false } }
+        },
+        plugins: { legend: { display: false }, tooltip: tip(c => c.dataset.label + ': ' + sv(c.raw) + ' %') }
+      }
+    });
+    document.getElementById('estToggle').addEventListener('change', e => {
+      nationChart.setDatasetVisibility(1, e.target.checked); nationChart.update();
+      push({ event: 'chart_toggle', chart: 'nation', estimate_shown: e.target.checked });
+    });
+
+    /* ---------- 3. Under 50 % ---------- */
+    new Chart(document.getElementById('cUnder50'), {
+      type: 'bar',
+      data: { labels: UNDER50.years, datasets: [{ data: UNDER50.n, backgroundColor: [css('--base'), css('--up')], barThickness: 90 }] },
+      options: {
+        maintainAspectRatio: false,
+        scales: { y: { beginAtZero: true, ticks: { color: onBlack.ticks }, grid: { color: onBlack.grid }, title: { display: true, text: 'Antal valdistrikt under 50 %', color: onBlack.ticks } },
+                  x: { ticks: { color: '#fff', font: { size: 14 } }, grid: { display: false } } },
+        plugins: { legend: { display: false }, tooltip: tip(c => c.raw + ' distrikt') }
+      }
+    });
+
+    /* ---------- 4. Göteborg kommun ---------- */
+    new Chart(document.getElementById('cGbg'), {
+      type: 'bar',
+      data: { labels: GBG.years, datasets: [{ data: GBG.pct, backgroundColor: [css('--base'), css('--down')], barThickness: 90 }] },
+      options: {
+        maintainAspectRatio: false,
+        scales: { y: { min: 70, max: 90, ticks: { color: onBlack.ticks, callback: v => v + ' %' }, grid: { color: onBlack.grid } },
+                  x: { ticks: { color: '#fff', font: { size: 14 } }, grid: { display: false } } },
+        plugins: { legend: { display: false }, tooltip: tip(c => sv(c.raw) + ' % valdeltagande') }
+      }
+    });
+
+    /* ---------- Tracking: same pattern as index.html ---------- */
+    document.querySelectorAll('a[data-track]').forEach(a => a.addEventListener('click', () => push({ event: a.dataset.track, channel: a.dataset.channel })));
+    const seen = new Set();
+    const so = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !seen.has(e.target.id)) { seen.add(e.target.id); push({ event: 'section_view', section_id: 'story_' + e.target.id }); } }), { threshold: .3 });
+    document.querySelectorAll('section[id]').forEach(s => so.observe(s));
+    const marks = [25, 50, 75, 100], hit = new Set();
+    window.addEventListener('scroll', () => {
+      const d = Math.round((window.scrollY + innerHeight) / document.documentElement.scrollHeight * 100);
+      marks.forEach(m => { if (d >= m && !hit.has(m)) { hit.add(m); push({ event: 'scroll_depth', percent: m, page: 'fororten' }); } });
+    }, { passive: true });
+  </script>
+</body>
+</html>
