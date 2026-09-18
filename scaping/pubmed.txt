@@ -1,0 +1,165 @@
+﻿Title: 5-Amino-1MQ - Search Results - PubMed
+
+URL Source: https://pubmed.ncbi.nlm.nih.gov/?term=5-Amino-1MQ
+
+Markdown Content:
+## Search Page
+
+### No results were found.
+
+Your search was processed without automatic term mapping because it retrieved zero results.
+
+Cite
+
+Format:
+
+ARTICLE TYPE
+
+*    Adaptive Clinical Trial  
+*    Address  
+*    Biography  
+*    Books and Documents  
+*    Case Reports  
+*    Clinical Study  
+*    Clinical Trial  
+*    Clinical Trial Protocol  
+*    Clinical Trial, Phase I  
+*    Clinical Trial, Phase II  
+*    Clinical Trial, Phase III  
+*    Clinical Trial, Phase IV  
+*    Clinical Trial, Veterinary  
+*    Collected Work  
+*    Comment  
+*    Comparative Study  
+*    Conference Proceedings  
+*    Consensus Statement  
+*    Controlled Clinical Trial  
+*    Corrected and Republished Article  
+*    Dataset  
+*    Duplicate Publication  
+*    Editorial  
+*    Electronic Supplementary Materials  
+*    English Abstract  
+*    Equivalence Trial  
+*    Evaluation Study  
+*    Evidence Synthesis  
+*    Expression of Concern  
+*    Festschrift  
+*    Guideline  
+*    Historical Article  
+*    Interview  
+*    Introductory Journal Article  
+*    Lecture  
+*    Letter  
+*    Meta-Analysis  
+*    Multicenter Study  
+*    Network Meta-Analysis  
+*    News  
+*    Observational Study  
+*    Observational Study, Veterinary  
+*    Patient Education Handout  
+*    Personal Narrative  
+*    Practice Guideline  
+*    Pragmatic Clinical Trial  
+*    Preprint  
+*    Published Erratum  
+*    Randomized Controlled Trial  
+*    Randomized Controlled Trial, Veterinary  
+*    Research Support, American Recovery and Reinvestment Act  
+*    Research Support, N.I.H., Extramural  
+*    Research Support, N.I.H., Intramural  
+*    Research Support, Non-U.S. Gov't  
+*    Research Support, U.S. Gov't, Non-P.H.S.  
+*    Research Support, U.S. Gov't, P.H.S.  
+*    Research Support, U.S. Gov't  
+*    Retracted Publication  
+*    Retraction Notice  
+*    Review  
+*    Scoping Review  
+*    Systematic Review  
+*    Twin Study  
+*    Validation Study  
+*    Video-Audio Media  
+*    Webcast  
+
+ARTICLE LANGUAGE
+
+*    Afrikaans  
+*    Albanian  
+*    Arabic  
+*    Armenian  
+*    Azerbaijani  
+*    Bosnian  
+*    Bulgarian  
+*    Catalan  
+*    Chinese  
+*    Croatian  
+*    Czech  
+*    Danish  
+*    Dutch  
+*    English  
+*    Esperanto  
+*    Estonian  
+*    Finnish  
+*    French  
+*    Georgian  
+*    German  
+*    Greek, Modern  
+*    Hebrew  
+*    Hindi  
+*    Hungarian  
+*    Icelandic  
+*    Indonesian  
+*    Italian  
+*    Japanese  
+*    Kinyarwanda  
+*    Korean  
+*    Latin  
+*    Latvian  
+*    Lithuanian  
+*    Macedonian  
+*    Malay  
+*    Malayalam  
+*    Maori  
+*    Multiple Languages  
+*    Norwegian  
+*    Persian  
+*    Polish  
+*    Portuguese  
+*    Pushto  
+*    Romanian  
+*    Russian  
+*    Sanskrit  
+*    Scottish gaelic  
+*    Serbian  
+*    Slovak  
+*    Slovenian  
+*    Spanish  
+*    Swedish  
+*    Thai  
+*    Turkish  
+*    Ukrainian  
+*    Undetermined  
+*    Vietnamese  
+*    Welsh  
+
+AGE
+
+*    Child: birth-18 years  
+*    Newborn: birth-1 month  
+*    Infant: birth-23 months  
+*    Infant: 1-23 months  
+*    Preschool Child: 2-5 years  
+*    Child: 6-12 years  
+*    Adolescent: 13-18 years  
+*    Adult: 19+ years  
+*    Young Adult: 19-24 years  
+*    Adult: 19-44 years  
+*    Middle Aged + Aged: 45+ years  
+*    Middle Aged: 45-64 years  
+*    Aged: 65+ years  
+*    80 and over: 80+ years  
+
+Filters on the sidebar will be reset to the default list and any currently applied filters will be cleared.
+
+Jump to page
