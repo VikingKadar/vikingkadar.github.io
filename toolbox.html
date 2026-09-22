@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Growth Toolbox – API-projekt och vad jag lärde mig | Viking Kadar</title>
+  <meta name="description" content="Peptide Data API: webbskrapad data från 20 peptidkällor, samlad i ett API. Plus allt jag lärde mig i Growth Toolbox på Berghs.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://vikingkadar.github.io/toolbox.html">
+  <meta property="og:title" content="Growth Toolbox – API-projekt och vad jag lärde mig">
+  <meta property="og:description" content="20 källor, ett API. Och tio pass som blev en verktygslåda.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='44' font-family='Arial Narrow,Arial' font-size='34' font-weight='bold' fill='%23fff' text-anchor='middle'%3EVK%3C/text%3E%3C/svg%3E">
+
+  <!-- Google Tag Manager (samma container som index.html) -->
+  <script>window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'page_meta', page_type: 'toolbox' });</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T7ZGSTLG');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{--w:#fff;--b:#000;--g:#6a6a6a;--gd:#9c9c9c;--line:rgba(0,0,0,.15);--linei:rgba(255,255,255,.22);--acc:#1f5cff;
+      --disp:"Anton",Impact,"Arial Narrow",sans-serif;--serif:"Instrument Serif",Georgia,serif;--sans:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;--gut:clamp(20px,5vw,80px)}
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:70px}
+    body{margin:0;background:var(--w);color:var(--b);font-family:var(--sans);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+    a{color:inherit}
+    a:focus-visible,button:focus-visible{outline:3px solid currentColor;outline-offset:3px}
+    p{margin:0 0 1em;max-width:62ch} p:last-child{margin-bottom:0}
+    h1,h2,h3,h4{margin:0;font-weight:400}
+    .disp{font-family:var(--disp);text-transform:uppercase;line-height:.9}
+    .muted{color:var(--g)} .inv .muted{color:var(--gd)}
+    .sec{padding:clamp(56px,8vh,110px) var(--gut)}
+    .inv{background:var(--b);color:var(--w)}
+    .head{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:clamp(36px,5vh,64px)}
+    .head h2{font-size:clamp(48px,10vw,150px)}
+    .head .sub{font-family:var(--serif);font-style:italic;font-size:clamp(22px,2.6vw,34px);line-height:1.2;max-width:28ch}
+    @media(min-width:900px){.head{grid-template-columns:1fr auto;align-items:end}.head .sub{text-align:right}}
+
+    .bar{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:14px var(--gut);font-size:14px;font-weight:500;color:#fff;mix-blend-mode:difference}
+    .bar a{text-decoration:none;white-space:nowrap} .bar a:hover{text-decoration:underline;text-underline-offset:5px}
+    .bar ul{list-style:none;margin:0;padding:0;display:flex;gap:18px}
+
+    .hero{min-height:70svh;display:grid;align-items:end;padding:110px var(--gut) 48px;background:var(--b);color:var(--w)}
+    .hero h1{font-size:clamp(52px,14vw,220px)}
+    .hero .sub{font-family:var(--serif);font-size:clamp(22px,3vw,44px);line-height:1.1;max-width:26ch;margin-top:16px}
+
+    /* ===== API ===== */
+    .apigrid{display:grid;grid-template-columns:1fr;gap:40px 60px;align-items:start}
+    @media(min-width:900px){.apigrid{grid-template-columns:1.1fr 1fr}}
+    .apigrid .lead{font-family:var(--serif);font-size:clamp(26px,3vw,42px);line-height:1.1;max-width:22ch;margin-bottom:20px}
+    .apigrid .lead b{font-weight:400;color:var(--acc)}
+    .flow{display:grid;grid-template-columns:1fr;gap:0;border:1px solid var(--line)}
+    .flow div{padding:20px 22px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start}
+    .flow div:last-child{border-bottom:0}
+    .flow .k{font-family:var(--disp);font-size:34px;line-height:1;color:var(--acc)}
+    .flow b{display:block;font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.1;margin-bottom:4px}
+    .flow p{font-size:15px}
+    .sources2{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px}
+    @media(max-width:640px){.sources2{grid-template-columns:1fr}}
+    .sources2 h3{font-family:var(--serif);font-size:24px;margin-bottom:10px}
+    .sources2 h3 span{font-family:var(--disp);font-size:44px;color:var(--acc);display:block;line-height:1}
+    .sources2 ul{list-style:none;margin:0;padding:0;font-size:15px}
+    .sources2 li{padding:8px 0;border-bottom:1px solid var(--line)}
+    .sources2 li.todo{color:var(--g);font-style:italic}
+    .uses{display:grid;grid-template-columns:1fr;gap:12px;margin-top:40px}
+    @media(min-width:860px){.uses{grid-template-columns:repeat(3,1fr)}}
+    .uses div{border:1px solid var(--line);padding:20px}
+    .uses b{display:block;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.1;margin-bottom:8px}
+    .uses p{font-size:15px}
+    .uses .q{font-size:13px;color:var(--g);margin-top:10px;font-style:italic}
+    .demo{margin-top:40px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .btn{display:inline-block;padding:14px 22px;border:1px solid currentColor;text-decoration:none;font-size:15px;font-weight:500;line-height:1}
+    .btn.solid{background:var(--b);color:var(--w)}
+    .btn:hover{background:var(--b);color:var(--w)}
+    .btn.solid:hover{background:var(--w);color:var(--b)}
+    .demo small{font-size:13px;color:var(--g)}
+    pre.code{background:#111;color:#fff;font:14px/1.5 ui-monospace,Consolas,monospace;padding:20px;overflow-x:auto;margin:40px 0 0;border:1px solid var(--linei)}
+    pre.code .c{color:#9c9c9c}
+    pre.code .k{color:#7aa2ff}
+
+    /* ===== LEARNED ===== */
+    .passes{display:grid;grid-template-columns:1fr;gap:1px;background:var(--linei);border:1px solid var(--linei)}
+    @media(min-width:640px){.passes{grid-template-columns:1fr 1fr}}
+    @media(min-width:1100px){.passes{grid-template-columns:repeat(5,1fr)}}
+    .pass{background:var(--b);padding:22px 20px 24px}
+    .pass .n{font-family:var(--disp);font-size:44px;line-height:1;color:var(--gd)}
+    .pass h3{font-family:var(--serif);font-size:24px;line-height:1.1;margin:6px 0 14px}
+    .pass ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+    .pass li{font-size:12px;padding:5px 9px;border:1px solid var(--linei)}
+    .pass li.hi{background:var(--w);color:var(--b);border-color:var(--w)}
+
+    .clusters{display:grid;grid-template-columns:1fr;gap:28px 40px}
+    @media(min-width:860px){.clusters{grid-template-columns:1fr 1fr}}
+    .cluster{border-top:2px solid var(--b);padding-top:16px}
+    .cluster .l{font-family:var(--disp);font-size:56px;line-height:1;color:var(--acc)}
+    .cluster h3{font-family:var(--serif);font-size:clamp(26px,3vw,36px);line-height:1.05;margin:4px 0 14px}
+    .cluster ul{margin:0;padding-left:20px;font-size:16px}
+    .cluster li{margin-bottom:6px}
+
+    .tools{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+    .tools li{border:1px solid currentColor;padding:8px 14px;font-size:14px}
+
+    .core{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+    @media(min-width:860px){.core{grid-template-columns:repeat(4,1fr)}}
+    .core div{background:var(--w);padding:28px 22px 30px}
+    .core .n{font-family:var(--disp);font-size:clamp(60px,8vw,110px);line-height:.9;color:var(--acc)}
+    .core h3{font-family:var(--serif);font-size:clamp(24px,2.4vw,32px);line-height:1.05;margin:10px 0 8px}
+    .core p{font-size:15px}
+
+    .refl{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:860px){.refl{grid-template-columns:repeat(3,1fr)}}
+    .refl div{border:1px solid var(--linei);padding:22px}
+    .refl h3{font-family:var(--serif);font-size:clamp(24px,2.4vw,30px);line-height:1.05;margin-bottom:12px}
+    .refl ul{margin:0;padding-left:18px;font-size:15px}
+    .refl li{margin-bottom:6px}
+    .note{font-size:13px;color:var(--gd);margin-top:28px;max-width:70ch}
+
+    footer{padding:22px var(--gut) 34px;font-size:13px;color:var(--gd);background:var(--b);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-top:1px solid var(--linei)}
+    footer a{color:var(--w);text-decoration:none;border-bottom:1px solid var(--linei)}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T7ZGSTLG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <nav class="bar" aria-label="Navigation">
+    <a href="index.html#journey" data-track="story_back" data-channel="top">← Viking Kadar</a>
+    <ul><li><a href="#api">API</a></li><li><a href="#learned">Vad jag lärde mig</a></li><li><a href="fororten.html">Förorten vaknade</a></li></ul>
+  </nav>
+
+  <header class="hero" id="top">
+    <div>
+      <h1 class="disp">Growth<br>Toolbox</h1>
+      <p class="sub">Tre veckor, tio pass. Ett API jag byggde och allt jag tog med mig.</p>
+    </div>
+  </header>
+
+  <!-- ================= API ================= -->
+  <section class="sec" id="api">
+    <div class="head">
+      <h2 class="disp">Peptide<br>Data API</h2>
+      <p class="sub">20 källor som aldrig pratat med varandra. Nu svarar de på samma fråga.</p>
+    </div>
+
+    <div class="apigrid">
+      <div>
+        <p class="lead">Ett API är en lucka i väggen. Du skickar in en fråga, får ut ett svar, och behöver aldrig se köket. <b>Det här köket är 20 webbplatser jag skrapat.</b></p>
+        <p>Jag skrapade de 10 största forskningsplattformarna för peptider och de 10 största forumen där folk faktiskt diskuterar dem. Rådatan städades, strukturerades per peptid och lades bakom ett API. Så i stället för att öppna 20 flikar och söka i var och en, ställer man en fråga och får allt på en gång.</p>
+        <p>Det är samma sak kursen handlade om: hämta, hitta, spara. Fast i skala.</p>
+      </div>
+      <div class="flow">
+        <div><span class="k">1</span><div><b>Hämta</b><p>Node + cheerio och Agent Reach skrapar sidorna. Robots.txt kollas först. Rådata sparas per källa.</p></div></div>
+        <div><span class="k">2</span><div><b>Hitta</b><p>Varje text taggas med peptidnamn, källa, datum och typ: studie eller diskussion.</p></div></div>
+        <div><span class="k">3</span><div><b>Spara</b><p>Allt landar i ett JSON-lager, ett objekt per peptid.</p></div></div>
+        <div><span class="k">4</span><div><b>Svara</b><p>API:et tar ett peptidnamn och skickar tillbaka studier, forumtrådar och vad som nämns mest.</p></div></div>
+      </div>
+    </div>
+
+    <div class="sources2">
+      <div>
+        <h3><span>10</span>forskningsplattformar</h3>
+        <ul id="platforms"></ul>
+      </div>
+      <div>
+        <h3><span>10</span>forum och communities</h3>
+        <ul id="forums"></ul>
+      </div>
+    </div>
+
+    <div class="uses">
+      <div><b>Vad säger forskningen?</b><p>Studier och abstracts per peptid, samlade från plattformarna. Vad är faktiskt testat, på vad, och när.</p><p class="q">"Finns det studier på BPC-157 och senor?"</p></div>
+      <div><b>Vad säger folk?</b><p>Forumtrådarna visar vad användare pratar om, vad de frågar och vad som återkommer. Det är ofta där nästa fråga till forskningen föds.</p><p class="q">"Vilka peptider diskuteras mest just nu?"</p></div>
+      <div><b>Var är glappet?</b><p>När forum pratar mycket och forskning säger lite, eller tvärtom, är det ett innehållshål. Det är där en artikel, ett inlägg eller en produkt får störst effekt.</p><p class="q">"Vilken peptid är mest omtalad men minst studerad?"</p></div>
+    </div>
+
+    <div class="demo" id="demo">
+      <a class="btn solid" id="demo-link" href="#" data-track="api_demo_open" data-channel="toolbox">Öppna API-demon</a>
+      <a class="btn" id="repo-link" href="#" data-track="api_repo_open" data-channel="toolbox">Koden på GitHub</a>
+      <small id="demo-note"></small>
+    </div>
+
+    <pre class="code"><span class="c">// Så här frågar man API:et</span>
+<span class="k">GET</span> /api/peptide/<b>bpc-157</b>
+
+<span class="c">// Svar (förkortat)</span>
+{
+  "peptide": "BPC-157",
+  "studies": 41,        <span class="c">// från forskningsplattformarna</span>
+  "threads": 312,       <span class="c">// från forumen</span>
+  "top_topics": ["healing", "tendon", "gut"],
+  "sources": 20
+}</pre>
+  </section>
+
+  <!-- ================= LEARNED ================= -->
+  <section class="sec inv" id="learned">
+    <div class="head">
+      <h2 class="disp">Vad jag<br>lärde mig</h2>
+      <p class="sub">Tio pass, klassens minnesrunda och mina egna lappar. Kort och visuellt.</p>
+    </div>
+    <div class="passes" id="passes"></div>
+  </section>
+
+  <section class="sec" id="kluster">
+    <div class="head">
+      <h2 class="disp">Det här kan vi</h2>
+      <p class="sub">Fyra kluster från läromålen.</p>
+    </div>
+    <div class="clusters">
+      <div class="cluster"><div class="l">A</div><h3>Datadrivet arbetssätt</h3><ul><li>Mäta först, gissa sen. Beslut på data, inte magkänsla.</li><li>Hypotes → testa → utvärdera.</li><li>Strukturerade prompts till LLM: kontext, mål, arbetssätt.</li><li>Datakvalitet avgör slutsatsen.</li></ul></div>
+      <div class="cluster"><div class="l">B</div><h3>Mäta och samla in</h3><ul><li>GTM + GA4: taggar, triggers, variabler.</li><li>Samla via API:er, dataset och scraping.</li><li>Veta vad man mäter och varför.</li><li>Inte fastna i att bara samla data.</li></ul></div>
+      <div class="cluster"><div class="l">C</div><h3>Analysera och bearbeta</h3><ul><li>Visualisera i Chart.js och Data Studio.</li><li>Scraping → Google Sheets → insikter.</li><li>GA4 DebugView och realtidsrapporter.</li><li>AI-verktyg i VS Code snabbar upp analysen.</li></ul></div>
+      <div class="cluster"><div class="l">D</div><h3>Hitta tillväxt och rekommendera</h3><ul><li>Hur man samlar data, och vad verktygen gör.</li><li>Data + visualisering → hitta optimeringar.</li><li>Se vilka målgrupper man bör rikta sig till.</li><li>Underlätta beslut som faktiskt ger tillväxt.</li></ul></div>
+    </div>
+  </section>
+
+  <section class="sec inv" id="verktyg">
+    <div class="head">
+      <h2 class="disp">Verktygslådan</h2>
+      <p class="sub">Allt vi rörde under tre veckor.</p>
+    </div>
+    <ul class="tools" id="tools"></ul>
+  </section>
+
+  <section class="sec" id="karnan">
+    <div class="head">
+      <h2 class="disp">Fyra saker<br>att ta med</h2>
+      <p class="sub">Om jag bara får behålla fyra meningar.</p>
+    </div>
+    <div class="core">
+      <div><div class="n">1</div><h3>Tillväxt är planerat</h3><p>Sällan tur. Knep, processer, loopar.</p></div>
+      <div><div class="n">2</div><h3>Mät rätt sak</h3><p>Vad, varför, och hur det kopplas till ett beslut.</p></div>
+      <div><div class="n">3</div><h3>Data blir story</h3><p>Hitta vinkeln, visualisera, pitcha.</p></div>
+      <div><div class="n">4</div><h3>AI är hävstång</h3><p>Bra prompt + eget omdöme = snabbare arbete.</p></div>
+    </div>
+  </section>
+
+  <section class="sec inv" id="reflektion">
+    <div class="head">
+      <h2 class="disp">Mina tre lappar</h2>
+      <p class="sub">Reflektionsövningen, sista passet.</p>
+    </div>
+    <div class="refl">
+      <div><h3>Vad är jag stolt över?</h3><ul><li>Byggt och pushat en egen hemsida via terminal + GitHub Pages.</li><li>Satt upp GTM → GA4 och sett riktiga klick.</li><li>Skrapat 20 källor med Node och Agent Reach och lagt dem bakom ett API.</li></ul></div>
+      <div><h3>Vad kan andra som jag inte kan?</h3><ul><li>Skriva scraping-scripts helt själv utan AI.</li><li>Felsöka taggar som inte triggar.</li><li>Bygga snygga Chart.js- och Data Studio-dashboards.</li></ul></div>
+      <div><h3>Vad förstärker jag, och hur?</h3><ul><li>Tracking: events på min egen sajt, varje vecka.</li><li>API:er: koppla ihop två API:er i ett litet projekt.</li><li>Fråga Peter och klasskompisen som kan GA4 bäst.</li></ul></div>
+    </div>
+    <p class="note">Källa: Miro-boarden "Berghs – HT2026", reflektionsövning (Minnesrundan, Läromålen, Summera). Growth Toolbox, Berghs HT2026.</p>
+  </section>
+
+  <footer>
+    <span>Viking Kadar, Growth Toolbox, Berghs 2026</span>
+    <a href="index.html#journey" data-track="story_back" data-channel="footer">Tillbaka till portfolion</a>
+  </footer>
+
+  <script>
+    /* ============================================================
+       FYLL I HÄR. Resten av koden rör du inte.
+       ============================================================ */
+    const API_DEMO_URL = '';   // t.ex. 'https://vikingkadar.github.io/peptide-api/' (tom = knappen döljs)
+    const API_REPO_URL = '';   // t.ex. 'https://github.com/VikingKadar/peptide-api' (tom = knappen döljs)
+
+    const PLATFORMS = [
+      'PubMed',
+      'wikitides.com',
+      // fyll på till 10:
+    ];
+    const FORUMS = [
+      'Reddit',
+      'MESO-Rx',
+      'Longecity',
+      // fyll på till 10:
+    ];
+
+    const PASSES = [
+      { n: '01', t: 'Introduktion', k: ['Inspektera', 'Terminalen', 'Growth case studies', 'dataLayer', 'GitHub gratis', 'Tillväxt = planerade knep, inte tur'], hi: 5 },
+      { n: '02', t: 'Egen testmiljö', k: ['VS Code', 'add · commit · push', 'GitHub Pages', 'HTML/CSS', 'Egen hemsida live', 'Vibecoda i VS Code'], hi: 4 },
+      { n: '03', t: 'GA och GTM', k: ['Trigger · Tag · Variabel', 'GTM ↔ GA4', 'Se klick och varifrån', '1000 sätt en tagg inte funkar', 'Allt måste matcha exakt'], hi: 0 },
+      { n: '04', t: 'Event tracking & requests', k: ['Elements · Console · Network', 'dataLayer push', 'Mäta varje kundbeslut', 'Requests = vad sidan hämtar'], hi: 2 },
+      { n: '05', t: 'Virala koncept', k: ['K-faktor', 'De fem C:na', 'Labubu-kurvan', 'Nördar → kommunikatörer → köpare', 'Viralt ≠ organiskt', 'Communities skapar viralitet'], hi: 3 },
+      { n: '06', t: 'AI och innehåll', k: ['Innehållsformat', 'Karusell', 'Fånga 3 första sek', 'Provokation & relaterbarhet', 'Sök flyttar till LLM', 'Definiera målgrupp'], hi: 4 },
+      { n: '07', t: 'Data scraping & visualisering', k: ['Node + cheerio', 'Hämta → hitta → spara', '500 = inte bra', 'Stor makt, stort ansvar', 'Kolla robots.txt / API'], hi: 1 },
+      { n: '08', t: 'Product-led growth & API:er', k: ['Vad ett API är', '7/10 startups = API-mashups', 'Kombinera flera API:er', 'Loopar & A/B-test', 'Kaggle-dataset'], hi: 1 },
+      { n: '09', t: 'Innehåll & growth, del 1', k: ['Data som bygger en story', 'Chart.js', 'Data Studio', 'Jämföra statistik', 'AI + tydlig prompt = snabb sida'], hi: 0 },
+      { n: '10', t: 'Innehåll & growth, del 2', k: ['Innehållsplan', 'Tänk som journalist', 'Hitta vinkeln i datan', 'Pitcha storyn', 'Anpassa efter läsaren'], hi: 1 },
+    ];
+    const TOOLS = ['Terminal', 'git / GitHub Pages', 'VS Code', 'HTML / CSS', 'Inspect: Elements · Console · Network', 'dataLayer', 'GTM', 'GA4', 'Node.js + cheerio', 'Agent Reach', 'API:er', 'Kaggle', 'Google Sheets', 'Chart.js', 'Google Data Studio', 'LLM / Antigravity'];
+
+    /* ---------- render ---------- */
+    const el = (tag, props = {}) => Object.assign(document.createElement(tag), props);
+    const fill = (id, list, total) => {
+      const ul = document.getElementById(id);
+      list.forEach(s => ul.appendChild(el('li', { textContent: s })));
+      for (let i = list.length; i < total; i++) ul.appendChild(el('li', { className: 'todo', textContent: 'Källa ' + (i + 1) + ' läggs till' }));
+    };
+    fill('platforms', PLATFORMS, 10); fill('forums', FORUMS, 10);
+
+    const wrap = document.getElementById('passes');
+    PASSES.forEach(p => {
+      const d = el('div', { className: 'pass' });
+      d.appendChild(el('div', { className: 'n', textContent: p.n }));
+      d.appendChild(el('h3', { textContent: p.t }));
+      const ul = el('ul'); p.k.forEach((k, i) => ul.appendChild(el('li', { textContent: k, className: i === p.hi ? 'hi' : '' }))); d.appendChild(ul);
+      wrap.appendChild(d);
+    });
+    const tl = document.getElementById('tools'); TOOLS.forEach(t => tl.appendChild(el('li', { textContent: t })));
+
+    const dl = document.getElementById('demo-link'), rl = document.getElementById('repo-link'), note = document.getElementById('demo-note');
+    if (API_DEMO_URL) { dl.href = API_DEMO_URL; dl.target = '_blank'; dl.rel = 'noopener'; } else dl.remove();
+    if (API_REPO_URL) { rl.href = API_REPO_URL; rl.target = '_blank'; rl.rel = 'noopener'; } else rl.remove();
+    if (!API_DEMO_URL && !API_REPO_URL) note.textContent = 'Demo och kod publiceras inom kort.';
+
+    /* ---------- tracking, samma mönster som index.html ---------- */
+    const push = o => window.dataLayer.push(o);
+    document.querySelectorAll('a[data-track]').forEach(a => a.addEventListener('click', () => push({ event: a.dataset.track, channel: a.dataset.channel })));
+    const seen = new Set();
+    const so = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !seen.has(e.target.id)) { seen.add(e.target.id); push({ event: 'section_view', section_id: 'toolbox_' + e.target.id }); } }), { threshold: .3 });
+    document.querySelectorAll('section[id]').forEach(s => so.observe(s));
+    const marks = [25, 50, 75, 100], hit = new Set();
+    window.addEventListener('scroll', () => {
+      const d = Math.round((window.scrollY + innerHeight) / document.documentElement.scrollHeight * 100);
+      marks.forEach(m => { if (d >= m && !hit.has(m)) { hit.add(m); push({ event: 'scroll_depth', percent: m, page: 'toolbox' }); } });
+    }, { passive: true });
+  </script>
+</body>
+</html>

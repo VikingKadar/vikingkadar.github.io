@@ -1,14 +1,4 @@
-
 <!DOCTYPE html>
-<html lang="en">
-<head> <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TB7QV644');</script>
-<!-- End Google Tag Manager -->
-  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -185,7 +175,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .course .fill{margin-top:10px;font-size:15px}
     .course .fill b{font-family:var(--serif);font-weight:400;font-style:italic}
     .course a{text-decoration:underline;text-underline-offset:3px}
-    .course .story-btn{display:inline-block;margin-top:14px;padding:12px 18px;border:1px solid var(--w);font-size:14px;font-weight:500;text-decoration:none;color:var(--w)}
+    .course .story-btn{display:inline-block;margin:14px 8px 0 0;padding:12px 18px;border:1px solid var(--w);font-size:14px;font-weight:500;text-decoration:none;color:var(--w)}
     .course .story-btn:hover{background:var(--w);color:var(--b)}
     @media(min-width:860px){.course{grid-template-columns:140px 1fr 1.2fr;padding:34px 0;align-items:start}}
     .courses-note{font-size:13px;color:var(--g);margin-top:14px;max-width:70ch}
@@ -589,7 +579,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
        COURSE BY COURSE. Fill in done/learned as courses finish.
        status: 'done' | 'ongoing' | 'next'
        Leave done/learned empty and "Updates soon" shows automatically.
-       link: { href, text } adds a button to the row (optional).
+       links: [{ href, text, channel }] adds buttons to the row (optional).
        ============================================================ */
     const COURSES = [
       { title: 'Royal Swedish Opera, cross-programme project', when: 'Aug 2026', status: 'done',
@@ -600,7 +590,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         desc: 'Data-driven ways of working: measurement, tracking and analysis. GA4, Google Tag Manager, data collection, visualisation and AI-assisted analysis.',
         done: 'Built this portfolio site in plain HTML, published it via GitHub Pages and prepared custom dataLayer events for GTM. Then a data story: election turnout in Sweden 2026, visualised in Chart.js with its own tracking.',
         learned: '',
-        link: { href: 'fororten.html', text: 'Se datan: Förorten vaknade' } },
+        links: [
+          { href: 'fororten.html', text: 'Se datan: Förorten vaknade', channel: 'fororten' },
+          { href: 'toolbox.html#api', text: 'API: peptide data', channel: 'api' },
+          { href: 'toolbox.html#learned', text: 'Vad jag lärde mig', channel: 'learned' },
+        ] },
       { title: 'SEO and content', when: 'Autumn 2026', status: 'next', desc: 'Search visibility and content that drives organic growth.', done: '', learned: '' },
       { title: 'Web analytics and data', when: 'Autumn 2026', status: 'next', desc: 'Deeper analysis, dashboards and decisions on real visitor data.', done: '', learned: '' },
       { title: 'Conversion rate optimisation', when: 'Spring 2027', status: 'next', desc: 'A/B testing, landing pages and systematically raising the share of people who act.', done: '', learned: '' },
@@ -628,7 +622,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       if (c.done) { const d = el('p', { className: 'fill' }); d.innerHTML = '<b>What I did:</b> '; d.appendChild(document.createTextNode(c.done)); right.appendChild(d); }
       if (c.learned) { const l = el('p', { className: 'fill' }); l.innerHTML = '<b>What I learned:</b> '; l.appendChild(document.createTextNode(c.learned)); right.appendChild(l); }
       if (!c.done && !c.learned) right.appendChild(el('p', { className: 'fill muted', textContent: 'In progress. Updates soon.' }));
-      if (c.link) { const a = el('a', { className: 'story-btn', href: c.link.href, textContent: c.link.text }); a.dataset.track = 'data_story_open'; a.dataset.channel = 'journey'; right.appendChild(a); }
+      (c.links || []).forEach(l => { const a = el('a', { className: 'story-btn', href: l.href, textContent: l.text }); a.dataset.track = 'data_story_open'; a.dataset.channel = l.channel || 'journey'; right.appendChild(a); });
       row.append(stat, left, right); cwrap.appendChild(row);
     });
     if (!nextList.children.length) document.getElementById('upnext').remove();
