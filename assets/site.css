@@ -444,3 +444,7 @@ pre.code .k{color:#7aa2ff}
   .sneak{left:auto;right:0}
   .sneak-track{cursor:default}
 }
+
+/* button row under the API explanation on toolbox.html */
+.demo{margin-top:40px;align-items:center}
+.demo .muted{font-size:13px}
