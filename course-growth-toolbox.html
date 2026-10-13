@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Growth Toolbox – every deliverable in one place | Viking Kadar</title>
+  <meta name="description" content="Growth Toolbox at Berghs, autumn 2026. Portfolio on GitHub Pages, GTM and GA4 tracking with custom dataLayer events, scraped data, an API mashup and a Chart.js data story.">
+  <link rel="canonical" href="https://vikingkadar.github.io/course-growth-toolbox.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://vikingkadar.github.io/course-growth-toolbox.html">
+  <meta property="og:title" content="Growth Toolbox – every deliverable in one place">
+  <meta property="og:description" content="Measurement, tracking and analysis. Built this site, tagged it, scraped 20 sources and turned election data into a story.">
+  <meta property="og:image" content="https://vikingkadar.github.io/images/og-toolbox.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='44' font-family='Arial Narrow,Arial' font-size='34' font-weight='bold' fill='%23fff' text-anchor='middle'%3EVK%3C/text%3E%3C/svg%3E">
+
+  <!-- ============================================================
+       GOOGLE TAG MANAGER (GTM-T7ZGSTLG). Ror inte dessa rader.
+       dataLayer maste ligga FORE gtm.js-snippet, sa ror inte ordningen.
+       ============================================================ -->
+  <script>window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'page_meta', page_type: 'course_growth_toolbox' });</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T7ZGSTLG');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T7ZGSTLG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <nav class="nav" id="nav" aria-label="Main menu">
+    <a href="index.html"><strong>Viking Kadar</strong></a>
+    <ul>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#courses">Courses</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="overlay">Menu</button>
+    </div>
+  </nav>
+
+  <div class="overlay" id="overlay">
+    <button class="close" id="menu-close">Close</button>
+    <a href="index.html#work">Work</a>
+    <a href="index.html#courses">Courses</a>
+    <a href="projects.html">Projects</a>
+    <a href="index.html#about">About</a>
+    <a href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+  </div>
+
+  <header class="phero" id="top">
+    <a class="back" href="index.html#courses" data-track="story_back" data-channel="toolbox_course_top">← All courses</a>
+    <h1 class="disp">Growth<br>Toolbox</h1>
+    <div class="meta"><span class="on">Done</span><span>Aug to Sep 2026</span><span>Berghs, autumn 2026</span></div>
+    <p class="sub">Measurement, tracking and analysis. Three weeks, ten sessions.</p>
+    <p class="role">My role: everything on this page is mine. Data-driven ways of working: GA4, Google Tag Manager, data collection, visualisation and AI-assisted analysis.</p>
+  </header>
+
+  <section class="sec" id="deliverables">
+    <div class="tldr">
+      <h2>In short</h2>
+      <ol>
+        <li><b>What I did</b>Built this portfolio in plain HTML, published it via GitHub Pages and put custom dataLayer events behind Google Tag Manager. Then scraped 20 sources into an API and turned election data into a story.</li>
+        <li><b>The proof</b>Every event on this site is listed below, with what it fires on and why it is worth measuring. The data story and the API project have their own pages.</li>
+        <li><b>What I learned</b>Measure first, guess second. And there are a thousand ways a tag does not fire, so everything has to match exactly.</li>
+      </ol>
+    </div>
+
+    <div class="head">
+      <h2 class="disp">Deliverables</h2>
+      <p class="sub">Every part of the course, and where to find it.</p>
+    </div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Deliverable</th><th>Status</th><th>Where</th></tr></thead>
+        <tbody id="deliv-rows"></tbody>
+      </table>
+    </div>
+    <p class="hint" id="deliv-note"></p>
+  </section>
+
+  <section class="sec inv" id="measure">
+    <div class="head">
+      <h2 class="disp">How I measure<br>this site</h2>
+      <p class="sub">Every event is my own. Each one has to answer a question I actually have.</p>
+    </div>
+
+    <p>This site does not use automatic events only. Each page pushes its own <code>page_meta</code> with a <code>page_type</code> before the GTM container loads, and every click, section view and scroll milestone is pushed to <code>window.dataLayer</code> from <code>assets/site.js</code>. Google Tag Manager picks them up and forwards them to GA4.</p>
+
+    <div class="tbl-wrap" style="margin-top:28px">
+      <table class="tbl">
+        <thead><tr><th>Event</th><th>Fires when</th><th>Parameters</th><th>Why I measure it</th></tr></thead>
+        <tbody id="event-rows"></tbody>
+      </table>
+    </div>
+
+    <div class="measure-block" id="measure-block">
+      <h3 style="font-family:var(--serif);font-size:clamp(24px,2.8vw,34px);margin-bottom:12px">The dashboard</h3>
+      <div data-img="measurement"></div>
+      <p id="dash-note"></p>
+      <div class="cta" id="dash-cta" style="margin-top:16px"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="work">
+    <div class="head">
+      <h2 class="disp">The two<br>big ones</h2>
+      <p class="sub">The data story and the API project have pages of their own.</p>
+    </div>
+    <div class="cards c2" id="toolbox-cards"></div>
+  </section>
+
+  <section class="sec inv" id="learned">
+    <div class="head">
+      <h2 class="disp">What I<br>learned</h2>
+      <p class="sub">Four sentences out of ten sessions.</p>
+    </div>
+    <div class="core">
+      <div><div class="n">1</div><h3>Growth is planned</h3><p>Rarely luck. Tricks, processes and loops.</p></div>
+      <div><div class="n">2</div><h3>Measure the right thing</h3><p>What, why, and how it connects to a decision.</p></div>
+      <div><div class="n">3</div><h3>Data becomes a story</h3><p>Find the angle, visualise it, pitch it.</p></div>
+      <div><div class="n">4</div><h3>AI is leverage</h3><p>A good prompt plus my own judgement is faster work.</p></div>
+    </div>
+    <div class="cta" style="margin-top:32px">
+      <a class="btn solid" href="toolbox.html#learned" data-track="data_story_open" data-channel="learned_full">All ten sessions and my reflection →</a>
+    </div>
+  </section>
+
+  <nav class="pagenav" aria-label="More courses">
+    <a href="course-opera.html" data-track="course_open" data-channel="opera"><div class="dir">Previous course</div><div class="t">← The Royal Opera</div></a>
+    <a class="next" href="course-performance-marketing.html" data-track="course_open" data-channel="performance_marketing"><div class="dir">Next course</div><div class="t">Performance Marketing →</div></a>
+  </nav>
+
+  <section class="sec contact" id="contact">
+    <h2 class="disp">Get in touch</h2>
+    <a class="mail" href="mailto:viking@posterlab.ai?subject=Internship" data-track="contact_click" data-channel="email">viking@posterlab.ai</a>
+    <p>Right now I'm looking for a six-week internship, March to April 2027. One email is enough, I reply fast.</p>
+  </section>
+
+  <footer>
+    <span>Viking Kadar, Growth Toolbox, Berghs 2026</span>
+    <a href="index.html" data-track="story_back" data-channel="toolbox_course_footer">Back to the portfolio</a>
+  </footer>
+
+  <script src="assets/site.js"></script>
+  <script>
+    /* ============================================================
+       FILL IN HERE. Everything else on this page is generated.
+
+       A row with an empty href keeps its honest status and simply has
+       no link, so nothing on this page ever points at a dead URL.
+       ============================================================ */
+
+    // The Looker Studio dashboard.
+    // TODO Viking: ta en skarmdump av dashboarden, lagg den som images/measurement.webp
+    // och fyll i sokvagen nedan. Bilden doljer sig sjalv sa lange filen saknas.
+    const MEDIA = {
+      measurement: null,   // t.ex. { src: 'images/measurement.webp', alt: 'Looker Studio dashboard for this site', w: 1200, h: 800 }
+    };
+
+    // TODO Viking: klistra in den delade Looker Studio-lanken. Tom strang = ingen knapp.
+    const DASHBOARD_URL = '';
+
+    // TODO Viking: lanken till innehallsuppgiften for Peter. Tom strang = ingen lank i tabellen.
+    const CONTENT_ASSIGNMENT_URL = '';
+
+    // TODO Viking: nar webbappen som hamtar fran ett API ar publicerad, lagg adressen har.
+    // Samma varde som API_DEMO_URL i toolbox.html.
+    const API_DEMO_URL = '';
+
+    /* ---------- Deliverables ----------
+       status: 'done' | 'partial' | 'todo'
+       ============================================================ */
+    const DELIVERABLES = [
+      { what: 'Portfolio published on GitHub Pages', status: 'done',
+        href: 'index.html', label: 'This site', note: 'Plain HTML and CSS, no framework, deployed from the repo.' },
+
+      { what: 'GTM and GA4 tracking', status: 'done',
+        href: '#measure', label: 'How I measure this site', note: 'One container, custom dataLayer events on every page.' },
+
+      { what: 'Dashboard in Looker Studio', status: DASHBOARD_URL ? 'done' : 'todo',
+        href: DASHBOARD_URL, label: 'Open the dashboard', note: 'Built on the events listed below.' },
+
+      { what: 'Scraped data file', status: 'done',
+        href: 'scaping/pubmed.txt', label: 'pubmed.txt', note: 'Search results scraped from PubMed, raw output kept as handed in.' },
+
+      { what: 'Content assignment', status: CONTENT_ASSIGNMENT_URL ? 'done' : 'todo',
+        href: CONTENT_ASSIGNMENT_URL, label: 'Open the assignment', note: 'Handed in separately.' },
+
+      { what: 'API mashup', status: 'partial',
+        href: 'toolbox.html#api', label: 'Peptide Data API', note: 'Twenty sources scraped and put behind one API. Documented; the public demo is not up yet.' },
+
+      { what: 'Data story', status: 'done',
+        href: 'fororten.html', label: 'The suburbs woke up', note: 'Swedish election turnout 2022 against 2026, in Chart.js, with its own tracking.' },
+
+      { what: 'Distinction: my own dataLayer events', status: 'done',
+        href: '#measure', label: 'The event table', note: 'Thirteen events, each one tied to a question worth answering.' },
+
+      { what: 'Distinction: a web app that fetches an API, published on the site', status: API_DEMO_URL ? 'done' : 'todo',
+        href: API_DEMO_URL, label: 'Open the demo', note: 'The API itself is documented on the Peptide Data API page.' },
+    ];
+
+    /* ---------- The event spec ---------- */
+    const EVENTS = [
+      { e: 'page_meta', when: 'On every page load, pushed before the GTM container', p: 'page_type', why: 'Lets me split every report by type of page, so a case page is never averaged together with the homepage.' },
+      { e: 'section_view', when: 'A section becomes 30% visible, once per page view', p: 'section_id', why: 'Shows how far into a case people actually get, which tells me where to cut.' },
+      { e: 'scroll_depth', when: 'At 25, 50, 75 and 100% of the page, once each', p: 'percent', why: 'Separates a real read from a bounce. A visit that reaches 75% is worth more than ten that stop at 25%.' },
+      { e: 'contact_click', when: 'Any email, LinkedIn, TikTok or GitHub link is clicked', p: 'channel', why: 'The only real conversion on this site. I am looking for an internship, so a click here is the whole point and everything else is a step towards it.' },
+      { e: 'case_open', when: 'A card in Selected work is clicked', p: 'channel', why: 'Tells me which case earns the click, so the strongest one goes first.' },
+      { e: 'course_open', when: 'A course card is clicked', p: 'channel', why: 'Shows which course an agency actually cares about, as opposed to which one I am proudest of.' },
+      { e: 'project_open', when: 'A project card is clicked', p: 'channel', why: 'Separates interest in my own work from interest in schoolwork.' },
+      { e: 'poster_open', when: 'A poster is opened in the lightbox', p: 'poster_title', why: 'Which of the three posters holds attention. That is feedback on the idea, not on the page.' },
+      { e: 'video_play', when: 'A film is started, local file or YouTube facade', p: 'channel', why: 'The films are the heaviest thing here. If nobody plays them, they should not load.' },
+      { e: 'data_story_open', when: 'A link to the data story or the API page is clicked', p: 'channel', why: 'Tells me whether the coursework gets read or just listed.' },
+      { e: 'story_back', when: 'A back link is clicked', p: 'channel', why: 'Shows where people go when they are done reading, and which pages are dead ends.' },
+      { e: 'sneaker_run', when: 'The metro animation on the projects page is tapped', p: 'none', why: 'A curiosity check: do people touch a playful detail, or ignore it. Cheap to measure, honest answer.' },
+      { e: 'chart_filter, chart_toggle, source_click', when: 'On the data story: filtering a city, toggling the estimate, opening a source', p: 'varies', why: 'Which city people look up and whether anyone checks the sources. The last one tells me if the story is trusted.' },
+    ];
+
+    /* ============================================================
+       RENDER. You should not need to change anything below.
+       ============================================================ */
+    const statusChip = { done: 'Done', partial: 'In progress', todo: 'Not published yet' };
+
+    const rows = document.getElementById('deliv-rows');
+    let pending = 0;
+    DELIVERABLES.forEach(d => {
+      const tr = VK.el('tr');
+      const td1 = VK.el('td');
+      td1.appendChild(VK.el('b', { textContent: d.what }));
+      td1.appendChild(VK.el('div', { className: 'muted', textContent: d.note, style: 'font-size:14px;margin-top:4px' }));
+      const td2 = VK.el('td');
+      td2.appendChild(VK.el('span', { className: 'chip' + (d.status === 'done' ? ' on' : ''), textContent: statusChip[d.status] }));
+      const td3 = VK.el('td');
+      if (d.href) {
+        const a = VK.el('a', { href: d.href, textContent: d.label });
+        if (d.href.indexOf('http') === 0) { a.target = '_blank'; a.rel = 'noopener'; }
+        if (d.href === 'fororten.html' || d.href.indexOf('toolbox.html') === 0) {
+          a.dataset.track = 'data_story_open';
+          a.dataset.channel = d.href === 'fororten.html' ? 'fororten_deliverables' : 'api_deliverables';
+        }
+        td3.appendChild(a);
+      } else {
+        pending++;
+        td3.appendChild(VK.el('span', { className: 'muted', textContent: 'Link added when it is published' }));
+      }
+      tr.append(td1, td2, td3);
+      rows.appendChild(tr);
+    });
+    document.getElementById('deliv-note').textContent = pending
+      ? pending + ' of ' + DELIVERABLES.length + ' items are still waiting on a public link. The rest are live and clickable.'
+      : 'Every item above is published and clickable.';
+
+    const erows = document.getElementById('event-rows');
+    EVENTS.forEach(ev => {
+      const tr = VK.el('tr');
+      const td1 = VK.el('td');
+      td1.appendChild(VK.el('code', { textContent: ev.e }));
+      const td2 = VK.el('td', { textContent: ev.when });
+      const td3 = VK.el('td');
+      td3.appendChild(VK.el('code', { textContent: ev.p }));
+      const td4 = VK.el('td', { textContent: ev.why });
+      tr.append(td1, td2, td3, td4);
+      erows.appendChild(tr);
+    });
+
+    // Dashboard screenshot and link, both optional
+    VK.mountMedia(MEDIA);
+    document.getElementById('dash-note').textContent = MEDIA.measurement
+      ? 'Built in Looker Studio on the events in the table above.'
+      : 'The dashboard is built in Looker Studio on the events in the table above. Screenshot and shared link go here.';
+    if (DASHBOARD_URL) {
+      const a = VK.el('a', { className: 'btn solid', href: DASHBOARD_URL, textContent: 'Open the dashboard →' });
+      a.target = '_blank'; a.rel = 'noopener';
+      a.dataset.track = 'data_story_open'; a.dataset.channel = 'dashboard';
+      document.getElementById('dash-cta').appendChild(a);
+    }
+
+    // The two big deliverables as cards
+    VK.cards('toolbox-cards', [
+      {
+        href: 'fororten.html', title: 'The suburbs woke up',
+        desc: 'Turnout fell across Sweden in 2026. In the big-city suburbs the opposite happened. Chart.js, sources and caveats.',
+        kpi: '67 became 10',
+        img: { src: 'images/rostning-800.webp', alt: 'Chart from the election turnout data story', w: 800, h: 448 },
+        more: 'Read the data story →', event: 'data_story_open', channel: 'fororten',
+      },
+      {
+        href: 'toolbox.html#api', title: 'Peptide Data API',
+        desc: 'Twenty sources that had never spoken to each other, scraped and put behind one API that answers a single question.',
+        kpi: '20 sources',
+        img: null,
+        more: 'See the API →', event: 'data_story_open', channel: 'api',
+      },
+    ]);
+  </script>
+</body>
+</html>
