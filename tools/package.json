@@ -1,0 +1,13 @@
+{
+  "name": "vikingkadar-image-tools",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Local image optimization helper for the vikingkadar.github.io site.",
+  "scripts": {
+    "optimize": "node optimize-images.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.35.5"
+  }
+}

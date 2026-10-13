@@ -1,0 +1,6 @@
+# Full-size source images. Kept locally only; the optimized files in images/
+# are what the site actually serves. Re-run: node tools/optimize-images.mjs
+_originals/
+
+# Dependencies for the local image pipeline.
+tools/node_modules/
