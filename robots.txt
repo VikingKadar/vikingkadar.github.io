@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Coursework folders: reachable by direct link, kept out of search results.
+Disallow: /gtm-course/
+Disallow: /gtm-real-site/
+Disallow: /scaping/
+
+Sitemap: https://vikingkadar.github.io/sitemap.xml
