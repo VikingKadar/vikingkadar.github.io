@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Förorten vaknade – valdeltagande 2022 vs 2026 | Viking Kadar</title>
-  <meta name="description" content="Valdeltagandet sjönk i Sverige 2026. I storstädernas förorter hände det motsatta. Data, källor och förbehåll.">
+  <title>The suburbs woke up – voter turnout 2022 vs 2026 | Viking Kadar</title>
+  <meta name="description" content="Voter turnout fell in Sweden in 2026. In the big-city suburbs the opposite happened. Data, sources and caveats.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://vikingkadar.github.io/fororten.html">
-  <meta property="og:title" content="Förorten vaknade – valdistrikt under 50 % gick från 67 till 10">
-  <meta property="og:description" content="Sverige stannade hemma. Förorten gick och röstade. Interaktiv data från riksdagsvalet 2026.">
-  <meta property="og:image" content="https://vikingkadar.github.io/images/rostning.png">
+  <meta property="og:title" content="The suburbs woke up – districts below 50 % went from 67 to 10">
+  <meta property="og:description" content="Sweden stayed home. The suburbs went out and voted. Interactive data from the 2026 general election.">
+  <meta property="og:image" content="https://vikingkadar.github.io/images/og-fororten.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='44' font-family='Arial Narrow,Arial' font-size='34' font-weight='bold' fill='%23fff' text-anchor='middle'%3EVK%3C/text%3E%3C/svg%3E">
 
@@ -124,121 +124,125 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <nav class="bar" aria-label="Navigation">
-    <a href="index.html#journey" data-track="story_back" data-channel="top">← Viking Kadar</a>
-    <a href="#kallor">Källor</a>
+    <a href="index.html" data-track="story_back" data-channel="top">← Viking Kadar</a>
+    <a href="index.html#work">Work</a>
+    <a href="index.html#courses">Courses</a>
+    <a href="projects.html">Projects</a>
+    <a href="index.html#about">About</a>
+    <a href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
   </nav>
 
   <header class="hero" id="top">
     <div class="hero-bg" id="hero-bg"></div>
     <div>
-      <h1 class="disp">Förorten<br>vaknade</h1>
-      <p class="sub">Sverige stannade hemma. Förorten gick och röstade.</p>
-      <p class="meta">Riksdagsvalet 2026 (preliminärt 14 sep) jämfört med 2022 (slutligt). Stockholm, Göteborg och Malmö. Bilden är en illustration (AI).</p>
+      <h1 class="disp">The suburbs<br>woke up</h1>
+      <p class="sub">Sweden stayed home. The suburbs went out and voted.</p>
+      <p class="meta">The 2026 general election (preliminary, 14 Sep) compared with 2022 (final). Stockholm, Göteborg and Malmö. The image is an illustration (AI).</p>
     </div>
   </header>
 
   <section class="sec" id="siffran">
     <div class="big">
-      <div class="n" aria-label="67 till 10"><span>67</span><span class="arrow">till</span><span class="to">10</span></div>
-      <p class="lead">Så många valdistrikt i de tre storstäderna hade <b>under 50 % valdeltagande</b>. Först 2022, sen 2026. Ett tapp på 85 procent, samtidigt som hela riket röstade mindre.</p>
+      <div class="n" aria-label="67 to 10"><span>67</span><span class="arrow">to</span><span class="to">10</span></div>
+      <p class="lead">That is how many election districts in the three biggest cities had <b>turnout below 50 %</b>. First 2022, then 2026. A drop of 85 percent, while the country as a whole voted less.</p>
     </div>
   </section>
 
   <section class="sec inv" id="data">
     <div class="block">
       <div>
-        <h2>Var ökade det mest?</h2>
-        <p class="why">Sju förortsdistrikt med störst ökning, i procentenheter. Klicka på en stad för att jämföra. Håll över en stapel för siffran.</p>
+        <h2>Where did it rise most?</h2>
+        <p class="why">The seven suburban districts with the biggest rise, in percentage points. Click a city to compare. Hover a bar for the number.</p>
         <p class="readout" id="readout"></p>
-        <p class="src">Källa: Valmyndigheten via blog.zaramis.se (sekundärkälla, verifierad mot val.se), Göteborgs-Posten.</p>
+        <p class="src">Source: Valmyndigheten via blog.zaramis.se (secondary source, verified against val.se), Göteborgs-Posten.</p>
       </div>
       <div>
-        <ul class="chips" id="cityChips" aria-label="Filtrera på stad">
-          <li><button type="button" data-city="all" aria-pressed="true">Alla</button></li>
+        <ul class="chips" id="cityChips" aria-label="Filter by city">
+          <li><button type="button" data-city="all" aria-pressed="true">All</button></li>
           <li><button type="button" data-city="Malmö" aria-pressed="false">Malmö</button></li>
           <li><button type="button" data-city="Stockholm" aria-pressed="false">Stockholm</button></li>
           <li><button type="button" data-city="Göteborg" aria-pressed="false">Göteborg</button></li>
         </ul>
-        <div class="chart tall"><canvas id="cDistricts" role="img" aria-label="Stapeldiagram över ökning av valdeltagande per förortsdistrikt"></canvas></div>
+        <div class="chart tall"><canvas id="cDistricts" role="img" aria-label="Bar chart of the rise in voter turnout per suburban district"></canvas></div>
       </div>
     </div>
 
     <div class="block">
       <div>
-        <h2>Samtidigt sjönk hela Sverige</h2>
-        <p class="why">Valdeltagande i riksdagsvalet, hela riket. 2026 är valnattssiffran. Slutligt resultat brukar landa runt tre procentenheter högre, kryssa i för att se det.</p>
-        <p class="src">Källa: Valmyndigheten, SVT Valresultat 2026.</p>
+        <h2>Meanwhile Sweden as a whole fell</h2>
+        <p class="why">Turnout in the general election, the whole country. 2026 is the election-night figure. The final result usually lands around three percentage points higher, tick the box to see it.</p>
+        <p class="src">Source: Valmyndigheten, SVT Valresultat 2026.</p>
       </div>
       <div>
-        <label class="toggle"><input type="checkbox" id="estToggle"> Visa uppskattat slutligt 2026 (ca +3 pe)</label>
-        <div class="chart"><canvas id="cNation" role="img" aria-label="Linjediagram över valdeltagande i riket 2018, 2022 och 2026"></canvas></div>
+        <label class="toggle"><input type="checkbox" id="estToggle"> Show estimated final 2026 (approx. +3 pp)</label>
+        <div class="chart"><canvas id="cNation" role="img" aria-label="Line chart of national voter turnout in 2018, 2022 and 2026"></canvas></div>
       </div>
     </div>
 
     <div class="block">
       <div>
-        <h2>67 blev 10</h2>
-        <p class="why">Antal valdistrikt i Stockholm, Göteborg och Malmö där färre än hälften röstade.</p>
-        <p class="src">Källa: Sveriges Radio / P4 Göteborg, Valmyndigheten.</p>
+        <h2>67 became 10</h2>
+        <p class="why">The number of election districts in Stockholm, Göteborg and Malmö where fewer than half voted.</p>
+        <p class="src">Source: Sveriges Radio / P4 Göteborg, Valmyndigheten.</p>
       </div>
-      <div class="chart"><canvas id="cUnder50" role="img" aria-label="Stapeldiagram: 67 distrikt 2022, 10 distrikt 2026"></canvas></div>
+      <div class="chart"><canvas id="cUnder50" role="img" aria-label="Bar chart: 67 districts in 2022, 10 districts in 2026"></canvas></div>
     </div>
 
     <div class="block">
       <div>
-        <h2>Även Göteborg som helhet gick ned</h2>
-        <p class="why">Kommunnivå. Staden tappade 2,7 procentenheter, medan Rannebergen och Eriksbo i samma stad gick upp 6 till 8. Det är kontrasten som är storyn.</p>
-        <p class="src">Källa: Göteborgs-Posten, Valmyndigheten.</p>
+        <h2>Göteborg as a whole fell too</h2>
+        <p class="why">Municipal level. The city lost 2,7 percentage points, while Rannebergen and Eriksbo in the same city rose 6 to 8. The contrast is the story.</p>
+        <p class="src">Source: Göteborgs-Posten, Valmyndigheten.</p>
       </div>
-      <div class="chart"><canvas id="cGbg" role="img" aria-label="Stapeldiagram: Göteborg kommun 80,7 procent 2022 och 78 procent 2026"></canvas></div>
+      <div class="chart"><canvas id="cGbg" role="img" aria-label="Bar chart: Göteborg municipality 80,7 percent in 2022 and 78 percent in 2026"></canvas></div>
     </div>
   </section>
 
   <section class="sec" id="film">
     <figure class="film">
-      <iframe src="https://www.youtube-nocookie.com/embed/u7_VxeoVWJ0" title="Förorten vaknade, 10 sekunder" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-      <figcaption><b>Samma data, 10 sekunder</b>Gjord för att spridas i feeden. En röst i lådan, ett leende, ballongerna stiger. Förorten har vaknat.</figcaption>
+      <iframe src="https://www.youtube-nocookie.com/embed/u7_VxeoVWJ0" title="The suburbs woke up, 10 seconds" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      <figcaption><b>Same data, 10 seconds</b>Made to travel in the feed. A ballot in the box, a smile, the balloons rise. The suburbs have woken up.</figcaption>
     </figure>
   </section>
 
   <section class="sec inv" id="innan">
-    <h2 class="disp" style="font-size:clamp(40px,8vw,110px);margin-bottom:28px">Innan du citerar</h2>
+    <h2 class="disp" style="font-size:clamp(40px,8vw,110px);margin-bottom:28px">Before you quote this</h2>
     <ul class="caveats">
-      <li><b>Siffrorna för 2026 är preliminära.</b>Valnattsräkning. Slutligt valdeltagande brukar ligga cirka 3 procentenheter högre.</li>
-      <li><b>Distrikt har ritats om.</b>Många valdistrikt fick nya gränser inför 2026. Jämförelserna gäller distrikt som Valmyndigheten klassar som jämförbara.</li>
-      <li><b>Kontrasten är storyn.</b>Rikstrenden pekar nedåt samtidigt som förortsdistrikten går kraftigt uppåt. Inte det ena eller det andra, utan båda samtidigt.</li>
-      <li><b>Vilka områden det gäller.</b>Distrikt med tidigare lågt valdeltagande är ofta invandrartäta förorter med lägre medelinkomst.</li>
+      <li><b>The 2026 figures are preliminary.</b>Election-night count. Final turnout tends to land about 3 percentage points higher.</li>
+      <li><b>Districts have been redrawn.</b>Many election districts got new boundaries ahead of 2026. The comparisons cover districts that Valmyndigheten classes as comparable.</li>
+      <li><b>The contrast is the story.</b>The national trend points down at the same time as the suburban districts climb sharply. Not one or the other, but both at once.</li>
+      <li><b>Which areas this is about.</b>Districts with previously low turnout are often suburbs with large immigrant populations and lower average income.</li>
     </ul>
   </section>
 
   <section class="sec" id="kallor">
-    <h2 class="disp" style="font-size:clamp(40px,8vw,110px);margin-bottom:28px">Källor</h2>
+    <h2 class="disp" style="font-size:clamp(40px,8vw,110px);margin-bottom:28px">Sources</h2>
     <ul class="sources">
       <li><span>Sveriges Radio / P4 Göteborg</span><a href="https://www.sverigesradio.se/artikel/senaste-nytt-om-svenska-valet-2026" target="_blank" rel="noopener" data-track="source_click" data-channel="sr">sverigesradio.se/artikel/senaste-nytt-om-svenska-valet-2026</a></li>
       <li><span>SVT Valresultat 2026</span><a href="https://valresultat.svt.se/2026/" target="_blank" rel="noopener" data-track="source_click" data-channel="svt">valresultat.svt.se/2026</a></li>
       <li><span>Valmyndigheten</span><a href="https://www.val.se" target="_blank" rel="noopener" data-track="source_click" data-channel="val">val.se</a></li>
-      <li><span>Distriktsdata <i>(sekundärkälla, verifiera mot val.se)</i></span><a href="https://blog.zaramis.se/2026/09/14/valdeltagandet-ar-det-som-avgor-valet/" target="_blank" rel="noopener" data-track="source_click" data-channel="zaramis">blog.zaramis.se/2026/09/14/valdeltagandet-ar-det-som-avgor-valet</a></li>
+      <li><span>District data <i>(secondary source, verify against val.se)</i></span><a href="https://blog.zaramis.se/2026/09/14/valdeltagandet-ar-det-som-avgor-valet/" target="_blank" rel="noopener" data-track="source_click" data-channel="zaramis">blog.zaramis.se/2026/09/14/valdeltagandet-ar-det-som-avgor-valet</a></li>
       <li><span>Göteborgs-Posten</span><a href="https://www.gp.se/nyheter/goteborg/sa-stort-var-valdeltagandet-i-din-stadsdel.531bb7c0-2e0e-4328-929f-eb88da4a1bae" target="_blank" rel="noopener" data-track="source_click" data-channel="gp">gp.se: Så stort var valdeltagandet i din stadsdel</a></li>
     </ul>
     <div class="kv">
-      <div><b>Fråga</b><span>Var ökade valdeltagandet mest i riksdagsvalet 2026 jämfört med 2022, och var minskade det?</span></div>
-      <div><b>Enhet</b><span>Procent (%) och procentenheter (pe)</span></div>
-      <div><b>Tidsperiod</b><span>Riksdagsvalet 2022 (slutligt) och 2026 (preliminärt 14 sep 2026)</span></div>
-      <div><b>Geografi</b><span>Stockholm, Göteborg och Malmö kommun</span></div>
-      <div><b>Verktyg</b><span>Chart.js, ren HTML, GitHub Pages. Diagrammen pushar egna dataLayer-events till GTM.</span></div>
+      <div><b>Question</b><span>Where did voter turnout rise most in the 2026 general election compared with 2022, and where did it fall?</span></div>
+      <div><b>Unit</b><span>Percent (%) and percentage points (pp)</span></div>
+      <div><b>Period</b><span>The general elections of 2022 (final) and 2026 (preliminary, 14 Sep 2026)</span></div>
+      <div><b>Geography</b><span>The municipalities of Stockholm, Göteborg and Malmö</span></div>
+      <div><b>Tools</b><span>Chart.js, plain HTML, GitHub Pages. The charts push their own dataLayer events to GTM.</span></div>
     </div>
   </section>
 
   <footer>
     <span>Viking Kadar, Growth Toolbox, Berghs 2026</span>
-    <a href="index.html#journey" data-track="story_back" data-channel="footer">Tillbaka till portfolion</a>
+    <a href="index.html#journey" data-track="story_back" data-channel="footer">Back to the portfolio</a>
   </footer>
 
   <script>
     /* ============================================================
-       BILD OCH DATA. Ändra här, rör inte resten.
+       IMAGE AND DATA. Edit here, leave the rest alone.
        ============================================================ */
-    const HERO_IMG = 'images/rostning.png';
+    const HERO_IMG = 'images/rostning.webp';
 
     const DISTRICTS = [
       { city: 'Malmö',     name: 'Rosengård centrum', pe: 12.8 },
@@ -282,10 +286,10 @@
       options: {
         indexAxis: 'y', maintainAspectRatio: false,
         scales: {
-          x: { beginAtZero: true, suggestedMax: 14, ticks: { color: onBlack.ticks, callback: v => '+' + v }, grid: { color: onBlack.grid }, title: { display: true, text: 'Procentenheter, 2022 till 2026', color: onBlack.ticks } },
+          x: { beginAtZero: true, suggestedMax: 14, ticks: { color: onBlack.ticks, callback: v => '+' + v }, grid: { color: onBlack.grid }, title: { display: true, text: 'Percentage points, 2022 to 2026', color: onBlack.ticks } },
           y: { ticks: { color: '#fff', font: { size: 14 } }, grid: { display: false } }
         },
-        plugins: { legend: { display: false }, tooltip: tip(c => '+' + sv(c.raw) + ' procentenheter') },
+        plugins: { legend: { display: false }, tooltip: tip(c => '+' + sv(c.raw) + ' percentage points') },
         onHover: (e, els) => { dctx.style.cursor = els.length ? 'pointer' : 'default'; }
       }
     });
@@ -295,7 +299,7 @@
       districtChart.data.datasets[0].data = rows.map(d => d.pe);
       districtChart.update();
       const avg = rows.reduce((s, d) => s + d.pe, 0) / rows.length;
-      readout.innerHTML = (city === 'all' ? 'Snitt för alla sju: ' : city + ', snitt: ') + '<b>+' + sv(avg) + ' pe</b>. Riket: −3,9 pe.';
+      readout.innerHTML = (city === 'all' ? 'Average across all seven: ' : city + ', average: ') + '<b>+' + sv(avg) + ' pp</b>. Nationally: −3,9 pp.';
     }
     renderDistricts('all');
     document.querySelectorAll('#cityChips button').forEach(btn => btn.addEventListener('click', () => {
@@ -309,8 +313,8 @@
     const nationChart = new Chart(document.getElementById('cNation'), {
       type: 'line',
       data: { labels: NATION.years, datasets: [
-        { label: 'Valdeltagande', data: NATION.pct, borderColor: css('--down'), backgroundColor: css('--down'), borderWidth: 3, pointRadius: 6, pointHoverRadius: 8, tension: 0 },
-        { label: 'Om slutligt landar ca +3 pe', data: [null, null, NATION.est2026], borderColor: '#fff', backgroundColor: '#fff', pointRadius: 6, pointStyle: 'rectRot', hidden: true, showLine: false }
+        { label: 'Voter turnout', data: NATION.pct, borderColor: css('--down'), backgroundColor: css('--down'), borderWidth: 3, pointRadius: 6, pointHoverRadius: 8, tension: 0 },
+        { label: 'If the final count lands approx. +3 pp', data: [null, null, NATION.est2026], borderColor: '#fff', backgroundColor: '#fff', pointRadius: 6, pointStyle: 'rectRot', hidden: true, showLine: false }
       ]},
       options: {
         maintainAspectRatio: false,
@@ -332,13 +336,13 @@
       data: { labels: UNDER50.years, datasets: [{ data: UNDER50.n, backgroundColor: [css('--base'), css('--up')], barThickness: 90 }] },
       options: {
         maintainAspectRatio: false,
-        scales: { y: { beginAtZero: true, ticks: { color: onBlack.ticks }, grid: { color: onBlack.grid }, title: { display: true, text: 'Antal valdistrikt under 50 %', color: onBlack.ticks } },
+        scales: { y: { beginAtZero: true, ticks: { color: onBlack.ticks }, grid: { color: onBlack.grid }, title: { display: true, text: 'Number of election districts below 50 %', color: onBlack.ticks } },
                   x: { ticks: { color: '#fff', font: { size: 14 } }, grid: { display: false } } },
-        plugins: { legend: { display: false }, tooltip: tip(c => c.raw + ' distrikt') }
+        plugins: { legend: { display: false }, tooltip: tip(c => c.raw + ' districts') }
       }
     });
 
-    /* ---------- 4. Göteborg kommun ---------- */
+    /* ---------- 4. Göteborg municipality ---------- */
     new Chart(document.getElementById('cGbg'), {
       type: 'bar',
       data: { labels: GBG.years, datasets: [{ data: GBG.pct, backgroundColor: [css('--base'), css('--down')], barThickness: 90 }] },
@@ -346,7 +350,7 @@
         maintainAspectRatio: false,
         scales: { y: { min: 70, max: 90, ticks: { color: onBlack.ticks, callback: v => v + ' %' }, grid: { color: onBlack.grid } },
                   x: { ticks: { color: '#fff', font: { size: 14 } }, grid: { display: false } } },
-        plugins: { legend: { display: false }, tooltip: tip(c => sv(c.raw) + ' % valdeltagande') }
+        plugins: { legend: { display: false }, tooltip: tip(c => sv(c.raw) + ' % turnout') }
       }
     });
 
