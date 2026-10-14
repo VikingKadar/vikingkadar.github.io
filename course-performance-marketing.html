@@ -127,7 +127,7 @@
     <a class="back" href="index.html#courses" data-track="story_back" data-channel="performance_top">← All courses</a>
     <h1 class="disp">Aroma<br>Roast</h1>
     <div class="meta"><span class="on">Done</span><span>Sep to Oct 2026</span><span>Performance Marketing, Berghs</span></div>
-    <p class="sub">Paid social for a real coffee brand.</p>
+    <p class="sub">Paid social for a real coffee brand. My part: the creative concept and all of the ad creative.</p>
     <p class="role">Group 4: Clara, Tuva, Lowe, Viking and Rahel.</p>
   </header>
   <div class="brandline"></div>
@@ -233,7 +233,7 @@
     <h3 class="disp" id="tools-head" style="font-size:clamp(28px,4vw,56px);margin:clamp(48px,7vh,80px) 0 24px">The toolbox</h3>
     <ul class="tools" id="tools"></ul>
 
-    <p class="note">Group 4: Clara, Tuva, Lowe, Viking and Rahel. The campaign, the ads and the budget were the group's. The thinking written up on this page is mine.</p>
+    <p class="note">Group 4: Clara, Tuva, Lowe, Viking and Rahel. My part was the creative concept and all of the ad creative, mostly made with AI in Higgsfield and combined with real footage. Campaign setup and budget were shared. The analysis on this page is my own.</p>
   </section>
 
   <nav class="pagenav" aria-label="More courses">
@@ -272,15 +272,18 @@
     /* ---------- 1. The three lines at the top ---------- */
     const TLDR = [
       { t: 'What I did', b: 'Paid social for the coffee brand Aroma Roast with group 4. Six still ads and three films across a Stop, Interest and Action funnel, then the follow-up on what the numbers said.' },
-      { t: 'The proof', b: 'Three purchases, every single one of them from the chocolate ad. It took 75 % of the budget and 84 % of the link clicks with it.' },
-      // TODO Viking: en mening om vad du tog med dig fran kursen.
-      { t: 'What I learned', b: '' },
+      { t: 'What the data said', b: 'Three days, 972 SEK. One ad out of six took 75 % of the budget, 84 % of the link clicks and all three purchases. Too short to crown a winner, clear enough to know where to dig next.' },
+      { t: 'What I learned', b: 'Show the taste, don\'t describe it. And keep what the data shows apart from what we think it means.' },
     ];
 
     /* ---------- 2. The problem ----------
-       TODO Viking: skriv in briefen med dina egna ord, en strang per stycke.
+       skriv in briefen med dina egna ord, en strang per stycke.
        Tom lista = hela sektionen doljs. */
-    const PROBLEM = [];
+    const PROBLEM = [
+      'People think decaf tastes weak and boring. That belief stops the first purchase before anyone has tasted it. So we made the taste impossible to miss.',
+      'Audience: women 20 to 30 with a clean-girl lifestyle. Our hypothesis: they want to cut down on caffeine, not on taste or on the coffee moment.',
+      'Strategy: taste first, no caffeine as the bonus. Like Coke Zero and Heineken 0.0, don\'t sell what is missing, sell that nothing is missing. Full coffee taste. Without the caffeine.',
+    ];
 
     /* ---------- 3. The campaign film ---------- */
     const MEDIA = {
@@ -337,62 +340,103 @@
 
     /* ---------- 6. The video ads ----------
        Same card layout as the stills but with no Swedish headline.
-       TODO Viking: skriv in beskrivningen for var film i 'thinking', och
+       skriv in beskrivningen for var film i 'thinking', och
        lagg in YouTube-id om de finns olistade nagonstans. Utan id visas
        tumnageln som stillbild. */
     const VIDEO_ADS = [
-      { id: 'v-caramel', stage: 'stop', img: 'v-caramel.jpg', youtube: '', title: 'The sticker', thinking: '', result: '' },
-      { id: 'v-mug', stage: 'stop', img: 'v-mug.jpg', youtube: '', title: 'The cup character', thinking: '', result: '' },
-      { id: 'v-barbie', stage: 'interest', img: 'v-barbie.jpg', youtube: '', title: 'The Barbie morning', thinking: '', result: '' },
+      { id: 'v-caramel', stage: 'stop', img: 'v-caramel.jpg', youtube: '', title: 'The sticker', thinking: 'Movement catches the eye faster than a still.', result: '' },
+      { id: 'v-mug', stage: 'stop', img: 'v-mug.jpg', youtube: '', title: 'The cup character', thinking: 'The brand\'s own character, out in the world.', result: '' },
+      { id: 'v-barbie', stage: 'interest', img: 'v-barbie.jpg', youtube: '', title: 'The Barbie morning', thinking: 'Borrowed recognition from pop culture.', result: '' },
     ];
 
     /* ---------- 7. What we tested ----------
-       TODO Viking: t.ex. 'Flavour vs caffeine', 'Still vs video'. Tom = doljs. */
-    const TESTS = [];
+       t.ex. 'Flavour vs caffeine', 'Still vs video'. Tom = doljs. */
+    const TESTS = ['Playful ↔ product focus', 'Chocolate ↔ caramel', 'Still ↔ video', 'Soft message ↔ clear CTA'];
 
     /* ---------- 8. Results ----------
        { v: '3', dec: 0, suf: '', l: 'Purchases' }  -> v rullar upp som raknare
-       TODO Viking: lagg till impressions, klick, CTR, spend och CPA. */
+       lagg till impressions, klick, CTR, spend och CPA. */
     const STATS = [
-      { v: '3', dec: 0, suf: '', l: 'Purchases' },
+      { v: '7192', l: 'Reach' },
+      { v: '10296', l: 'Impressions' },
+      { v: '102', l: 'Link clicks' },
+      { v: '0.99', dec: 2, suf: ' %', l: 'CTR' },
+      { v: '9.53', dec: 2, suf: ' SEK', l: 'CPC' },
+      { v: '3', l: 'Purchases' },
+      { v: '324', suf: ' SEK', l: 'CPA, cost per purchase' },
+      { v: '2.9', dec: 1, suf: ' %', l: 'Click to purchase' },
+      { v: '0.66', dec: 2, l: 'ROAS, SEK back per SEK spent' },
+      { v: '972', suf: ' SEK', l: 'Total spend' },
     ];
-    // TODO Viking: kampanjperiod och kalla, t.ex. 'Meta Ads Manager, 1 to 14 October 2026.'
-    const STATS_CAPTION = '';
+    // kampanjperiod och kalla, t.ex. 'Meta Ads Manager, 1 to 14 October 2026.'
+    const STATS_CAPTION = 'Meta Ads Manager, three days live. Meta recommends around two weeks for the algorithm to learn, so these numbers are a compass, not a verdict. A ROAS under 1 means the test lost money, which is what a three-day test usually does.';
 
     // Per-ad comparison bars.
-    // TODO Viking: { label: 'Choco Roast', value: 84, max: 100, unit: '% of link clicks' }
-    const BARS = [];
+    const BARS = [
+      { label: 'Choco Roast: share of budget', value: 75, max: 100, unit: '%' },
+      { label: 'Choco Roast: share of link clicks', value: 84, max: 100, unit: '%' },
+      { label: 'Choco Roast: share of purchases', value: 100, max: 100, unit: '%' },
+    ];
 
     /* ---------- 9. The analysis ----------
-       TODO Viking: fyll i punkterna. Tomma listor doljs. */
+       fyll i punkterna. Tomma listor doljs. */
     const ANALYSIS = {
-      see: [],         // what the numbers plainly show
-      think: [],       // what I believe it means
-      dontKnow: [],    // what the data cannot answer
+      see: ['Choco took 75 % of the budget, 84 % of the clicks and every purchase.', 'The awareness ads: zero purchases, almost no spend.', 'The videos got less engagement than we expected.'],
+      think: ['The taste is understood in under a second.', 'The middle of the funnel sits closer to the purchase.', 'A still and a straight message beat motion.'],
+      dontKnow: ['Whether it was the picture, the flavour or the budget that decided it.', 'The ads differed on several things at once.', 'Purchases that came after day three are not in the data.'],
     };
 
     /* ---------- 10. Beyond the ad ----------
-       TODO Viking: en strang per stycke om landningssidan. */
-    const BEYOND = [];
+       en strang per stycke om landningssidan. */
+    const BEYOND = [
+      'The hero says nothing about taste. The ad promises taste and the site talks about something else. The message has to hold all the way to checkout.',
+      'The discount shows up in the wrong place. The subscription (−10 %) is only mentioned on the start page. The choice should sit right above "Add to cart".',
+    ];
 
     /* ---------- 11. Next steps ----------
-       TODO Viking: { t: 'Short title', b: 'One sentence.' } */
-    const NEXT_STEPS = [];
+       { t: 'Short title', b: 'One sentence.' } */
+    const NEXT_STEPS = [
+      { t: 'Build on Choco', b: 'Same look, new situations and messages. Even more chocolate, even more coffee in the frame.' },
+      { t: 'A clearer CTA', b: 'Say exactly what the person should do: "Buy now".' },
+      { t: 'One thing at a time', b: 'A/B test hooks with everything else equal, so we know what makes the difference.' },
+      { t: 'UGC at the top of the funnel', b: 'Creators who taste it and say it holds up against regular coffee.' },
+      { t: 'Scale out', b: 'TikTok and YouTube once we know which combination sells.' },
+    ];
 
     /* ---------- 12. What I learned ----------
        PASSES: { n: '01', when: '2 Sep', t: 'Session title', k: ['Keyword'], hi: 0 }
          hi = index of the keyword to highlight in pink.
-       TODO Viking: fyll i alla tio pass. */
-    const PASSES = [];
+       fyll i alla tio pass. */
+    const PASSES = [
+      { n: '01', when: '21 Sep', t: 'Performance marketing', k: ['Every krona tied to a business goal', 'Traditional vs performance', 'Push vs pull', 'The channels'], hi: 0 },
+      { n: '02', when: '22 Sep', t: 'Audience, channel mix, KPIs', k: ['Awareness → Consideration → Conversion → Loyalty', 'Channels reinforce each other', 'No demand without push', 'Measure across channels in GA4'], hi: 2 },
+      { n: '03', when: '23 Sep', t: 'Paid social', k: ['Organic vs paid', 'The campaign goal steers optimisation', 'Meta, TikTok, LinkedIn'], hi: 1 },
+      { n: '04', when: '24 Sep', t: 'Paid social, part 2', k: ['Campaign → ad set → ad', 'Stop · Interest · Action', 'Retargeting', 'One audience, many triggers'], hi: 1 },
+      { n: '05', when: '28 Sep', t: 'Best practice & PlentyLabs', k: ['4:5 feed, 9:16 Reels', 'Safe zones', 'Copy: simple, relevant, on brand', 'AI for hooks and variants'], hi: 1 },
+      { n: '06', when: '29 Sep', t: 'Feedback with the client', k: ['Show the client early', 'Iterate before launch', 'The client\'s goal is our goal'], hi: 2 },
+      { n: '07', when: '30 Sep', t: 'Campaign in Meta', k: ['Set up the campaign ourselves', 'One goal, ads for the whole customer journey', 'The algorithm moves budget on its own'], hi: 2 },
+      { n: '08', when: '1 Oct', t: 'Google Ads, part 1', k: ['SEM vs SEO', 'Auction & CPC', 'Search intent', 'Keyword research'], hi: 2 },
+      { n: '09', when: '5 Oct', t: 'Google Ads, part 2', k: ['Ad strength', 'Pinning headlines', 'Data segments', 'YouTube · PMax · ChatGPT Ads'], hi: 3 },
+      { n: '10', when: '6 Oct', t: 'Optimisation, analysis & CRO', k: ['The KPI hierarchy', 'Data vs interpretation', 'Analysis in five steps', 'Lots of clicks, few purchases? Check the site'], hi: 1 },
+    ];
 
-    // Four things to keep. TODO Viking: { t: 'Short title', b: 'One sentence.' }
-    const CORE = [];
+    // Four things to keep. { t: 'Short title', b: 'One sentence.' }
+    const CORE = [
+      { t: 'The funnel steers the message', b: 'Stop the scroll, spark the craving, make buying easy.' },
+      { t: 'Show, don\'t tell', b: 'The picture is the flavour description.' },
+      { t: 'Start with purchases', b: 'Purchases and CPA first. Reach explains, it proves nothing.' },
+      { t: 'Data ≠ interpretation', b: 'Say what you see, what you think and what you don\'t know.' },
+    ];
 
-    // My three notes. TODO Viking: { q: 'The question', items: ['...'] }
-    const NOTES = [];
+    // My three notes. { q: 'The question', items: ['...'] }
+    const NOTES = [
+      { q: 'What am I proud of?', items: ['The concept and all the ads, mostly made with AI in a few days.', 'The Choco image, which drove every purchase.', 'A visual language the whole group could build on.'] },
+      { q: 'What would I do differently?', items: ['Test one variable at a time.', 'Give every ad enough budget and time to be comparable.', 'Proofread AI images like text: everything on the pack has to be right.'] },
+      { q: 'What do I want to get better at?', items: ['Google Ads in practice, not just in theory.', 'A/B tests and CRO on landing pages.', 'Reading Ads Manager faster and drawing conclusions myself.'] },
+    ];
 
-    // Tools used in the course. TODO Viking: t.ex. 'Meta Ads Manager'
-    const TOOLS = [];
+    // Tools used in the course. t.ex. 'Meta Ads Manager'
+    const TOOLS = ['Meta Ads Manager', 'Higgsfield', 'PlentyLabs', 'Canva', 'CapCut', 'Google Ads', 'GA4', 'ChatGPT / Claude'];
 
     /* ============================================================
        RENDER. You should not need to change anything below.
