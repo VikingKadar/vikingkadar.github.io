@@ -32,9 +32,11 @@
   <link rel="stylesheet" href="assets/site.css">
   <style>
     /* Aroma Roast brand colours and the few components only this page uses.
-       Type, grid, navigation and footer stay shared with the rest of the site. */
+       Type, grid, navigation and footer stay shared with the rest of the site.
+       The client's blue and pink are accent only: they mark a result or a
+       number. Backgrounds, body copy, nav and footer stay black and white,
+       so the hero keeps the shared .phero black from site.css. */
     :root{ --acc:#1A0089; --acc2:#FF8FD8; }
-    .phero{background:var(--acc)}
     .brandline{height:6px;background:linear-gradient(90deg,var(--acc) 50%,var(--acc2) 50%)}
 
     /* in-page sub menu. It parks just under the fixed main nav, and the
@@ -42,7 +44,7 @@
     html{scroll-padding-top:132px}
     .submenu{display:flex;flex-wrap:wrap;gap:8px;padding:18px var(--gut);border-bottom:1px solid var(--line);position:sticky;top:var(--nav-h);background:var(--w);z-index:40}
     .submenu a{font-size:13px;font-weight:500;text-decoration:none;border:1px solid var(--line);padding:7px 12px}
-    .submenu a:hover{background:var(--acc);color:var(--w);border-color:var(--acc)}
+    .submenu a:hover{background:var(--b);color:var(--w);border-color:var(--b)}
     .submenu a.last{margin-left:auto;border-color:var(--acc);color:var(--acc)}
 
     /* vertical campaign film, kept narrow so a 9:16 Short does not dominate */
@@ -52,7 +54,7 @@
 
     /* one block per funnel stage */
     .stage{margin-bottom:clamp(40px,6vh,72px)}
-    .stage-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;border-top:2px solid var(--acc);padding-top:14px;margin-bottom:22px}
+    .stage-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;border-top:2px solid var(--b);padding-top:14px;margin-bottom:22px}
     .stage-head .sn{font-family:var(--disp);text-transform:uppercase;font-size:clamp(28px,3.6vw,48px);line-height:1;color:var(--acc)}
     .stage-head .sj{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2vw,24px)}
     .stage-result{margin-top:18px;border-left:3px solid var(--acc2);padding:12px 0 12px 16px;font-size:15px}
@@ -89,10 +91,21 @@
     .steps li b{font-family:var(--serif);font-weight:400;font-size:20px;display:block;margin-bottom:3px}
 
     .tests{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-    .tests li{border:1px solid var(--acc);color:var(--acc);padding:7px 12px;font-size:13px}
+    .tests li{border:1px solid currentColor;padding:7px 12px;font-size:13px}
 
     .pass li.hi{background:var(--acc2);color:var(--b);border-color:var(--acc2)}
     .pass .when{font-size:12px;color:var(--gd);margin-top:2px}
+
+    /* The ten sessions are folded away behind a button, so the section opens
+       on the two things worth reading first. Plain details/summary, so it
+       works with JavaScript switched off. */
+    details.sessions{margin:clamp(48px,7vh,80px) 0 0}
+    details.sessions summary{display:inline-block;list-style:none;border:1px solid var(--linei);color:inherit;padding:14px 20px;font-size:15px;font-weight:500;line-height:1;cursor:pointer}
+    details.sessions summary::-webkit-details-marker{display:none}
+    details.sessions summary::after{content:' +';font-weight:400}
+    details.sessions[open] summary::after{content:' −'}
+    details.sessions summary:hover,details.sessions summary:focus-visible{background:var(--w);color:var(--b);border-color:var(--w)}
+    details.sessions .passes{margin-top:22px}
   </style>
 </head>
 <body>
@@ -104,8 +117,8 @@
     <a href="index.html"><strong>Viking Kadar</strong></a>
     <ul>
       <li><a href="index.html#work">Work</a></li>
-      <li><a href="index.html#courses">Courses</a></li>
       <li><a href="projects.html">Projects</a></li>
+      <li><a href="index.html#courses">Courses</a></li>
       <li><a href="index.html#about">About</a></li>
     </ul>
     <div class="nav-right">
@@ -117,8 +130,8 @@
   <div class="overlay" id="overlay">
     <button class="close" id="menu-close">Close</button>
     <a href="index.html#work">Work</a>
-    <a href="index.html#courses">Courses</a>
     <a href="projects.html">Projects</a>
+    <a href="index.html#courses">Courses</a>
     <a href="index.html#about">About</a>
     <a href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
   </div>
@@ -222,13 +235,16 @@
       <p class="sub">Three weeks, ten sessions. The most important in blue.</p>
     </div>
 
-    <div class="passes" id="passes"></div>
-
-    <h3 class="disp" id="core-head" style="font-size:clamp(28px,4vw,56px);margin:clamp(48px,7vh,80px) 0 24px">Four things to keep</h3>
+    <h3 class="disp" id="core-head" style="font-size:clamp(28px,4vw,56px);margin:clamp(40px,6vh,64px) 0 24px">Four things to keep</h3>
     <div class="core" id="core" style="--line:var(--linei)"></div>
 
     <h3 class="disp" id="notes-head" style="font-size:clamp(28px,4vw,56px);margin:clamp(48px,7vh,80px) 0 24px">My three notes</h3>
     <div class="refl" id="notes"></div>
+
+    <details class="sessions" id="sessions">
+      <summary>See all ten sessions</summary>
+      <div class="passes" id="passes"></div>
+    </details>
 
     <h3 class="disp" id="tools-head" style="font-size:clamp(28px,4vw,56px);margin:clamp(48px,7vh,80px) 0 24px">The toolbox</h3>
     <ul class="tools" id="tools"></ul>
@@ -444,14 +460,13 @@
     const hide = id => { const n = document.getElementById(id); if (n) n.classList.add('hidden'); };
     const drop = id => { const n = document.getElementById(id); if (n) n.remove(); };
 
-    /* TL;DR. A line with no body says so rather than guessing. */
+    /* TL;DR. A line with no body shows its title only, never a placeholder. */
     const tl = document.getElementById('tldr-rows');
     TLDR.forEach(item => {
       const li = VK.el('li');
       li.appendChild(VK.el('b', { textContent: item.t }));
-      li.appendChild(item.b
-        ? document.createTextNode(item.b)
-        : VK.el('span', { className: 'muted', textContent: 'Added when the write-up is finished.' }));
+      // TODO Viking: skriv in brodtexten i TLDR, en tom 'b' ger bara rubriken.
+      if (item.b) li.appendChild(document.createTextNode(item.b));
       tl.appendChild(li);
     });
 
@@ -550,10 +565,18 @@
 
     /* Results */
     const wall = document.getElementById('stat-wall');
+    /* The box ships with the real, formatted number in it, so nothing ever
+       reads "0". Same formatting as the shared counter in site.js, which
+       still animates from zero up to this value when JS runs. */
+    const statText = s => {
+      const n = parseFloat(s.v), dec = +(s.dec || 0);
+      if (!isFinite(n)) return String(s.v);
+      return (dec ? n.toFixed(dec) : Math.round(n).toLocaleString('en-US')) + (s.suf || '');
+    };
     STATS.forEach(s => {
       const box = VK.el('div');
       const v = VK.el('div', { className: 'v' });
-      const span = VK.el('span', { textContent: '0' });
+      const span = VK.el('span', { textContent: statText(s) });
       span.dataset.count = s.v;
       if (s.dec) span.dataset.dec = s.dec;
       if (s.suf) span.dataset.suf = s.suf;
@@ -624,7 +647,8 @@
       d.appendChild(ul);
       pwrap.appendChild(d);
     });
-    if (!PASSES.length) drop('passes');
+    // No sessions, no disclosure: the whole details goes, never an empty button.
+    if (!PASSES.length) { drop('passes'); drop('sessions'); }
 
     const core = document.getElementById('core');
     CORE.forEach((c, i) => {
