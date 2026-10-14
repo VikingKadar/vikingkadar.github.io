@@ -373,8 +373,6 @@ dialog.lb button{position:absolute;top:8px;right:8px;background:var(--w);color:v
 .sources2 ul{list-style:none;margin:0;padding:0;font-size:15px}
 .sources2 li{padding:8px 0;border-bottom:1px solid var(--line)}
 .inv .sources2 li{border-color:var(--linei)}
-.sources2 li.todo{color:var(--g);font-style:italic}
-.inv .sources2 li.todo{color:var(--gd)}
 .uses{display:grid;grid-template-columns:1fr;gap:12px;margin-top:40px}
 @media(min-width:860px){.uses{grid-template-columns:repeat(3,1fr)}}
 .uses>div{border:1px solid var(--line);padding:20px}
@@ -424,10 +422,6 @@ pre.code .k{color:#7aa2ff}
 .note{font-size:13px;color:var(--g);margin-top:28px;max-width:72ch}
 .inv .note{color:var(--gd)}
 
-/* placeholder block for work that is not published yet */
-.todo-box{border:1px dashed var(--line);padding:clamp(20px,3vw,32px);font-size:15px}
-.inv .todo-box{border-color:var(--linei)}
-.todo-box h3{font-family:var(--serif);font-size:clamp(22px,2.4vw,30px);margin-bottom:10px}
 
 /* 404 */
 .oops{min-height:100svh;display:grid;place-content:center;text-align:center;background:var(--b);color:var(--w);padding:var(--gut)}
@@ -448,3 +442,72 @@ pre.code .k{color:#7aa2ff}
 /* button row under the API explanation on toolbox.html */
 .demo{margin-top:40px;align-items:center}
 .demo .muted{font-size:13px}
+
+/* ---------- Stat card ----------
+   A card with a number but no picture. Black, so it reads as a
+   deliberate panel beside the picture cards instead of a gap. */
+.card.statcard{background:var(--b);color:var(--w);border-color:var(--b);justify-content:center}
+.card.statcard .body{padding:clamp(24px,3vw,34px);min-height:clamp(240px,26vw,320px);justify-content:center}
+.card.statcard .kpi{color:var(--w);font-size:clamp(40px,5.5vw,76px);line-height:.92;margin-bottom:12px}
+.card.statcard h3{font-size:clamp(21px,2.2vw,26px);margin-bottom:8px}
+.card.statcard p{color:var(--gd)}
+.card.statcard .tag{color:var(--gd)}
+.card.statcard:hover{box-shadow:0 10px 0 -4px var(--acc,#1f5cff)}
+.inv .card.statcard{background:var(--w);color:var(--b);border-color:var(--w)}
+.inv .card.statcard .kpi{color:var(--b)}
+.inv .card.statcard p,.inv .card.statcard .tag{color:var(--g)}
+
+/* Poster art inside a card: show the whole poster rather than crop a
+   headline in half. Black bars are intentional. */
+.card .shot.whole{background:var(--b)}
+.card .shot.whole img{object-fit:contain}
+
+/* ---------- Grouped tool list ---------- */
+.toolgroup{margin-bottom:22px}
+.toolgroup:last-child{margin-bottom:0}
+.toolgroup h4{font-family:var(--disp);text-transform:uppercase;font-size:12px;letter-spacing:.09em;color:var(--g);margin-bottom:10px}
+.inv .toolgroup h4{color:var(--gd)}
+.toolgroup .chips{margin:0}
+
+/* ---------- Disclosure used for long lists ---------- */
+details.more-box{margin-top:clamp(32px,5vh,56px)}
+details.more-box>summary{display:inline-block;list-style:none;border:1px solid currentColor;padding:14px 20px;font-size:15px;font-weight:500;cursor:pointer}
+details.more-box>summary::-webkit-details-marker{display:none}
+details.more-box>summary::after{content:" +";font-weight:600}
+details.more-box[open]>summary::after{content:" −"}
+details.more-box>summary:hover{background:var(--b);color:var(--w)}
+.inv details.more-box>summary:hover{background:var(--w);color:var(--b)}
+details.more-box>*:not(summary){margin-top:24px}
+
+/* ---------- Mobile: keep the stat grid to three, rest on demand ---------- */
+details.numbers{margin:0 0 18px}
+details.numbers>summary{display:inline-block;list-style:none;border:1px solid currentColor;padding:10px 16px;font-size:14px;font-weight:500;cursor:pointer;margin-top:1px}
+details.numbers>summary::-webkit-details-marker{display:none}
+details.numbers>summary::after{content:" +";font-weight:600}
+details.numbers[open]>summary::after{content:" −"}
+details.numbers>summary:hover{background:var(--b);color:var(--w)}
+.inv details.numbers>summary:hover{background:var(--w);color:var(--b)}
+.stats.rest{margin-top:1px}
+/* The element ships with `open`, so with no JavaScript every number is
+   visible. The shared script closes it on narrow screens only, which is
+   where three boxes is plenty. On a wide screen it stays open and the
+   button has no job, so it is hidden. */
+@media(min-width:860px){ details.numbers>summary{display:none} }
+
+/* ---------- Timeline, used for the sneaker years ---------- */
+.timeline{list-style:none;margin:0;padding:0;counter-reset:tl}
+.timeline li{counter-increment:tl;position:relative;padding:0 0 26px 42px;border-left:1px solid var(--line)}
+.inv .timeline li{border-color:var(--linei)}
+.timeline li:last-child{padding-bottom:0;border-left-color:transparent}
+.timeline li::before{content:counter(tl);position:absolute;left:-15px;top:0;width:30px;height:30px;
+  display:grid;place-items:center;border-radius:50%;background:var(--b);color:var(--w);
+  font-family:var(--disp);font-size:15px;line-height:1}
+.inv .timeline li::before{background:var(--w);color:var(--b)}
+.timeline li b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.2vw,25px);line-height:1.15;margin-bottom:6px}
+.timeline li p{font-size:15px;margin:0}
+
+/* ---------- Fact list (role, year, views, platform) ---------- */
+dl.facts{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:20px 0 0;font-size:15px}
+dl.facts dt{font-family:var(--disp);text-transform:uppercase;font-size:11px;letter-spacing:.09em;color:var(--g);padding-top:3px}
+.inv dl.facts dt{color:var(--gd)}
+dl.facts dd{margin:0}

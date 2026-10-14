@@ -237,10 +237,58 @@ window.VK = (function () {
     }, ms);
   }
 
+  /* ---------- The tool list ----------
+     One source for the whole site, grouped. Edit it here and both the
+     homepage and the projects page change. */
+  const TOOLS = [
+    { group: 'Data', items: ['GTM', 'GA4', 'Looker Studio', 'Chart.js'] },
+    { group: 'AI production', items: ['Midjourney', 'Kling', 'Seedance', 'Seedream', 'Nano Banana', 'ChatGPT', 'Claude', 'Gemini', 'Codex'] },
+    { group: 'Build', items: ['HTML/CSS/JS', 'GitHub', 'Figma', 'n8n'] },
+  ];
+
+  function tools(targetId) {
+    const box = document.getElementById(targetId);
+    if (!box) return;
+    TOOLS.forEach(g => {
+      const row = el('div', { className: 'toolgroup' });
+      row.appendChild(el('h4', { textContent: g.group }));
+      const ul = el('ul', { className: 'chips' });
+      g.items.forEach(t => ul.appendChild(el('li', { textContent: t })));
+      row.appendChild(ul);
+      box.appendChild(row);
+    });
+  }
+
+  /* ---------- CV button ----------
+     Only ever shown when the file actually answers. A HEAD request that
+     404s, or any network error, leaves the page exactly as it was. */
+  function cv(path, targets) {
+    if (!path || !targets || !targets.length) return;
+    fetch(path, { method: 'HEAD' }).then(res => {
+      if (!res.ok) return;
+      targets.forEach(t => {
+        const host = document.querySelector(t.sel);
+        if (!host) return;
+        const a = el('a', {
+          className: t.className || 'btn',
+          href: path,
+          textContent: t.label || 'Download CV',
+        });
+        a.setAttribute('download', '');
+        a.dataset.track = 'contact_click';
+        a.dataset.channel = 'cv';
+        host.appendChild(a);
+      });
+    }).catch(() => {});
+  }
+
   /* ---------- A clickable card ----------
-     item: { href, title, desc, kpi, tag, img:{src,alt,w,h}, more, event, channel } */
+     item: { href, title, desc, kpi, tag, img:{src,alt,w,h}, more, event, channel }
+     With a kpi but no image the card becomes a black stat card, so a grid
+     never shows a half-empty white box next to a picture. */
   function card(item) {
-    const a = el('a', { className: 'card', href: item.href });
+    const isStat = !!item.kpi && !(item.img && item.img.src);
+    const a = el('a', { className: 'card' + (isStat ? ' statcard' : ''), href: item.href });
     if (item.event) { a.dataset.track = item.event; a.dataset.channel = item.channel || ''; }
     // No image, or an image that 404s: the card keeps its text and loses the frame.
     if (item.img && item.img.src) {
@@ -255,8 +303,14 @@ window.VK = (function () {
       item.chips.forEach(c => row.appendChild(el('span', { className: 'chip' + (c.on ? ' on' : ''), textContent: c.label })));
       body.appendChild(row);
     }
-    body.appendChild(el('h3', { textContent: item.title }));
-    if (item.kpi) body.appendChild(el('div', { className: 'kpi', textContent: item.kpi }));
+    // On a stat card the number leads; on a picture card the title does.
+    if (isStat) {
+      body.appendChild(el('div', { className: 'kpi', textContent: item.kpi }));
+      body.appendChild(el('h3', { textContent: item.title }));
+    } else {
+      body.appendChild(el('h3', { textContent: item.title }));
+      if (item.kpi) body.appendChild(el('div', { className: 'kpi', textContent: item.kpi }));
+    }
     if (item.desc) body.appendChild(el('p', { textContent: item.desc }));
     body.appendChild(el('div', { className: 'more', textContent: item.more || 'Read the case →' }));
     a.appendChild(body);
@@ -269,9 +323,34 @@ window.VK = (function () {
     items.forEach(it => box.appendChild(card(it)));
   }
 
+  /* ---------- Long stat grids on small screens ----------
+     `details.numbers` ships open, so a reader without JavaScript sees
+     every number. Here we fold the extra boxes away on narrow screens,
+     where three is enough and the rest is scrolling. */
+  function initNumbers() {
+    const boxes = document.querySelectorAll('details.numbers');
+    if (!boxes.length) return;
+    let programmatic = false;
+    const apply = () => {
+      const narrow = window.innerWidth < 860;
+      programmatic = true;
+      boxes.forEach(d => {
+        if (d.dataset.touched === '1') return;   // the reader decided, leave it
+        d.open = !narrow;
+      });
+      // `toggle` fires asynchronously, so clear the flag after it has run.
+      setTimeout(() => { programmatic = false; }, 0);
+    };
+    boxes.forEach(d => d.addEventListener('toggle', () => {
+      if (!programmatic) d.dataset.touched = '1';
+    }));
+    apply();
+    window.addEventListener('resize', apply, { passive: true });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
-    initNav(); initTracking(); initCounters(); initLightbox(); initSneaker();
+    initNav(); initTracking(); initCounters(); initLightbox(); initSneaker(); initNumbers();
   });
 
-  return { push, el, smartImg, smartVideo, youtubeFacade, mountMedia, tidy, card, cards, rotor, reduce };
+  return { push, el, smartImg, smartVideo, youtubeFacade, mountMedia, tidy, card, cards, rotor, reduce, TOOLS, tools, cv };
 })();
