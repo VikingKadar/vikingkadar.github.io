@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Performance Marketing – the Aroma Roast case | Viking Kadar</title>
-  <meta name="description" content="Performance Marketing at Berghs, autumn 2026. Paid social for the coffee brand Aroma Roast: ads, funnel and what the numbers said afterwards.">
+  <meta name="description" content="Performance Marketing at Berghs, autumn 2026. Paid social for the coffee brand Aroma Roast: six ads across a Stop, Interest and Action funnel, and the one ad that took every purchase.">
   <link rel="canonical" href="https://vikingkadar.github.io/course-performance-marketing.html">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://vikingkadar.github.io/course-performance-marketing.html">
-  <meta property="og:title" content="Performance Marketing – the Aroma Roast case">
-  <meta property="og:description" content="Paid social for a real coffee brand. Three purchases, all of them from one ad.">
-  <meta property="og:image" content="https://vikingkadar.github.io/images/og-home.jpg">
+  <meta property="og:title" content="Aroma Roast – the ad that took every purchase">
+  <meta property="og:description" content="Paid social for a real coffee brand. Three purchases, all of them from the chocolate ad.">
+  <meta property="og:image" content="https://vikingkadar.github.io/images/og-aromaroast.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='44' font-family='Arial Narrow,Arial' font-size='34' font-weight='bold' fill='%23fff' text-anchor='middle'%3EVK%3C/text%3E%3C/svg%3E">
 
@@ -31,11 +31,68 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/site.css">
   <style>
-    /* Aroma Roast brand colours. Only the accent changes; type, grid,
-       navigation and footer stay shared with the rest of the site. */
+    /* Aroma Roast brand colours and the few components only this page uses.
+       Type, grid, navigation and footer stay shared with the rest of the site. */
     :root{ --acc:#1A0089; --acc2:#FF8FD8; }
     .phero{background:var(--acc)}
     .brandline{height:6px;background:linear-gradient(90deg,var(--acc) 50%,var(--acc2) 50%)}
+
+    /* in-page sub menu. It parks just under the fixed main nav, and the
+       extra scroll padding keeps anchor jumps clear of both bars. */
+    html{scroll-padding-top:132px}
+    .submenu{display:flex;flex-wrap:wrap;gap:8px;padding:18px var(--gut);border-bottom:1px solid var(--line);position:sticky;top:var(--nav-h);background:var(--w);z-index:40}
+    .submenu a{font-size:13px;font-weight:500;text-decoration:none;border:1px solid var(--line);padding:7px 12px}
+    .submenu a:hover{background:var(--acc);color:var(--w);border-color:var(--acc)}
+    .submenu a.last{margin-left:auto;border-color:var(--acc);color:var(--acc)}
+
+    /* vertical campaign film, kept narrow so a 9:16 Short does not dominate */
+    .shortwrap{max-width:360px;margin:0 auto}
+    .shortwrap .vid{aspect-ratio:9/16}
+    .shortwrap figcaption{font-size:14px;margin-top:12px;text-align:center}
+
+    /* one block per funnel stage */
+    .stage{margin-bottom:clamp(40px,6vh,72px)}
+    .stage-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;border-top:2px solid var(--acc);padding-top:14px;margin-bottom:22px}
+    .stage-head .sn{font-family:var(--disp);text-transform:uppercase;font-size:clamp(28px,3.6vw,48px);line-height:1;color:var(--acc)}
+    .stage-head .sj{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2vw,24px)}
+    .stage-result{margin-top:18px;border-left:3px solid var(--acc2);padding:12px 0 12px 16px;font-size:15px}
+    .stage-result b{font-family:var(--disp);text-transform:uppercase;font-size:11px;letter-spacing:.09em;display:block;margin-bottom:4px;color:var(--g)}
+
+    /* an ad card */
+    .ad{border:1px solid var(--line);display:flex;flex-direction:column;background:var(--w);position:relative}
+    .ad.win{border:2px solid var(--acc2)}
+    .ad .winner{position:absolute;top:0;right:0;background:var(--acc2);color:var(--b);font-family:var(--disp);text-transform:uppercase;font-size:11px;letter-spacing:.09em;padding:6px 10px;z-index:2}
+    .ad .adshot{margin:0;background:#f2f2f2}
+    .ad .adshot button{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
+    .ad .adshot img{width:100%;aspect-ratio:4/5;object-fit:cover}
+    .ad .adbody{padding:18px 18px 20px;display:flex;flex-direction:column;flex:1}
+    .ad .sv{font-family:var(--serif);font-size:clamp(19px,2vw,23px);line-height:1.15}
+    .ad .en{font-size:13px;color:var(--g);margin-top:5px}
+    .ad .lbl{font-family:var(--disp);text-transform:uppercase;font-size:11px;letter-spacing:.09em;color:var(--g);margin:16px 0 5px}
+    .ad p{font-size:14px;margin:0}
+    .ad .res{margin-top:14px;background:var(--acc);color:var(--w);padding:10px 12px;font-size:13px;font-weight:500}
+    .ad.vid-ad .adshot img{aspect-ratio:9/16}
+
+    .rule{font-family:var(--serif);font-size:clamp(21px,2.4vw,30px);line-height:1.2;border-top:1px solid var(--line);padding-top:24px;max-width:34ch}
+
+    /* see / think / don't know */
+    .stk{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:860px){.stk{grid-template-columns:repeat(3,1fr)}}
+    .stk>div{border:1px solid var(--linei);padding:22px}
+    .stk h3{font-family:var(--serif);font-size:clamp(22px,2.3vw,28px);margin-bottom:12px}
+    .stk ul{margin:0;padding-left:18px;font-size:15px}
+    .stk li{margin-bottom:6px}
+
+    .steps{list-style:none;margin:0;padding:0;counter-reset:s}
+    .steps li{counter-increment:s;border-bottom:1px solid var(--line);padding:18px 0 18px 48px;position:relative;font-size:16px}
+    .steps li::before{content:counter(s);position:absolute;left:0;top:14px;font-family:var(--disp);font-size:28px;line-height:1;color:var(--acc)}
+    .steps li b{font-family:var(--serif);font-weight:400;font-size:20px;display:block;margin-bottom:3px}
+
+    .tests{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+    .tests li{border:1px solid var(--acc);color:var(--acc);padding:7px 12px;font-size:13px}
+
+    .pass li.hi{background:var(--acc2);color:var(--b);border-color:var(--acc2)}
+    .pass .when{font-size:12px;color:var(--gd);margin-top:2px}
   </style>
 </head>
 <body>
@@ -71,50 +128,112 @@
     <h1 class="disp">Aroma<br>Roast</h1>
     <div class="meta"><span class="on">Done</span><span>Sep to Oct 2026</span><span>Performance Marketing, Berghs</span></div>
     <p class="sub">Paid social for a real coffee brand.</p>
-    <p class="role">Group 4: Clara, Tuva, Lowe, Viking, Rahel.</p>
+    <p class="role">Group 4: Clara, Tuva, Lowe, Viking and Rahel.</p>
   </header>
   <div class="brandline"></div>
+
+  <nav class="submenu" aria-label="On this page">
+    <a href="#problem">The problem</a>
+    <a href="#film">Campaign film</a>
+    <a href="#ads">The ads</a>
+    <a href="#results">Results</a>
+    <a href="#analysis">The analysis</a>
+    <a href="#next">Next steps</a>
+    <a class="last" href="#learned">What I learned ↓</a>
+  </nav>
 
   <section class="sec" id="tldr">
     <div class="tldr">
       <h2>In short</h2>
       <ol id="tldr-rows"></ol>
-    </div>
-
-    <div class="stats" id="stat-wall" aria-label="Campaign results"></div>
-    <p class="stats-cap" id="stat-cap"></p>
-
-    <div class="todo-box" id="todo-box">
-      <h3>This case is still being written up</h3>
-      <p>The campaign ran and the numbers exist. The full funnel, the per-ad breakdown and the session-by-session notes live in my own files and are being moved onto this page.</p>
-      <p class="muted" style="margin-top:12px">Everything that is published here is measured, not estimated. Nothing is filled in with a guess while it waits.</p>
+      <div class="cta" style="margin-top:22px">
+        <a class="btn" href="#learned">What I learned ↓</a>
+      </div>
     </div>
   </section>
 
-  <section class="sec inv" id="funnel">
+  <section class="sec" id="problem">
     <div class="head">
-      <h2 class="disp">The funnel</h2>
-      <p class="sub">From impression to purchase, one step at a time.</p>
+      <h2 class="disp">The problem</h2>
+      <p class="sub">What the brief actually asked us to solve.</p>
     </div>
-    <div class="flow" id="funnel-rows"></div>
+    <div id="problem-body"></div>
+  </section>
+
+  <section class="sec inv" id="film">
+    <div class="head">
+      <h2 class="disp">Campaign<br>film</h2>
+      <p class="sub">Shot vertical, built for the feed.</p>
+    </div>
+    <figure class="shortwrap" id="shortfig">
+      <div data-video="short" data-hide="#film"></div>
+      <figcaption id="short-cap"></figcaption>
+    </figure>
   </section>
 
   <section class="sec" id="ads">
     <div class="head">
       <h2 class="disp">The ads</h2>
-      <p class="sub">What we ran, and which one carried the result.</p>
+      <p class="sub">Six stills and three films across three stages. One of them did all the work.</p>
     </div>
-    <div class="cards c3" id="ad-cards"></div>
-    <div id="bars"></div>
+    <div id="stages"></div>
+    <p class="rule">The further down the funnel, the less play and the clearer the call to action.</p>
+    <ul class="tests" id="tests" aria-label="What we tested"></ul>
+  </section>
+
+  <section class="sec inv" id="results">
+    <div class="head">
+      <h2 class="disp">Results</h2>
+      <p class="sub">What the platform reported when the campaign closed.</p>
+    </div>
+    <div class="stats" id="stat-wall" aria-label="Campaign results"></div>
+    <p class="stats-cap" id="stat-cap"></p>
+    <div id="bars" style="margin-top:28px"></div>
+  </section>
+
+  <section class="sec" id="analysis">
+    <div class="head">
+      <h2 class="disp">The analysis</h2>
+      <p class="sub">What I see, what I think it means, and what I genuinely cannot tell.</p>
+    </div>
+    <div class="stk" id="analysis-grid" style="--linei:var(--line)"></div>
+  </section>
+
+  <section class="sec inv" id="beyond">
+    <div class="head">
+      <h2 class="disp">Beyond<br>the ad</h2>
+      <p class="sub">The ad is only the first half. The landing page decides the rest.</p>
+    </div>
+    <div id="beyond-body"></div>
+    <div class="measure-block" data-img="landing"></div>
+  </section>
+
+  <section class="sec" id="next">
+    <div class="head">
+      <h2 class="disp">Next steps</h2>
+      <p class="sub">What I would run if the budget carried on.</p>
+    </div>
+    <ol class="steps" id="next-steps"></ol>
   </section>
 
   <section class="sec inv" id="learned">
     <div class="head">
       <h2 class="disp">What I<br>learned</h2>
-      <p class="sub">Session by session.</p>
+      <p class="sub">Three weeks, ten sessions. The most important in blue.</p>
     </div>
+
     <div class="passes" id="passes"></div>
-    <ul class="tools" id="tools" style="margin-top:32px"></ul>
+
+    <h3 class="disp" id="core-head" style="font-size:clamp(28px,4vw,56px);margin:clamp(48px,7vh,80px) 0 24px">Four things to keep</h3>
+    <div class="core" id="core" style="--line:var(--linei)"></div>
+
+    <h3 class="disp" id="notes-head" style="font-size:clamp(28px,4vw,56px);margin:clamp(48px,7vh,80px) 0 24px">My three notes</h3>
+    <div class="refl" id="notes"></div>
+
+    <h3 class="disp" id="tools-head" style="font-size:clamp(28px,4vw,56px);margin:clamp(48px,7vh,80px) 0 24px">The toolbox</h3>
+    <ul class="tools" id="tools"></ul>
+
+    <p class="note">Group 4: Clara, Tuva, Lowe, Viking and Rahel. The campaign, the ads and the budget were the group's. The thinking written up on this page is mine.</p>
   </section>
 
   <nav class="pagenav" aria-label="More courses">
@@ -133,71 +252,259 @@
     <a href="index.html" data-track="story_back" data-channel="performance_footer">Back to the portfolio</a>
   </footer>
 
+  <dialog class="lb" id="lightbox"><button type="button" id="lb-close">Close</button><img id="lb-img" src="" alt=""></dialog>
+
   <script src="assets/site.js"></script>
   <script>
     /* ============================================================
-       FILL IN HERE, FROM YOUR OWN AROMA ROAST FILE.
+       EVERYTHING ON THIS PAGE IS EDITED HERE.
 
-       Every list below is empty on purpose. An empty list hides its
-       whole section, so the page stays honest until the real numbers
-       are in. Fill a list and its section appears by itself.
-       Put the campaign images in images/aroma/.
+       Every list is rendered below. An empty list hides its own
+       section, so the page never shows an empty frame and never
+       claims a number it does not have. Fill a list and its
+       section appears by itself.
+
+       The ad images live in images/aroma/ as 1024x1280 WebP files.
        ============================================================ */
 
-    /* 1. The three lines at the top of the page.
-          TODO Viking: fyll i mening tre nar du skrivit ihop lardomen. */
+    const AROMA = 'images/aroma/';   // folder for every image on this page
+
+    /* ---------- 1. The three lines at the top ---------- */
     const TLDR = [
-      { t: 'What I did', b: 'Paid social for the coffee brand Aroma Roast, together with group 4. Ads, funnel and the follow-up on what the numbers said.' },
-      { t: 'The proof', b: 'Three purchases, every single one of them from the chocolate ad.' },
-      { t: 'What I learned', b: '' },   // TODO Viking: en mening
+      { t: 'What I did', b: 'Paid social for the coffee brand Aroma Roast with group 4. Six still ads and three films across a Stop, Interest and Action funnel, then the follow-up on what the numbers said.' },
+      { t: 'The proof', b: 'Three purchases, every single one of them from the chocolate ad. It took 75 % of the budget and 84 % of the link clicks with it.' },
+      // TODO Viking: en mening om vad du tog med dig fran kursen.
+      { t: 'What I learned', b: '' },
     ];
 
-    /* 2. The stat wall. TODO Viking: en rad per nyckeltal.
-          { v: '3', dec: 0, suf: '', l: 'Purchases' }
-          v blir en raknare som rullar upp. l ar etiketten under. */
+    /* ---------- 2. The problem ----------
+       TODO Viking: skriv in briefen med dina egna ord, en strang per stycke.
+       Tom lista = hela sektionen doljs. */
+    const PROBLEM = [];
+
+    /* ---------- 3. The campaign film ---------- */
+    const MEDIA = {
+      // Vertical YouTube Short. The thumbnail loads first and the player
+      // is only created on click.
+      short: { youtube: 'OsPaCz2UoCY', title: 'Aroma Roast campaign film', channel: 'aroma_short' },
+
+      // TODO Viking: en skarmdump av landningssidan, t.ex.
+      // { src: 'images/aroma/landing.webp', alt: 'Aroma Roast landing page', w: 1200, h: 800 }
+      landing: null,
+    };
+    // TODO Viking: vilken annons/vad visar filmen? Tom strang = ingen bildtext.
+    const SHORT_CAPTION = '';
+
+    /* ---------- 4. The funnel stages ---------- */
+    const STAGES = [
+      { id: 'stop', name: 'Stop', job: 'Stop the scroll',
+        result: 'Awareness ads: zero purchases and almost no spend. Meta moved the budget elsewhere on its own.' },
+      { id: 'interest', name: 'Interest', job: 'Spark the craving',
+        result: 'Choco Roast took 75 % of the budget, 84 % of link clicks and all 3 purchases.' },
+      { id: 'action', name: 'Action', job: 'Make buying easy',
+        result: '' }, // TODO Viking: fyll i fran Ads Manager om du har siffror
+    ];
+
+    /* ---------- 5. The still ads ----------
+       sv = the headline as it ran, in Swedish. en = translation.
+       result = only shown when it is not empty. win = the pink winner frame. */
+    const ADS = [
+      { id: 'claw', stage: 'stop', img: 'claw.webp',
+        sv: 'Vinst i varje kopp', en: 'A win in every cup',
+        thinking: 'A claw machine in a coffee ad does not belong, and that is the point: the brain stops on things that do not fit. The bags are the prize, so the picture tells the message before the copy does.',
+        result: '' },
+      { id: 'suitcase', stage: 'stop', img: 'suitcase.webp',
+        sv: 'Nästa stopp: kaffestund. Utan koffeinet.', en: 'Next stop: coffee break. Without the caffeine.',
+        thinking: 'The whole range in one frame, and the first ad to say "without the caffeine", with a wink. The travel frame makes decaf feel like a small trip, not a sacrifice.',
+        result: '' },
+      { id: 'caramel', stage: 'interest', img: 'caramel.webp',
+        sv: 'Säg hej till din nya kaffefavorit', en: 'Say hi to your new favourite coffee',
+        thinking: 'Salted caramel is a trend flavour. The bag sits on the real thing, so you taste it with your eyes before reading a word. Aimed at someone still looking for a favourite.',
+        result: '' },
+      { id: 'choco', stage: 'interest', img: 'choco.webp', win: true,
+        sv: 'Smakkombon du inte visste att du saknade', en: 'The flavour combo you didn\'t know you were missing',
+        thinking: 'The bag pressed into a chocolate cake. The taste is understood in under a second, and there is no caffeine talk at all, only craving.',
+        result: '75 % of budget · 84 % of link clicks · 3 of 3 purchases' },
+      { id: 'everyday', stage: 'action', img: 'everyday.webp',
+        sv: 'Börja dagen på rätt sätt. Beställ idag!', en: 'Start the day the right way. Order today!',
+        thinking: 'Clearest product, clearest CTA: one bag on a bed of beans and a button-shaped "Order today". Built for retargeting people who have already seen the brand.',
+        result: '' },
+      { id: 'tv', stage: 'action', img: 'tv.webp',
+        sv: 'Byt kanal på kaffevanorna – klicka hem din favoritsmak direkt', en: 'Change channel on your coffee habits – order your favourite flavour now',
+        thinking: 'Three screens, three ways to drink it. Switching coffee should feel as easy as changing channel, and the copy says exactly what to do next.',
+        result: '' },
+    ];
+
+    /* ---------- 6. The video ads ----------
+       Same card layout as the stills but with no Swedish headline.
+       TODO Viking: skriv in beskrivningen for var film i 'thinking', och
+       lagg in YouTube-id om de finns olistade nagonstans. Utan id visas
+       tumnageln som stillbild. */
+    const VIDEO_ADS = [
+      { id: 'v-caramel', stage: 'stop', img: 'v-caramel.jpg', youtube: '', title: 'The sticker', thinking: '', result: '' },
+      { id: 'v-mug', stage: 'stop', img: 'v-mug.jpg', youtube: '', title: 'The cup character', thinking: '', result: '' },
+      { id: 'v-barbie', stage: 'interest', img: 'v-barbie.jpg', youtube: '', title: 'The Barbie morning', thinking: '', result: '' },
+    ];
+
+    /* ---------- 7. What we tested ----------
+       TODO Viking: t.ex. 'Flavour vs caffeine', 'Still vs video'. Tom = doljs. */
+    const TESTS = [];
+
+    /* ---------- 8. Results ----------
+       { v: '3', dec: 0, suf: '', l: 'Purchases' }  -> v rullar upp som raknare
+       TODO Viking: lagg till impressions, klick, CTR, spend och CPA. */
     const STATS = [
       { v: '3', dec: 0, suf: '', l: 'Purchases' },
-      // TODO Viking: lagg till impressions, klick, CTR, spend, CPA och vad ni mer matte.
     ];
-    // TODO Viking: skriv in kampanjperiod och kalla, precis som pa startsidan.
-    const STATS_CAPTION = '';   // t.ex. 'Meta Ads Manager, 1 to 14 October 2026.'
+    // TODO Viking: kampanjperiod och kalla, t.ex. 'Meta Ads Manager, 1 to 14 October 2026.'
+    const STATS_CAPTION = '';
 
-    /* 3. The funnel. TODO Viking: en rad per steg, i ordning.
-          { b: 'Impressions', p: 'What happened in this step, one sentence.' } */
-    const FUNNEL = [];
-
-    /* 4. The ads. TODO Viking: ett kort per annons.
-          { title: 'Chocolate', desc: 'One sentence.', kpi: '3 purchases',
-            img: { src: 'images/aroma/choco.jpg', alt: 'Aroma Roast chocolate ad' } } */
-    const ADS = [];
-
-    /* 5. Per-ad comparison bars. TODO Viking: en rad per annons.
-          { label: 'Chocolate', value: 3, max: 3, unit: 'purchases' } */
+    // Per-ad comparison bars.
+    // TODO Viking: { label: 'Choco Roast', value: 84, max: 100, unit: '% of link clicks' }
     const BARS = [];
 
-    /* 6. Sessions, same shape as the Growth Toolbox page.
-          { n: '01', t: 'Session title', k: ['Keyword', 'Keyword'], hi: 0 }
-          hi ar index pa det nyckelord som ska markeras. */
+    /* ---------- 9. The analysis ----------
+       TODO Viking: fyll i punkterna. Tomma listor doljs. */
+    const ANALYSIS = {
+      see: [],         // what the numbers plainly show
+      think: [],       // what I believe it means
+      dontKnow: [],    // what the data cannot answer
+    };
+
+    /* ---------- 10. Beyond the ad ----------
+       TODO Viking: en strang per stycke om landningssidan. */
+    const BEYOND = [];
+
+    /* ---------- 11. Next steps ----------
+       TODO Viking: { t: 'Short title', b: 'One sentence.' } */
+    const NEXT_STEPS = [];
+
+    /* ---------- 12. What I learned ----------
+       PASSES: { n: '01', when: '2 Sep', t: 'Session title', k: ['Keyword'], hi: 0 }
+         hi = index of the keyword to highlight in pink.
+       TODO Viking: fyll i alla tio pass. */
     const PASSES = [];
 
-    /* 7. Tools used in the course. TODO Viking: t.ex. 'Meta Ads Manager' */
+    // Four things to keep. TODO Viking: { t: 'Short title', b: 'One sentence.' }
+    const CORE = [];
+
+    // My three notes. TODO Viking: { q: 'The question', items: ['...'] }
+    const NOTES = [];
+
+    // Tools used in the course. TODO Viking: t.ex. 'Meta Ads Manager'
     const TOOLS = [];
 
     /* ============================================================
        RENDER. You should not need to change anything below.
        ============================================================ */
+    const hide = id => { const n = document.getElementById(id); if (n) n.classList.add('hidden'); };
+    const drop = id => { const n = document.getElementById(id); if (n) n.remove(); };
 
-    // TL;DR. An entry with no body says so rather than guessing.
+    /* TL;DR. A line with no body says so rather than guessing. */
     const tl = document.getElementById('tldr-rows');
     TLDR.forEach(item => {
       const li = VK.el('li');
       li.appendChild(VK.el('b', { textContent: item.t }));
-      if (item.b) li.appendChild(document.createTextNode(item.b));
-      else li.appendChild(VK.el('span', { className: 'muted', textContent: 'Added when the case is written up.' }));
+      li.appendChild(item.b
+        ? document.createTextNode(item.b)
+        : VK.el('span', { className: 'muted', textContent: 'Added when the write-up is finished.' }));
       tl.appendChild(li);
     });
 
-    // Stat wall
+    /* The problem */
+    const pb = document.getElementById('problem-body');
+    PROBLEM.forEach(t => pb.appendChild(VK.el('p', { textContent: t })));
+    if (!PROBLEM.length) hide('problem');
+
+    /* Campaign film and the landing-page screenshot */
+    VK.mountMedia(MEDIA);
+    if (SHORT_CAPTION) document.getElementById('short-cap').textContent = SHORT_CAPTION;
+    else drop('short-cap');
+
+    /* The ads, grouped by stage */
+    function adCard(ad, isVideo) {
+      const box = VK.el('div', { className: 'ad' + (ad.win ? ' win' : '') + (isVideo ? ' vid-ad' : '') });
+      if (ad.win) box.appendChild(VK.el('span', { className: 'winner', textContent: 'Winner' }));
+
+      const shot = VK.el('figure', { className: 'adshot' });
+      if (isVideo && ad.youtube) {
+        // A real film: facade first, player on click.
+        shot.appendChild(VK.smartVideo({ youtube: ad.youtube, title: ad.title, channel: ad.id }));
+        box.appendChild(shot);
+      } else if (ad.img) {
+        // A still: click opens it full size and pushes ad_open.
+        const btn = VK.el('button', { className: 'adzoom', type: 'button' });
+        btn.dataset.full = AROMA + ad.img;
+        btn.dataset.ad = ad.id;
+        const alt = ad.sv ? 'Aroma Roast ad: ' + ad.sv : 'Aroma Roast ad: ' + (ad.title || ad.id);
+        const img = VK.smartImg({ src: AROMA + ad.img, alt: alt, w: 1024, h: 1280 }, () => shot.remove());
+        if (img) { btn.appendChild(img); shot.appendChild(btn); box.appendChild(shot); }
+      }
+
+      const body = VK.el('div', { className: 'adbody' });
+      if (ad.sv) {
+        body.appendChild(VK.el('div', { className: 'sv', textContent: '“' + ad.sv + '”' }));
+        if (ad.en) body.appendChild(VK.el('div', { className: 'en', textContent: ad.en }));
+      } else if (ad.title) {
+        body.appendChild(VK.el('div', { className: 'sv', textContent: ad.title }));
+        body.appendChild(VK.el('div', { className: 'en', textContent: 'Video ad' }));
+      }
+      if (ad.thinking) {
+        body.appendChild(VK.el('div', { className: 'lbl', textContent: 'The thinking' }));
+        body.appendChild(VK.el('p', { textContent: ad.thinking }));
+      }
+      if (ad.result) body.appendChild(VK.el('div', { className: 'res', textContent: ad.result }));
+      box.appendChild(body);
+      return box;
+    }
+
+    const stageBox = document.getElementById('stages');
+    let adsShown = 0;
+    STAGES.forEach((st, i) => {
+      const stills = ADS.filter(a => a.stage === st.id);
+      const films = VIDEO_ADS.filter(a => a.stage === st.id);
+      if (!stills.length && !films.length) return;
+
+      const wrap = VK.el('section', { className: 'stage' });
+      const head = VK.el('div', { className: 'stage-head' });
+      head.appendChild(VK.el('div', { className: 'sn', textContent: String(i + 1).padStart(2, '0') + ' ' + st.name }));
+      head.appendChild(VK.el('div', { className: 'sj', textContent: st.job }));
+      wrap.appendChild(head);
+
+      const grid = VK.el('div', { className: 'cards c3' });
+      stills.forEach(a => { grid.appendChild(adCard(a, false)); adsShown++; });
+      films.forEach(a => { grid.appendChild(adCard(a, true)); adsShown++; });
+      wrap.appendChild(grid);
+
+      if (st.result) {
+        const r = VK.el('div', { className: 'stage-result' });
+        r.appendChild(VK.el('b', { textContent: 'Stage result' }));
+        r.appendChild(document.createTextNode(st.result));
+        wrap.appendChild(r);
+      }
+      stageBox.appendChild(wrap);
+    });
+    if (!adsShown) hide('ads');
+
+    const testList = document.getElementById('tests');
+    TESTS.forEach(t => testList.appendChild(VK.el('li', { textContent: t })));
+    if (!TESTS.length) drop('tests');
+
+    /* Lightbox for the ad stills. Reuses the shared dialog but pushes
+       ad_open instead of poster_open, so the two are never mixed up. */
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    document.addEventListener('click', e => {
+      const b = e.target.closest('.adzoom');
+      if (!b) return;
+      lbImg.src = b.dataset.full;
+      const inner = b.querySelector('img');
+      lbImg.alt = inner ? inner.alt : '';
+      lb.showModal();
+      VK.push({ event: 'ad_open', channel: b.dataset.ad });
+    });
+
+    /* Results */
     const wall = document.getElementById('stat-wall');
     STATS.forEach(s => {
       const box = VK.el('div');
@@ -210,64 +517,101 @@
       box.append(v, VK.el('div', { className: 'l', textContent: s.l }));
       wall.appendChild(box);
     });
-    if (!STATS.length) wall.remove();
-    const cap = document.getElementById('stat-cap');
-    if (STATS_CAPTION) cap.textContent = STATS_CAPTION; else cap.remove();
+    if (!STATS.length) drop('stat-wall');
+    if (STATS_CAPTION) document.getElementById('stat-cap').textContent = STATS_CAPTION;
+    else drop('stat-cap');
 
-    // The "still being written up" box disappears once the funnel is in
-    if (FUNNEL.length && ADS.length) document.getElementById('todo-box').remove();
-
-    // Funnel
-    const frows = document.getElementById('funnel-rows');
-    FUNNEL.forEach((f, i) => {
-      const row = VK.el('div');
-      row.appendChild(VK.el('span', { className: 'k', textContent: String(i + 1) }));
-      const txt = VK.el('div');
-      txt.appendChild(VK.el('b', { textContent: f.b }));
-      txt.appendChild(VK.el('p', { textContent: f.p || '' }));
-      row.appendChild(txt);
-      frows.appendChild(row);
-    });
-    if (!FUNNEL.length) document.getElementById('funnel').classList.add('hidden');
-
-    // Ads
-    VK.cards('ad-cards', ADS.map(a => ({
-      href: a.href || '#ads', title: a.title, desc: a.desc, kpi: a.kpi, img: a.img, more: a.more || '',
-    })));
-
-    // Comparison bars
     const bars = document.getElementById('bars');
     BARS.forEach(b => {
       const wrap = VK.el('div', { className: 'source on', style: 'margin-top:14px' });
       const row = VK.el('div', { className: 'row' });
-      row.append(VK.el('span', { textContent: b.label }), VK.el('span', { textContent: b.value + (b.unit ? ' ' + b.unit : '') }));
+      row.append(VK.el('span', { textContent: b.label }),
+                 VK.el('span', { textContent: b.value + (b.unit ? ' ' + b.unit : '') }));
       const bar = VK.el('div', { className: 'bar' });
       const i = VK.el('i');
-      const pct = b.max ? Math.max(2, Math.round(b.value / b.max * 100)) : 0;
-      i.style.width = pct + '%';
+      i.style.width = (b.max ? Math.max(2, Math.round(b.value / b.max * 100)) : 0) + '%';
       bar.appendChild(i);
       wrap.append(row, bar);
       bars.appendChild(wrap);
     });
-    if (!ADS.length && !BARS.length) document.getElementById('ads').classList.add('hidden');
+    if (!STATS.length && !BARS.length) hide('results');
 
-    // Sessions and tools
+    /* The analysis */
+    const ag = document.getElementById('analysis-grid');
+    [
+      { h: 'What I see', items: ANALYSIS.see },
+      { h: 'What I think it means', items: ANALYSIS.think },
+      { h: 'What I cannot tell', items: ANALYSIS.dontKnow },
+    ].forEach(col => {
+      if (!col.items || !col.items.length) return;
+      const d = VK.el('div');
+      d.appendChild(VK.el('h3', { textContent: col.h }));
+      const ul = VK.el('ul');
+      col.items.forEach(t => ul.appendChild(VK.el('li', { textContent: t })));
+      d.appendChild(ul);
+      ag.appendChild(d);
+    });
+    if (!ag.children.length) hide('analysis');
+
+    /* Beyond the ad */
+    const bb = document.getElementById('beyond-body');
+    BEYOND.forEach(t => bb.appendChild(VK.el('p', { textContent: t })));
+    if (!BEYOND.length && !MEDIA.landing) hide('beyond');
+
+    /* Next steps */
+    const ns = document.getElementById('next-steps');
+    NEXT_STEPS.forEach(s => {
+      const li = VK.el('li');
+      li.appendChild(VK.el('b', { textContent: s.t }));
+      li.appendChild(document.createTextNode(s.b || ''));
+      ns.appendChild(li);
+    });
+    if (!NEXT_STEPS.length) hide('next');
+
+    /* What I learned */
     const pwrap = document.getElementById('passes');
     PASSES.forEach(p => {
       const d = VK.el('div', { className: 'pass' });
       d.appendChild(VK.el('div', { className: 'n', textContent: p.n }));
+      if (p.when) d.appendChild(VK.el('div', { className: 'when', textContent: p.when }));
       d.appendChild(VK.el('h3', { textContent: p.t }));
       const ul = VK.el('ul');
       (p.k || []).forEach((k, i) => ul.appendChild(VK.el('li', { textContent: k, className: i === p.hi ? 'hi' : '' })));
       d.appendChild(ul);
       pwrap.appendChild(d);
     });
-    if (!PASSES.length) pwrap.remove();
+    if (!PASSES.length) drop('passes');
+
+    const core = document.getElementById('core');
+    CORE.forEach((c, i) => {
+      const d = VK.el('div');
+      d.appendChild(VK.el('div', { className: 'n', textContent: String(i + 1) }));
+      d.appendChild(VK.el('h3', { textContent: c.t }));
+      d.appendChild(VK.el('p', { textContent: c.b || '' }));
+      core.appendChild(d);
+    });
+    if (!CORE.length) { drop('core'); drop('core-head'); }
+
+    const notes = document.getElementById('notes');
+    NOTES.forEach(n => {
+      const d = VK.el('div');
+      d.appendChild(VK.el('h3', { textContent: n.q }));
+      const ul = VK.el('ul');
+      (n.items || []).forEach(t => ul.appendChild(VK.el('li', { textContent: t })));
+      d.appendChild(ul);
+      notes.appendChild(d);
+    });
+    if (!NOTES.length) { drop('notes'); drop('notes-head'); }
 
     const tools = document.getElementById('tools');
     TOOLS.forEach(t => tools.appendChild(VK.el('li', { textContent: t })));
-    if (!TOOLS.length) tools.remove();
-    if (!PASSES.length && !TOOLS.length) document.getElementById('learned').classList.add('hidden');
+    if (!TOOLS.length) { drop('tools'); drop('tools-head'); }
+
+    /* Drop a sub-menu link whose section is gone or hidden */
+    document.querySelectorAll('.submenu a[href^="#"]').forEach(a => {
+      const target = document.getElementById(a.getAttribute('href').slice(1));
+      if (!target || target.classList.contains('hidden')) a.remove();
+    });
   </script>
 </body>
 </html>

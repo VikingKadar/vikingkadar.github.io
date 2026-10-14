@@ -178,14 +178,12 @@
         desc: 'How do you get 20-year-olds to pick the opera over Netflix? Same feeling, different stage.',
       },
       {
-        // TODO Viking: lagg aromaroast-datan i repot, satt ready: true och fyll i img + kpi.
-        // Kortet visas inte alls sa lange ready ar false.
-        id: 'aromaroast', ready: false,
+        id: 'aromaroast', ready: true,
         title: 'Aroma Roast',
         href: 'course-performance-marketing.html',
-        img: null,        // TODO Viking: { src: 'images/aroma/choco.jpg', alt: '...', w: 800, h: 800 }
-        kpi: '',          // TODO Viking: t.ex. antal kop fran chokladannonsen
-        desc: '',         // TODO Viking: en mening om caset
+        img: { src: 'images/aroma/choco.webp', alt: 'Aroma Roast ad: a coffee bag pressed into a chocolate cake', w: 1024, h: 1280 },
+        kpi: '3 of 3 purchases',
+        desc: 'Paid social for a real coffee brand. One ad out of six took every purchase, and 84 % of the link clicks with it.',
       },
       {
         id: 'sweden_ai', ready: true,
@@ -222,9 +220,7 @@
         id: 'performance_marketing', title: 'Performance Marketing', when: 'Sep to Oct 2026', status: 'done',
         desc: 'Paid social for a real coffee brand: ads, funnel and what the numbers said afterwards.',
         href: 'course-performance-marketing.html',
-        // TODO Viking: lagg images/aroma/ i repot och satt sokvagen har, sa dyker bilden upp:
-        // { src: 'images/aroma/choco.jpg', alt: 'Aroma Roast chocolate ad', w: 800, h: 800 }
-        img: null,
+        img: { src: 'images/aroma/choco.webp', alt: 'Aroma Roast chocolate ad', w: 1024, h: 1280 },
         kpi: '',
       },
       { id: 'seo', title: 'SEO and content', when: 'Autumn 2026', status: 'next' },

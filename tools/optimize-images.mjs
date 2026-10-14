@@ -64,6 +64,10 @@ const IMAGES_DIR = path.join(ROOT, 'images');
 //   position: for 'og' only — which part of the image to keep when
 //             cropping. 'top' is right for tall portrait posters so we
 //             keep the head/title instead of the middle.
+//   fromImages: read this one source from `images/` instead of
+//             `_originals/`. Use it when the source is already an
+//             optimized file that must not be re-compressed, such as the
+//             Aroma Roast ads that arrived ready-made.
 // ---------------------------------------------------------------------------
 
 const JOBS = [
@@ -90,6 +94,12 @@ const JOBS = [
   { src: 'första sidan.png', out: 'og-projects.jpg', format: 'og' },
   { src: 'första sidan.png', out: 'og-toolbox.jpg',  format: 'og' },
   { src: 'rostning.png',     out: 'og-fororten.jpg', format: 'og' },
+
+  // --- Aroma Roast ---
+  // The six ad images arrive already compressed at 1024x1280 and are NOT
+  // re-encoded here. Only the social card is generated, read straight from
+  // the finished WebP in images/aroma/.
+  { src: 'aroma/choco.webp', out: 'og-aromaroast.jpg', format: 'og', fromImages: true },
 ];
 
 // ---------------------------------------------------------------------------
@@ -139,7 +149,9 @@ async function main() {
   const notUpscaled = [];
 
   for (const job of JOBS) {
-    const srcPath = path.join(sourceDir, job.src);
+    // A job marked `fromImages` always reads from images/, even when an
+    // _originals/ folder exists, because its source is already optimized.
+    const srcPath = path.join(job.fromImages ? IMAGES_DIR : sourceDir, job.src);
     const outPath = path.join(IMAGES_DIR, job.out);
 
     // Missing source? Report it and carry on with the rest.
