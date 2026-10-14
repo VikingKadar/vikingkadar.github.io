@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Viking Kadar – Strategist and growth marketer</title>
-  <meta name="description" content="Viking Kadar. Strategy, growth and AI production. 41.8M TikTok views in four months. Studying Growth Marketing at Berghs, open for a six-week internship March to April 2027.">
+  <title>Viking Kadar – Growth marketer</title>
+  <meta name="description" content="I'm Viking Kadar, a growth marketer. I grew the TikTok account Sweden AI to 41.8 million views in four months. Studying Growth Marketing at Berghs, looking for a six-week internship March to April 2027.">
   <link rel="canonical" href="https://vikingkadar.github.io/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vikingkadar.github.io/">
@@ -31,6 +31,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="images/hero.webp" imagesrcset="images/hero-960.webp 960w, images/hero.webp 1344w" imagesizes="100vw" fetchpriority="high">
   <link rel="stylesheet" href="assets/site.css">
+  <style>
+    /* The hero photo is a campaign poster with its own headline on it.
+       A heavy scrim keeps that type unreadable so it reads as texture,
+       never as competing copy. */
+    .hero-bg::after{content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.80) 45%,rgba(0,0,0,.92) 100%)}
+    .hero-bg img{filter:grayscale(1) contrast(1.05) brightness(.42)}
+  </style>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -41,8 +49,8 @@
     <a href="#top"><strong>Viking Kadar</strong></a>
     <ul>
       <li><a href="#work">Work</a></li>
-      <li><a href="#courses">Courses</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#courses">Courses</a></li>
       <li><a href="#about">About</a></li>
     </ul>
     <div class="nav-right">
@@ -54,26 +62,28 @@
   <div class="overlay" id="overlay">
     <button class="close" id="menu-close">Close</button>
     <a href="#work">Work</a>
-    <a href="#courses">Courses</a>
     <a href="#projects">Projects</a>
+    <a href="#courses">Courses</a>
     <a href="#about">About</a>
     <a href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+    <div class="cta" id="cv-menu" style="margin-top:28px"></div>
   </div>
 
   <header class="hero" id="top">
     <!-- Hero image sits directly in the HTML, not in MEDIA, so the browser can
-         start downloading it immediately. Swap the two filenames to change it.
-         If the file is missing the image removes itself and the gradient shows. -->
+         start downloading it immediately. If images/hero-clean.webp exists it
+         is used instead, see the script at the end of this page.
+         A missing file removes itself and the gradient shows. -->
     <div class="hero-bg">
-      <img src="images/hero.webp" srcset="images/hero-960.webp 960w, images/hero.webp 1344w" sizes="100vw"
+      <img id="hero-img" src="images/hero.webp" srcset="images/hero-960.webp 960w, images/hero.webp 1344w" sizes="100vw"
            alt="" width="1344" height="752" fetchpriority="high" decoding="async" onerror="this.remove()">
     </div>
     <div>
       <h1 class="disp"><span>Ideas that</span><span>move numbers</span></h1>
-      <div class="hero-stats" aria-label="Highlights"><span>41.8M views</span><span>1,000 sneakers resold</span><span>500 belts sold out</span><span>89.5% For You feed</span></div>
+      <div class="hero-stats" aria-label="Highlights"><span>41.8M views, earned</span><span>500 belts sold out</span><span>1 ad of 6 drove 100% of purchases</span></div>
       <div class="hero-row">
-        <p>Viking Kadar is <b id="rotor">a strategist</b>. Built the TikTok account Sweden AI to 41.8 million views in four months. Studying Growth Marketing at Berghs, looking for a six-week internship in March and April.</p>
-        <div class="cta">
+        <p>I'm Viking Kadar, a <b id="role">growth marketer</b>. I grew the TikTok account Sweden AI to 41.8 million views in four months. Studying Growth Marketing at Berghs, looking for a six-week internship, March to April 2027.</p>
+        <div class="cta" id="cv-hero">
           <a class="btn solid" href="mailto:viking@posterlab.ai?subject=Internship" data-track="contact_click" data-channel="email_hero">Email me</a>
           <a class="btn" href="#work">See the work</a>
         </div>
@@ -84,41 +94,29 @@
   <section class="sec" id="work">
     <div class="head">
       <h2 class="disp">Selected<br>work</h2>
-      <p class="sub">Three cases. An idea, a number, and what I would do next.</p>
+      <p class="sub" id="work-sub"></p>
     </div>
     <div class="cards c3" id="work-cards"></div>
   </section>
 
-  <section class="sec inv" id="courses">
+  <section class="sec inv" id="projects">
+    <div class="head">
+      <h2 class="disp">My own<br>projects</h2>
+      <p class="sub">Outside school. My own time, my own money, my own numbers.</p>
+    </div>
+    <div class="cards c3" id="project-cards"></div>
+    <div class="cta" style="margin-top:clamp(28px,4vh,44px)">
+      <a class="btn" href="projects.html" data-track="project_open" data-channel="all_projects">All projects in full →</a>
+    </div>
+  </section>
+
+  <section class="sec" id="courses">
     <div class="head">
       <h2 class="disp">Course by course</h2>
       <p class="sub">One year at Berghs. Every finished course has its own page.</p>
     </div>
     <div class="cards c3" id="course-cards"></div>
     <div class="upnext" id="upnext"><h3>Up next</h3><ul id="upnext-list"></ul></div>
-  </section>
-
-  <section class="sec" id="projects">
-    <div class="head">
-      <h2 class="disp">My own<br>projects</h2>
-      <p class="sub">Outside school. My own time, my own money, my own numbers.</p>
-    </div>
-
-    <div class="stats" aria-label="Sweden AI on TikTok, 30 December 2025 to 28 April 2026">
-      <div><div class="v"><span data-count="41.8" data-dec="1" data-suf="M">0</span></div><div class="l">Post views</div></div>
-      <div><div class="v"><span data-count="3.3" data-dec="1" data-suf="M">0</span></div><div class="l">Likes</div></div>
-      <div><div class="v"><span data-count="872400">0</span></div><div class="l">Shares</div></div>
-      <div><div class="v"><span data-count="282700">0</span></div><div class="l">Profile views</div></div>
-      <div><div class="v"><span data-count="30700">0</span></div><div class="l">Comments</div></div>
-      <div><div class="v"><span data-count="23000">0</span></div><div class="l">Followers</div></div>
-    </div>
-    <div class="source" id="source">
-      <div class="row"><span>Share of views from the For You feed</span><span>89.5%</span></div>
-      <div class="bar"><i></i></div>
-    </div>
-    <p class="stats-cap">Sweden AI on TikTok, 30 December 2025 to 28 April 2026. Almost all of the reach is earned, not paid.</p>
-
-    <div class="cards c4" id="project-cards" style="margin-top:clamp(32px,5vh,56px)"></div>
   </section>
 
   <section class="sec inv" id="about">
@@ -129,15 +127,9 @@
     <div class="about">
       <figure class="portrait" id="portrait"></figure>
       <div>
-        <p class="lead">High energy. Inventive. Sharp.</p>
+        <p class="lead">Give me a problem, a deadline and access to the data.</p>
         <p>I love two things equally: the idea that makes people stop, and the number that proves it worked. Strategy without impact is a pretty deck. Impact without an idea is a spreadsheet. I want both.</p>
-        <p>Give me a problem, a deadline and access to the data.</p>
-        <ul class="chips" aria-label="Tools">
-          <li>GTM</li><li>GA4</li><li>Looker Studio</li><li>Chart.js</li><li>HTML/CSS/JS</li><li>GitHub</li><li>Midjourney</li><li>Seedance</li><li>Claude</li><li>Figma</li>
-        </ul>
-        <div class="cta" style="margin-top:28px">
-          <a class="btn" href="projects.html" data-track="project_open" data-channel="about_all">All projects →</a>
-        </div>
+        <div id="tools" style="margin-top:28px"></div>
       </div>
     </div>
   </section>
@@ -146,6 +138,7 @@
     <h2 class="disp">Get in touch</h2>
     <a class="mail" href="mailto:viking@posterlab.ai?subject=Internship" data-track="contact_click" data-channel="email">viking@posterlab.ai</a>
     <p>Right now I'm looking for a six-week internship, March to April 2027. One email is enough, I reply fast.</p>
+    <div class="cta" id="cv-contact" style="margin-bottom:24px"></div>
     <ul>
       <li><a href="https://www.linkedin.com/in/viking-kadar-52895a234/" target="_blank" rel="noopener" data-track="contact_click" data-channel="linkedin">LinkedIn</a></li>
       <li><a href="https://www.tiktok.com/@sweden_ai" target="_blank" rel="noopener" data-track="contact_click" data-channel="tiktok">TikTok, Sweden AI</a></li>
@@ -161,98 +154,135 @@
   <script src="assets/site.js"></script>
   <script>
     /* ============================================================
-       EDIT HERE. Two lists run this page: CASES and COURSES.
-       Anything whose image file is missing hides itself quietly,
-       so it is safe to point at a file before you have uploaded it.
-       The hero image is in the HTML above, not here.
+       EDIT HERE. Three lists run this page: CASES, PROJECTS, COURSES.
+       Anything whose image file is missing hides itself quietly, so it
+       is safe to point at a file before you have uploaded it.
        ============================================================ */
 
-    /* ---------- Selected work: three big cards ---------- */
+    const ROLE = 'growth marketer';   // TODO Viking: byt om du vill. Styr hero-texten.
+
+    // Set to true once case-sweden-ai.html is ready to be shown off.
+    // While false, the Sweden AI card links to the projects page instead.
+    const SWEDEN_AI_READY = false;    // TODO Viking: satt true nar Sweden AI-caset ar ifyllt.
+
+    const MEDIA = {
+      portrait: { src: 'images/portrait.webp', alt: 'Viking Kadar', w: 900, h: 1602 },
+      // A cleaner hero without poster type on it. Drop the file in and it
+      // takes over automatically; until then the scrimmed poster is used.
+      heroClean: 'images/hero-clean.webp',
+      // A one-page CV. The button only appears if the file actually answers.
+      cv: 'cv.pdf',                   // TODO Viking: lagg cv.pdf i roten sa dyker knapparna upp.
+    };
+
+    /* ---------- Selected work ---------- */
     const CASES = [
       {
-        id: 'opera', ready: true,
-        title: 'The Royal Opera',
-        href: 'course-opera.html',
-        img: { src: 'images/fotboll-800.webp', alt: 'Poster: an opera singer in tails in front of a stand with flares', w: 800, h: 1189 },
-        kpi: '3 posters, 2 AI films',
-        desc: 'How do you get 20-year-olds to pick the opera over Netflix? Same feeling, different stage.',
+        id: 'sweden_ai', ready: true,
+        title: 'Sweden AI',
+        href: SWEDEN_AI_READY ? 'case-sweden-ai.html' : 'projects.html#sweden-ai',
+        // TODO Viking: lagg en skarmdump av kontot som images/swedenai-800.webp.
+        // Finns den inte visas kortet som ett svart sifferkort i stallet.
+        img: { src: 'images/swedenai-800.webp', alt: 'The Sweden AI TikTok account', w: 800, h: 600 },
+        kpi: '41.8M views in four months',
+        desc: 'I teach AI video in a way people can use the same evening. Almost all of the reach is earned, not paid.',
       },
       {
         id: 'aromaroast', ready: true,
         title: 'Aroma Roast',
         href: 'course-performance-marketing.html',
         img: { src: 'images/aroma/choco.webp', alt: 'Aroma Roast ad: a coffee bag pressed into a chocolate cake', w: 1024, h: 1280 },
-        kpi: '3 of 3 purchases',
-        desc: 'Paid social for a real coffee brand. One ad out of six took every purchase, and 84 % of the link clicks with it.',
+        kpi: '1 ad of 6 drove 100% of purchases',
+        desc: 'Paid social for a real coffee brand. Six ads went live, one took every purchase and 84% of the link clicks.',
       },
       {
-        id: 'sweden_ai', ready: true,
-        title: 'Sweden AI',
-        href: 'projects.html#sweden-ai',
-        // TODO Viking: lagg en skarmdump av TikTok-kontot i images/ och peka hit, t.ex. images/swedenai-800.webp
-        img: null,
-        kpi: '41.8M views',
-        desc: 'A TikTok account that teaches AI video in a way people can use the same evening. Four months, earned reach.',
+        id: 'opera', ready: true,
+        title: 'The Royal Opera',
+        href: 'course-opera.html',
+        // TODO Viking: ett resultat, inte en leveranslista. Tomt kpi = raden doljs.
+        kpi: '',
+        img: { src: 'images/fotboll.webp', alt: 'Campaign poster: an opera singer in tails in front of a stand with flares', w: 1200, h: 1783, whole: true },
+        desc: 'How do you get 20-year-olds to pick the opera over Netflix? I borrowed a feeling they already have and moved it to another stage.',
       },
+    ];
+
+    /* ---------- My own projects ----------
+       Sweden AI is not here: it already leads Selected work above. */
+    const PROJECTS = [
+      { id: 'posterlab', title: 'PosterLab', href: 'projects.html#posterlab', kpi: 'AI startup',
+        desc: 'Photo of your dog in, framed oil painting out. One funnel, my own money on the line.' },
+      { id: 'manor', title: 'William Manor', href: 'projects.html#manor', kpi: '500 belts',
+        desc: 'Guerrilla marketing for a belt brand. The full stock sold out in four months.' },
+      { id: 'sneakers', title: 'Sneaker reselling', href: 'projects.html#sneakers', kpi: '150K a month',
+        desc: 'Roughly 1,000 pairs sold as a teenager. The best sales training I could have had.' },
     ];
 
     /* ---------- Courses ----------
        status: 'done' | 'ongoing' | 'next'
        'next' with no href becomes a grey chip under "Up next".
-       Fields: id, title, when, status, desc, href, img, kpi
+       Course images never repeat an image used in Selected work.
        ============================================================ */
     const COURSES = [
       {
         id: 'opera', title: 'Royal Swedish Opera', when: 'Aug 2026', status: 'done',
-        desc: 'Campaign concept for a real client, together with students from Berghs\' other programmes.',
+        desc: 'Campaign concept for a real client, with students from Berghs\' other programmes.',
         href: 'course-opera.html',
-        img: { src: 'images/fotboll-800.webp', alt: 'Campaign poster for the Royal Swedish Opera', w: 800, h: 1189 },
-        kpi: '',
+        img: { src: 'images/hearthbreak.webp', alt: 'Campaign poster: roses in a rubbish bin', w: 1200, h: 1783, whole: true },
       },
       {
         id: 'growth_toolbox', title: 'Growth Toolbox', when: 'Aug to Sep 2026', status: 'done',
-        desc: 'Measurement and analysis: GA4, Google Tag Manager, scraping, dashboards and a data story.',
+        desc: 'Measurement and analysis: GA4, Tag Manager, scraping, dashboards and a data story.',
         href: 'course-growth-toolbox.html',
         img: { src: 'images/rostning-800.webp', alt: 'Chart from the election turnout data story', w: 800, h: 448 },
-        kpi: '',
       },
       {
         id: 'performance_marketing', title: 'Performance Marketing', when: 'Sep to Oct 2026', status: 'done',
         desc: 'Paid social for a real coffee brand: ads, funnel and what the numbers said afterwards.',
         href: 'course-performance-marketing.html',
-        img: { src: 'images/aroma/choco.webp', alt: 'Aroma Roast chocolate ad', w: 1024, h: 1280 },
-        kpi: '',
+        img: { src: 'images/aroma/everyday.webp', alt: 'Aroma Roast ad: a coffee bag on a bed of beans', w: 1024, h: 1280 },
       },
       { id: 'seo', title: 'SEO and content', when: 'Autumn 2026', status: 'next' },
       { id: 'web_analytics', title: 'Web analytics and data', when: 'Autumn 2026', status: 'next' },
       { id: 'cro', title: 'Conversion rate optimisation', when: 'Spring 2027', status: 'next' },
-      // TODO Viking: kolla i Canvas om Paid media ar en egen kurs. Lag den tillbaka har om den ar det.
+      // TODO Viking: kolla i Canvas om Paid media ar en egen kurs. Lagg den tillbaka har om den ar det.
       { id: 'ecommerce', title: 'E-commerce', when: 'Spring 2027', status: 'next' },
       { id: 'internship', title: 'Internship, six weeks', when: 'March to April 2027', status: 'next' },
     ];
-
-    /* ---------- My own projects: four small cards ---------- */
-    const PROJECTS = [
-      { id: 'sweden_ai', title: 'Sweden AI', href: 'projects.html#sweden-ai', kpi: '41.8M', desc: 'A TikTok account about AI video. The numbers above are its first four months.' },
-      { id: 'posterlab', title: 'PosterLab', href: 'projects.html#posterlab', kpi: 'Founder', desc: 'My AI company. Photo of your dog in, framed oil painting out, one single funnel.' },
-      { id: 'manor', title: 'William Manor', href: 'projects.html#manor', kpi: '500', desc: 'Guerrilla marketing for a belt brand. The full stock sold out in four months.' },
-      { id: 'sneakers', title: 'Sneaker reselling', href: 'projects.html#sneakers', kpi: '150K', desc: 'Roughly 1,000 pairs sold as a teenager, about SEK 150,000 a month at the peak.' },
-    ];
-
-    /* ---------- Portrait in About ---------- */
-    const MEDIA = {
-      portrait: { src: 'images/portrait.webp', alt: 'Viking Kadar', w: 900, h: 1602 },
-    };
 
     /* ============================================================
        RENDER. You should not need to change anything below.
        ============================================================ */
     const statusLabel = { done: 'Done', ongoing: 'Ongoing', next: 'Up next' };
+    const countWord = { 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six' };
 
-    // Selected work
-    VK.cards('work-cards', CASES.filter(c => c.ready !== false).map(c => ({
+    // The role word drives the hero sentence.
+    document.getElementById('role').textContent = ROLE;
+
+    // A cleaner hero image wins if it exists.
+    if (MEDIA.heroClean) {
+      const probe = new Image();
+      probe.onload = () => {
+        const hero = document.getElementById('hero-img');
+        if (!hero) return;
+        hero.removeAttribute('srcset');
+        hero.src = MEDIA.heroClean;
+      };
+      probe.src = MEDIA.heroClean;
+    }
+
+    // Selected work. The heading counts the cards that actually rendered.
+    const shown = CASES.filter(c => c.ready !== false);
+    VK.cards('work-cards', shown.map(c => ({
       href: c.href, title: c.title, desc: c.desc, kpi: c.kpi, img: c.img,
       more: 'Read the case →', event: 'case_open', channel: c.id,
+    })));
+    document.getElementById('work-sub').textContent =
+      (countWord[shown.length] || shown.length) + (shown.length === 1 ? ' case' : ' cases') +
+      '. An idea, a number, and what I would do next.';
+
+    // Own projects
+    VK.cards('project-cards', PROJECTS.map(p => ({
+      href: p.href, title: p.title, kpi: p.kpi, desc: p.desc,
+      more: 'Open →', event: 'project_open', channel: p.id,
     })));
 
     // Courses: finished and ongoing become cards, the rest become chips
@@ -271,18 +301,25 @@
     });
     if (!nextList.children.length) document.getElementById('upnext').remove();
 
-    // Own projects
-    VK.cards('project-cards', PROJECTS.map(p => ({
-      href: p.href, title: p.title, kpi: p.kpi, desc: p.desc,
-      more: 'Open →', event: 'project_open', channel: p.id,
-    })));
+    // Posters are shown whole, so a headline is never cropped mid-word.
+    document.querySelectorAll('.card .shot').forEach((shot, i) => {
+      const src = shot.querySelector('img');
+      if (!src) return;
+      const all = [...CASES, ...COURSES].find(x => x.img && src.src.indexOf(x.img.src) > -1);
+      if (all && all.img.whole) shot.classList.add('whole');
+    });
 
-    // Portrait
+    // Portrait and the grouped tool list
     const portrait = VK.smartImg(MEDIA.portrait);
     if (portrait) document.getElementById('portrait').appendChild(portrait);
+    VK.tools('tools');
 
-    // The rotating word in the hero
-    VK.rotor('rotor', ['a strategist', 'a growth hacker', 'an AI builder', 'inventive as hell', 'open for internships']);
+    // CV buttons, only if the file answers
+    VK.cv(MEDIA.cv, [
+      { sel: '#cv-hero', label: 'Download CV', className: 'btn' },
+      { sel: '#cv-contact', label: 'Download CV', className: 'btn' },
+      { sel: '#cv-menu', label: 'Download CV', className: 'btn' },
+    ]);
   </script>
 </body>
 </html>
