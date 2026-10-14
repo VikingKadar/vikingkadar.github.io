@@ -40,8 +40,8 @@
     <a href="index.html"><strong>Viking Kadar</strong></a>
     <ul>
       <li><a href="index.html#work">Work</a></li>
-      <li><a href="index.html#courses">Courses</a></li>
       <li><a href="projects.html">Projects</a></li>
+      <li><a href="index.html#courses">Courses</a></li>
       <li><a href="index.html#about">About</a></li>
     </ul>
     <div class="nav-right">
@@ -53,8 +53,8 @@
   <div class="overlay" id="overlay">
     <button class="close" id="menu-close">Close</button>
     <a href="index.html#work">Work</a>
-    <a href="index.html#courses">Courses</a>
     <a href="projects.html">Projects</a>
+    <a href="index.html#courses">Courses</a>
     <a href="index.html#about">About</a>
     <a href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
   </div>
@@ -179,6 +179,10 @@
     // Samma varde som API_DEMO_URL i toolbox.html.
     const API_DEMO_URL = '';
 
+    // false doljer API-kortet och dess rad for besokare. toolbox.html#api
+    // ligger kvar och fungerar, sa lararen kan fortfarande oppna den.
+    const SHOW_PEPTIDE_API = true;   // TODO Viking: satt false om du vill dolja det utat.
+
     /* ---------- Deliverables ----------
        status: 'done' | 'partial' | 'todo'
        ============================================================ */
@@ -234,8 +238,9 @@
     const statusChip = { done: 'Done', partial: 'In progress', todo: 'Not published yet' };
 
     const rows = document.getElementById('deliv-rows');
-    let pending = 0;
-    DELIVERABLES.forEach(d => {
+    // Only deliverables that actually have a link are listed. A row with
+    // nothing to click is not evidence, so it is left out until it is.
+    DELIVERABLES.filter(d => d.href && (SHOW_PEPTIDE_API || d.href.indexOf('toolbox.html#api') !== 0)).forEach(d => {
       const tr = VK.el('tr');
       const td1 = VK.el('td');
       td1.appendChild(VK.el('b', { textContent: d.what }));
@@ -243,24 +248,17 @@
       const td2 = VK.el('td');
       td2.appendChild(VK.el('span', { className: 'chip' + (d.status === 'done' ? ' on' : ''), textContent: statusChip[d.status] }));
       const td3 = VK.el('td');
-      if (d.href) {
-        const a = VK.el('a', { href: d.href, textContent: d.label });
-        if (d.href.indexOf('http') === 0) { a.target = '_blank'; a.rel = 'noopener'; }
-        if (d.href === 'fororten.html' || d.href.indexOf('toolbox.html') === 0) {
-          a.dataset.track = 'data_story_open';
-          a.dataset.channel = d.href === 'fororten.html' ? 'fororten_deliverables' : 'api_deliverables';
-        }
-        td3.appendChild(a);
-      } else {
-        pending++;
-        td3.appendChild(VK.el('span', { className: 'muted', textContent: 'Link added when it is published' }));
+      const a = VK.el('a', { href: d.href, textContent: d.label });
+      if (d.href.indexOf('http') === 0) { a.target = '_blank'; a.rel = 'noopener'; }
+      if (d.href === 'fororten.html' || d.href.indexOf('toolbox.html') === 0) {
+        a.dataset.track = 'data_story_open';
+        a.dataset.channel = d.href === 'fororten.html' ? 'fororten_deliverables' : 'api_deliverables';
       }
+      td3.appendChild(a);
       tr.append(td1, td2, td3);
       rows.appendChild(tr);
     });
-    document.getElementById('deliv-note').textContent = pending
-      ? pending + ' of ' + DELIVERABLES.length + ' items are still waiting on a public link. The rest are live and clickable.'
-      : 'Every item above is published and clickable.';
+    document.getElementById('deliv-note').remove();
 
     const erows = document.getElementById('event-rows');
     EVENTS.forEach(ev => {
@@ -275,19 +273,22 @@
       erows.appendChild(tr);
     });
 
-    // Dashboard screenshot and link, both optional
-    VK.mountMedia(MEDIA);
-    document.getElementById('dash-note').textContent = MEDIA.measurement
-      ? 'Built in Looker Studio on the events in the table above.'
-      : 'The dashboard is built in Looker Studio on the events in the table above. Screenshot and shared link go here.';
-    if (DASHBOARD_URL) {
+    // The dashboard block only exists once there is a screenshot to show.
+    // No screenshot means the whole block goes, heading and text included.
+    if (!MEDIA.measurement) {
+      document.getElementById('measure-block').remove();
+    } else {
+      VK.mountMedia(MEDIA);
+      document.getElementById('dash-note').textContent = 'Built in Looker Studio on the events in the table above.';
+    }
+    if (MEDIA.measurement && DASHBOARD_URL) {
       const a = VK.el('a', { className: 'btn solid', href: DASHBOARD_URL, textContent: 'Open the dashboard →' });
       a.target = '_blank'; a.rel = 'noopener';
       a.dataset.track = 'data_story_open'; a.dataset.channel = 'dashboard';
       document.getElementById('dash-cta').appendChild(a);
     }
 
-    // The two big deliverables as cards
+    // The big deliverables as cards. The API card can be switched off.
     VK.cards('toolbox-cards', [
       {
         href: 'fororten.html', title: 'The suburbs woke up',
@@ -302,8 +303,9 @@
         kpi: '20 sources',
         img: null,
         more: 'See the API →', event: 'data_story_open', channel: 'api',
+        show: SHOW_PEPTIDE_API,
       },
-    ]);
+    ].filter(c => c.show !== false));
   </script>
 </body>
 </html>

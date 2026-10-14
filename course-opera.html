@@ -40,8 +40,8 @@
     <a href="index.html"><strong>Viking Kadar</strong></a>
     <ul>
       <li><a href="index.html#work">Work</a></li>
-      <li><a href="index.html#courses">Courses</a></li>
       <li><a href="projects.html">Projects</a></li>
+      <li><a href="index.html#courses">Courses</a></li>
       <li><a href="index.html#about">About</a></li>
     </ul>
     <div class="nav-right">
@@ -53,8 +53,8 @@
   <div class="overlay" id="overlay">
     <button class="close" id="menu-close">Close</button>
     <a href="index.html#work">Work</a>
-    <a href="index.html#courses">Courses</a>
     <a href="projects.html">Projects</a>
+    <a href="index.html#courses">Courses</a>
     <a href="index.html#about">About</a>
     <a href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
   </div>
@@ -100,7 +100,7 @@
     </div>
 
     <div class="quote">
-      <blockquote>Outside the box, but with a through-line. That's the balance I chase: as far out as you can go without losing grip of what's being sold.<cite>Client feedback from the Royal Swedish Opera brief, summarised. My role: idea and concept; the group refined and packaged it together.</cite></blockquote>
+      <blockquote id="quote"></blockquote>
       <ul>
         <li><b>Format beats picture.</b>A strong concept is a format. That's what lets it grow.</li>
         <li><b>Recognition needs a next step.</b>Madame O takes you from "that's so me" to a ticket.</li>
@@ -167,6 +167,16 @@
        Empty string '' or empty list [] = the element is not shown.
        A file that is missing on the server disappears silently.
        ============================================================ */
+    /* The client quote. Fill in name and title and the attribution line
+       becomes a real credit. Leave name empty and it stays as the
+       summarised note it is today.
+       TODO Viking: exakt citat samt namn och titel pa den som sa det. */
+    const QUOTE = {
+      text: 'Outside the box, but with a through-line. That\'s the balance I chase: as far out as you can go without losing grip of what\'s being sold.',
+      name: '',
+      title: '',
+    };
+
     const MEDIA = {
       // The concept film. Either a YouTube id OR a local mp4, not both.
       // TODO Viking: ladda upp konceptfilmen olistad pa YouTube och klistra in id:t har.
@@ -198,6 +208,18 @@
     /* ============================================================
        RENDER. You should not need to change anything below.
        ============================================================ */
+
+    // The quote, with whichever attribution is available
+    const q = document.getElementById('quote');
+    if (QUOTE.text) {
+      q.appendChild(document.createTextNode(QUOTE.text));
+      const credit = QUOTE.name
+        ? QUOTE.name + (QUOTE.title ? ', ' + QUOTE.title : '') + ', the Royal Swedish Opera brief.'
+        : 'Client feedback from the Royal Swedish Opera brief, summarised. My role: idea and concept; the group refined and packaged it together.';
+      q.appendChild(VK.el('cite', { textContent: credit }));
+    } else {
+      q.closest('.quote').remove();
+    }
 
     // Poster strip, each poster opens in the lightbox
     const strip = document.getElementById('strip');

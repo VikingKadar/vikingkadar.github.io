@@ -37,8 +37,8 @@
     <a href="index.html"><strong>Viking Kadar</strong></a>
     <ul>
       <li><a href="index.html#work">Work</a></li>
-      <li><a href="index.html#courses">Courses</a></li>
       <li><a href="projects.html">Projects</a></li>
+      <li><a href="index.html#courses">Courses</a></li>
       <li><a href="index.html#about">About</a></li>
     </ul>
     <div class="nav-right">
@@ -50,8 +50,8 @@
   <div class="overlay" id="overlay">
     <button class="close" id="menu-close">Close</button>
     <a href="index.html#work">Work</a>
-    <a href="index.html#courses">Courses</a>
     <a href="projects.html">Projects</a>
+    <a href="index.html#courses">Courses</a>
     <a href="index.html#about">About</a>
     <a href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
   </div>
@@ -85,11 +85,11 @@
 
     <div class="sources2">
       <div>
-        <h3><span>10</span>research platforms</h3>
+        <h3><span id="platforms-n"></span>research platforms</h3>
         <ul id="platforms"></ul>
       </div>
       <div>
-        <h3><span>10</span>forums and communities</h3>
+        <h3><span id="forums-n"></span>forums and communities</h3>
         <ul id="forums"></ul>
       </div>
     </div>
@@ -125,7 +125,10 @@
       <h2 class="disp">What I<br>learned</h2>
       <p class="sub">Ten sessions, the class memory round and my own notes. Short and visual.</p>
     </div>
-    <div class="passes" id="passes"></div>
+    <details class="more-box" id="sessions">
+      <summary>See all ten sessions</summary>
+      <div class="passes" id="passes"></div>
+    </details>
   </section>
 
   <section class="sec" id="kluster">
@@ -220,12 +223,16 @@
     const TOOLS = ['Terminal', 'git / GitHub Pages', 'VS Code', 'HTML / CSS', 'Inspect: Elements · Console · Network', 'dataLayer', 'GTM', 'GA4', 'Node.js + cheerio', 'Agent Reach', 'APIs', 'Kaggle', 'Google Sheets', 'Chart.js', 'Google Data Studio', 'LLM / Antigravity'];
 
     /* ---------- render ---------- */
-    const fill = (id, list, total) => {
+    // Only the sources that are actually named get listed, and the number
+    // above each list is whatever the list holds. Nothing is padded out.
+    // TODO Viking: fyll pa listorna ovan med resten av kallorna.
+    const fill = (id, list) => {
       const ul = document.getElementById(id);
-      list.forEach(s => ul.appendChild(VK.el('li', { textContent: s })));
-      for (let i = list.length; i < total; i++) ul.appendChild(VK.el('li', { className: 'todo', textContent: 'Source ' + (i + 1) + ' to be added' }));
+      list.forEach(src => ul.appendChild(VK.el('li', { textContent: src })));
+      const n = document.getElementById(id + '-n');
+      if (n) n.textContent = String(list.length);
     };
-    fill('platforms', PLATFORMS, 10); fill('forums', FORUMS, 10);
+    fill('platforms', PLATFORMS); fill('forums', FORUMS);
 
     const wrap = document.getElementById('passes');
     PASSES.forEach(p => {
