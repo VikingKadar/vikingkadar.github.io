@@ -172,7 +172,11 @@ async function main() {
         .resize(OG_WIDTH, OG_HEIGHT, {
           fit: 'cover',
           position: job.position ?? 'centre',
-          withoutEnlargement: true, // keep the no-upscale promise
+          // Social cards are the one exception to the no-upscale rule. A card
+          // must be exactly 1200x630 and full-bleed: LinkedIn and friends
+          // render it as a small thumbnail, where a modest upscale is
+          // invisible but white letterbox bars are immediately obvious.
+          withoutEnlargement: false,
         })
         .flatten({ background: '#ffffff' }) // JPEG has no transparency
         .jpeg({ quality: JPEG_QUALITY, mozjpeg: true })
