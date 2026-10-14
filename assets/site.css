@@ -511,3 +511,14 @@ dl.facts{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:20px 0 
 dl.facts dt{font-family:var(--disp);text-transform:uppercase;font-size:11px;letter-spacing:.09em;color:var(--g);padding-top:3px}
 .inv dl.facts dt{color:var(--gd)}
 dl.facts dd{margin:0}
+
+/* ---------- No gaps in a card grid ----------
+   Three cards in a two-column layout would leave one empty cell, so the
+   odd card out stretches across both columns instead. */
+@media(min-width:620px) and (max-width:859px){
+  .cards.c3:has(>:last-child:nth-child(3))>:last-child,
+  .cards.c4:has(>:last-child:nth-child(3))>:last-child{grid-column:span 2}
+}
+@media(min-width:760px) and (max-width:859px){
+  .cards.c2:has(>:last-child:nth-child(3))>:last-child{grid-column:span 2}
+}
