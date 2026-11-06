@@ -4,3 +4,4 @@ _originals/
 
 # Dependencies for the local image pipeline.
 tools/node_modules/
+tools/qa-shots/
