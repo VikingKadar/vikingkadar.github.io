@@ -97,15 +97,21 @@ window.VK = (function () {
     btn.setAttribute('aria-label', 'Play video: ' + (item.title || 'video'));
     // A local poster wins when one is given; otherwise YouTube's own thumbnail.
     // If neither answers, the title sits on a dark card instead of a black hole.
-    const thumb = item.poster && item.poster.src
-      ? el('img', { src: item.poster.src, alt: '', loading: 'lazy', decoding: 'async', width: item.poster.w || 480, height: item.poster.h || 360 })
-      : el('img', { src: 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg', alt: '', loading: 'lazy', decoding: 'async', width: 480, height: 360 });
-    thumb.addEventListener('error', () => {
-      thumb.remove();
+    const noThumb = () => {
       box.classList.add('nothumb');
       if (item.title) btn.insertBefore(el('span', { class: 'ph', attrs: { 'aria-hidden': 'true' } }, item.title), btn.firstChild);
-    }, { once: true });
-    btn.append(thumb, el('span', { class: 'play', attrs: { 'aria-hidden': 'true' } }));
+    };
+    if (item.noThumb) {
+      // noThumb: true in content.js = ask YouTube for nothing (used while a video is not public).
+      noThumb();
+    } else {
+      const thumb = item.poster && item.poster.src
+        ? el('img', { src: item.poster.src, alt: '', loading: 'lazy', decoding: 'async', width: item.poster.w || 480, height: item.poster.h || 360 })
+        : el('img', { src: 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg', alt: '', loading: 'lazy', decoding: 'async', width: 480, height: 360 });
+      thumb.addEventListener('error', () => { thumb.remove(); noThumb(); }, { once: true });
+      btn.appendChild(thumb);
+    }
+    btn.appendChild(el('span', { class: 'play', attrs: { 'aria-hidden': 'true' } }));
     if (item.title && !item.noLabel) btn.appendChild(el('span', { class: 'lbl' }, item.title));
     btn.addEventListener('click', () => {
       push({ event: 'video_play', channel: item.channel || id });

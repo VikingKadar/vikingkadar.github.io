@@ -140,8 +140,8 @@ window.CONTENT = {
     watch: [
       { youtube: 'NgQOyPT9oE8', title: 'Heart rate – The Royal Opera',               channel: 'heartrate',   href: 'course-opera.html',                 vertical: false },
       { youtube: '7hQMbcbGAZM', title: 'Madame O – The Royal Opera',                 channel: 'madameo',     href: 'course-opera.html',                 vertical: false },
-      // TODO Viking: YouTube svarar 403 på OsPaCz2UoCY (privat eller inbäddning avstängd). Sätt filmen till "Olistad" på YouTube, annars visas bara titeln på play-kortet.
-      { youtube: 'OsPaCz2UoCY', title: 'Aroma Roast – campaign film',                channel: 'aroma_short', href: 'course-performance-marketing.html', vertical: true },
+      // TODO Viking: YouTube svarar 403 på OsPaCz2UoCY (privat eller inbäddning avstängd). Sätt filmen till "Olistad" på YouTube och ta sedan bort noThumb så visas YouTubes egen miniatyr.
+      { youtube: 'OsPaCz2UoCY', title: 'Aroma Roast – campaign film',                channel: 'aroma_short', href: 'course-performance-marketing.html', vertical: true, noThumb: true },
       { youtube: 'u7_VxeoVWJ0', title: 'The suburbs woke up – data story',           channel: 'fororten',    href: 'fororten.html',                     vertical: false },
     ],
 
@@ -431,8 +431,8 @@ window.CONTENT = {
       'Audience: women 20 to 30 with a clean-girl lifestyle. Our hypothesis: they want to cut down on caffeine, not on taste or on the coffee moment.',
       'Strategy: taste first, no caffeine as the bonus. Like Coke Zero and Heineken 0.0, don\'t sell what is missing, sell that nothing is missing. Full coffee taste. Without the caffeine.',
     ],
-    // TODO Viking: YouTube svarar 403 på OsPaCz2UoCY (privat eller inbäddning avstängd). Sätt filmen till "Olistad" på YouTube.
-    film: { youtube: 'OsPaCz2UoCY', title: 'Aroma Roast campaign film', channel: 'aroma_short', vertical: true,
+    // TODO Viking: YouTube svarar 403 på OsPaCz2UoCY (privat eller inbäddning avstängd). Sätt filmen till "Olistad" på YouTube och ta sedan bort noThumb.
+    film: { youtube: 'OsPaCz2UoCY', title: 'Aroma Roast campaign film', channel: 'aroma_short', vertical: true, noThumb: true,
       caption: '' },   // TODO Viking: vad visar filmen? Tom sträng = ingen bildtext.
     landing: null,     // TODO Viking: skärmdump av landningssidan, t.ex. { src: 'images/aroma/landing.webp', alt: 'Aroma Roast landing page', w: 1200, h: 800 }
     adsHeading: 'Six ads, three stages, one clear winner.',
