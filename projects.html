@@ -3,16 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My own projects – Sweden AI, PosterLab, William Manor | Viking Kadar</title>
-  <meta name="description" content="Built outside school: the TikTok account Sweden AI at 41.8M views, the AI startup PosterLab, a sold-out guerrilla campaign for William Manor and 1,000 pairs of sneakers resold as a teenager.">
+  <title>My own projects | Viking Kadar</title>
+  <meta name="description" content="Sweden AI (41.8M TikTok views), PosterLab, William Manor (500 belts sold out) and the sneaker years. My own time, my own money, my own numbers.">
   <link rel="canonical" href="https://vikingkadar.github.io/projects.html">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://vikingkadar.github.io/projects.html">
-  <meta property="og:title" content="My own projects – my own time, my own money, my own numbers">
-  <meta property="og:description" content="41.8M TikTok views in four months, an AI startup, 500 belts sold out and 1,000 pairs of sneakers resold.">
+  <meta property="og:title" content="My own projects | Viking Kadar">
+  <meta property="og:description" content="Sweden AI (41.8M TikTok views), PosterLab, William Manor (500 belts sold out) and the sneaker years. My own time, my own money, my own numbers.">
   <meta property="og:image" content="https://vikingkadar.github.io/images/og-projects.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='44' font-family='Arial Narrow,Arial' font-size='34' font-weight='bold' fill='%23fff' text-anchor='middle'%3EVK%3C/text%3E%3C/svg%3E">
+  <meta name="twitter:title" content="My own projects | Viking Kadar">
+  <meta name="twitter:description" content="Sweden AI (41.8M TikTok views), PosterLab, William Manor (500 belts sold out) and the sneaker years. My own time, my own money, my own numbers.">
+  <meta name="twitter:image" content="https://vikingkadar.github.io/images/og-projects.jpg">
+  <meta name="theme-color" content="#0B0B0B">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23FF3B2F'/%3E%3Ctext x='32' y='44' font-family='Impact,Arial Narrow,Arial' font-size='32' font-weight='bold' fill='%23F2EFE9' text-anchor='middle'%3EVK%3C/text%3E%3C/svg%3E">
 
   <!-- ============================================================
        GOOGLE TAG MANAGER (GTM-T7ZGSTLG). Ror inte dessa rader.
@@ -26,10 +32,35 @@
   })(window,document,'script','dataLayer','GTM-T7ZGSTLG');</script>
   <!-- End Google Tag Manager -->
 
+  <script>document.documentElement.classList.add('js')</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/site.css">
+  <style>
+    /* Page-only styles. Shared components live in assets/site.css. */
+
+    /* Hub header: no header media, so no second column and no full-height hero. The tiles open the page instead. */
+    .case-head.hub{min-height:0;grid-template-columns:1fr;padding-bottom:clamp(24px,4vh,44px)}
+    .case-head.hub .copy{max-width:960px}
+
+    /* Four typographic tiles side by side: keep each big number inside its own tile. */
+    @media(min-width:1100px){#grid .tile.typo .pic .big{font-size:clamp(5rem,8.5vw,9rem)}}
+
+    /* Where it started: the big number borrows the case header look. */
+    #sneakers .bignum{font-family:var(--disp);font-size:clamp(4.5rem,15vw,12rem);line-height:.82;color:var(--acc);letter-spacing:-.01em;margin-bottom:clamp(36px,6vh,72px);white-space:nowrap}
+    #sneakers .bignum small{display:block;font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,2.2vw,1.8rem);color:var(--ink);letter-spacing:0;margin-top:10px;line-height:1.1;white-space:normal}
+    #sneakers .sub{font-size:clamp(1.2rem,2vw,1.6rem);line-height:1.2;color:var(--mute);margin:16px 0 0;max-width:34ch}
+
+    /* The metro line. Station names may take two lines, and the running sneaker
+       leaves the frame on the right without widening the page. */
+    #sneak-wrap{overflow-x:clip;overflow-y:visible;padding:0 18px 0 16px}
+    #sneak-track{height:98px}
+    #sneak-track .sneak-line{bottom:42px}
+    #sneak-track .sneak-stop{bottom:37px}
+    #sneak-track .sneak{bottom:46px}
+    #sneak-track .sneak-lbl{white-space:normal;max-width:7em;text-align:center;line-height:1.2}
+  </style>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -37,250 +68,141 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <nav class="nav" id="nav" aria-label="Main menu">
-    <a href="index.html"><strong>Viking Kadar</strong></a>
+    <a class="brand" href="index.html">Viking Kadar<i aria-hidden="true"></i></a>
     <ul>
       <li><a href="index.html#work">Work</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="index.html#courses">Courses</a></li>
+      <li><a href="projects.html">Own projects</a></li>
+      <li><a href="berghs.html">Berghs</a></li>
       <li><a href="index.html#about">About</a></li>
     </ul>
     <div class="nav-right">
-      <a class="nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+      <a class="btn small nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
       <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="overlay">Menu</button>
     </div>
   </nav>
-
-  <div class="overlay" id="overlay">
+  <div class="overlay" id="overlay" aria-hidden="true">
     <button class="close" id="menu-close">Close</button>
-    <a href="index.html#work">Work</a>
-    <a href="projects.html">Projects</a>
-    <a href="index.html#courses">Courses</a>
-    <a href="index.html#about">About</a>
-    <a href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
-    <div class="cta" id="cv-menu" style="margin-top:28px"></div>
+    <a href="index.html#work"><small>01</small>Work</a>
+    <a href="projects.html"><small>02</small>Own projects</a>
+    <a href="berghs.html"><small>03</small>Berghs</a>
+    <a href="index.html#about"><small>04</small>About</a>
+    <a class="btn acc" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
   </div>
+  <div class="cur" id="cur" aria-hidden="true"></div>
 
-  <header class="phero" id="top">
-    <a class="back" href="index.html#projects" data-track="story_back" data-channel="projects_top">← Back to the portfolio</a>
-    <h1 class="disp">My own<br>projects</h1>
-    <p class="sub">Outside school. My own time, my own money, my own numbers.</p>
-    <p class="role">I built PosterLab, an AI startup selling oil paintings of people's pets. I grew the TikTok account Sweden AI to 41.8 million views in four months. I ran guerrilla campaigns that sold out 500 belts for William Manor. And before all that I resold sneakers as a teenager.</p>
-  </header>
-
-  <section class="sec" id="sweden-ai">
-    <div class="head">
-      <h2 class="disp">Sweden AI</h2>
-      <p class="sub">41.8 million views in 120 days, almost all of it earned.</p>
-    </div>
-
-    <div class="stats" aria-label="Sweden AI on TikTok, 30 December 2025 to 28 April 2026">
-      <div><div class="v"><span data-count="41.8" data-dec="1" data-suf="M">41.8M</span></div><div class="l">Post views</div></div>
-      <div><div class="v"><span data-count="3.3" data-dec="1" data-suf="M">3.3M</span></div><div class="l">Likes</div></div>
-      <div><div class="v"><span data-count="872400">872,400</span></div><div class="l">Shares</div></div>
-    </div>
-    <p class="stats-cap">Sweden AI on TikTok, 30 December 2025 to 28 April 2026. Almost all of the reach is earned, not paid.</p>
-
-    <p style="margin-top:28px">I teach AI video in a way people can use the same evening. Every post delivers one concrete skill, not just a wow moment. The numbers above are the account's first four months.</p>
-
-    <div class="cta" style="margin-top:22px">
-      <a class="btn solid" href="case-sweden-ai.html" data-track="case_open" data-channel="sweden_ai">The full case, every number →</a>
-      <a class="btn" href="https://www.tiktok.com/@sweden_ai" target="_blank" rel="noopener" data-track="contact_click" data-channel="tiktok">See the account</a>
-    </div>
-
-    <div class="tiktoks" id="tiktoks" style="margin-top:clamp(28px,4vh,44px)"></div>
-  </section>
-
-  <section class="sec inv" id="posterlab">
-    <div class="head">
-      <h2 class="disp">PosterLab</h2>
-      <p class="sub">My own AI startup. Ad, product and purchase in one flow.</p>
-    </div>
-    <div class="rec">
-      <div class="rec-item">
-        <div class="bigno" id="posterlab-no"></div>
-        <div>
-          <p>I built my AI company around ready-made funnels: you took a photo of your dog, AI turned it into an oil painting, and you ordered it as a framed print straight from us. Ad, product and purchase in one flow. This is where I learned growth with my own money on the line.</p>
-          <div class="rmedia" data-img="posterlab"></div>
-        </div>
+  <main>
+    <!-- 1. HEADER: title and one line. No number here; the tiles below open the page. -->
+    <header class="case-head grain hub" id="top">
+      <div class="copy">
+        <a class="back" href="index.html" data-track="story_back" data-channel="projects_top">← Back to the portfolio</a>
+        <h1 class="disp rv" id="title">My own projects</h1>
+        <p class="kicker2 rv d1" id="sub">My own time, my own money, my own numbers.</p>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <section class="sec" id="manor">
-    <div class="head">
-      <h2 class="disp">William<br>Manor</h2>
-      <p class="sub">Guerrilla marketing for a belt brand. The whole stock gone in four months.</p>
-    </div>
-    <div class="rec">
-      <div class="rec-item">
-        <div class="bigno">500<small>belts sold out in four months</small></div>
-        <div>
-          <p>I ran guerrilla marketing for a belt brand. Millions of views in a short time, and the entire stock of 500 belts sold out in four months. The principle: find where people are already looking, then show up where they least expect it.</p>
-          <dl class="facts" id="manor-facts"></dl>
-          <div class="rmedia" data-img="manor"></div>
+    <!-- 2. THE PROJECTS: four tiles, VK.tiles fills them from CONTENT.projects.cards -->
+    <section class="sec thin" id="work" aria-labelledby="title">
+      <div class="cards c4" id="grid"></div>
+    </section>
+
+    <!-- 3. WHERE IT STARTED: big number, heading + line, four steps, the metro line -->
+    <section class="sec paper grain" id="sneakers">
+      <div class="bignum rv" id="sneak-num"></div>
+      <div class="two">
+        <div class="rv d1">
+          <h2 class="disp h2" id="sneak-title">Where it started</h2>
+          <p class="ital sub" id="sneak-sub">Sneakers, Stockholm, age 15.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec inv" id="sneakers">
-    <div class="head">
-      <h2 class="disp">Sneaker<br>reselling</h2>
-      <p class="sub">The best training in sales, negotiation and people I could have had.</p>
-    </div>
-    <div class="rec">
-      <div class="rec-item">
-        <div class="bigno">150K<small>SEK a month at the peak</small></div>
-        <div>
-          <ol class="timeline" id="sneaker-timeline"></ol>
-          <div class="rmedia" data-img="sneakers"></div>
-
-          <div class="sneak-track" id="sneak-track" title="Tap to run it back" aria-hidden="true">
-            <div class="sneak-line"></div>
-            <div class="sneak-stop" style="left:6%"></div><div class="sneak-lbl" style="left:6%">Odenplan</div>
-            <div class="sneak-stop" style="left:38%"></div><div class="sneak-lbl" style="left:38%">T-Centralen</div>
-            <div class="sneak-stop" style="left:66%"></div><div class="sneak-lbl" style="left:66%">Södermalm</div>
-            <div class="sneak-stop" style="left:92%"></div><div class="sneak-lbl" style="left:92%">Mall of Scandinavia</div>
-            <div class="sneak">
-              <svg viewBox="0 0 120 56" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 44 h100 q8 0 8 -6 q0 -5 -8 -7 l-26 -6 -15 -15 q-2 -2 -5 -2 h-11 q-3 0 -5 2 l-5 7 h-24 q-9 0 -9 10 z"/>
-                <path d="M6 37 h108"/>
-                <path d="M44 17 l7 6 M50 13 l8 7 M57 10 l9 8"/>
-                <path d="M2 24 h10 M0 30 h8"/>
-              </svg>
+        <div class="rv d2">
+          <ol class="tl" id="sneak-steps"></ol>
+          <div id="sneak-wrap" data-overflow-ok>
+            <div class="sneak-track" id="sneak-track" title="Tap to run it back" aria-hidden="true">
+              <div class="sneak-line"></div>
+              <div class="sneak-stop" style="left:6%"></div><div class="sneak-lbl" style="left:6%">Odenplan</div>
+              <div class="sneak-stop" style="left:38%"></div><div class="sneak-lbl" style="left:38%">T-Centralen</div>
+              <div class="sneak-stop" style="left:66%"></div><div class="sneak-lbl" style="left:66%">Södermalm</div>
+              <div class="sneak-stop" style="left:92%"></div><div class="sneak-lbl" style="left:92%">Mall of Scandinavia</div>
+              <div class="sneak">
+                <svg viewBox="0 0 120 56" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 44 h100 q8 0 8 -6 q0 -5 -8 -7 l-26 -6 -15 -15 q-2 -2 -5 -2 h-11 q-3 0 -5 2 l-5 7 h-24 q-9 0 -9 10 z"/>
+                  <path d="M6 37 h108"/>
+                  <path d="M44 17 l7 6 M50 13 l8 7 M57 10 l9 8"/>
+                  <path d="M2 24 h10 M0 30 h8"/>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <section class="sec" id="toolbox">
-    <div class="head">
-      <h2 class="disp">What I<br>work in</h2>
-      <p class="sub">Everything I have actually shipped something with.</p>
-    </div>
-    <div id="tools"></div>
-  </section>
-
-  <nav class="pagenav" aria-label="More">
-    <a href="index.html#courses" data-track="story_back" data-channel="projects_prev"><div class="dir">Back</div><div class="t">All courses</div></a>
-    <a class="next" href="course-performance-marketing.html" data-track="case_open" data-channel="aromaroast"><div class="dir">Next</div><div class="t">Aroma Roast →</div></a>
-  </nav>
-
-  <section class="sec inv contact" id="contact">
-    <h2 class="disp">Get in touch</h2>
-    <a class="mail" href="mailto:viking@posterlab.ai?subject=Internship" data-track="contact_click" data-channel="email">viking@posterlab.ai</a>
-    <p>Right now I'm looking for a six-week internship, March to April 2027. One email is enough, I reply fast.</p>
-    <div class="cta" id="cv-contact" style="margin-bottom:24px"></div>
-    <ul>
-      <li><a href="https://www.linkedin.com/in/viking-kadar-52895a234/" target="_blank" rel="noopener" data-track="contact_click" data-channel="linkedin">LinkedIn</a></li>
-      <li><a href="https://www.tiktok.com/@sweden_ai" target="_blank" rel="noopener" data-track="contact_click" data-channel="tiktok">TikTok, Sweden AI</a></li>
-      <li><a href="https://github.com/VikingKadar" target="_blank" rel="noopener" data-track="contact_click" data-channel="github">GitHub</a></li>
-    </ul>
-  </section>
-
+  <nav class="pagenav" id="pagenav" aria-label="More work"></nav>
+  <section class="contact grain" id="contact"></section>
   <footer>
-    <span>Viking Kadar, Growth Marketing, Berghs School of Communication</span>
+    <span id="footer-left">Viking Kadar, Growth Marketing, Berghs School of Communication</span>
     <a href="index.html" data-track="story_back" data-channel="projects_footer">Back to the portfolio</a>
   </footer>
 
+  <script src="assets/content.js"></script>
   <script src="assets/site.js"></script>
   <script>
     /* ============================================================
-       EDIT HERE. Anything with no content hides itself, so nothing
-       on this page ever shows an empty frame.
+       RENDER. Everything on this page comes from assets/content.js.
        ============================================================ */
+    (function () {
+      const C = VK.C, P = C.projects || {}, el = VK.el;
 
-    const MEDIA = {
-      // TODO Viking: lagg in bilderna sa dyker de upp av sig sjalva.
-      posterlab: { src: 'images/posterlab-800.webp', alt: 'PosterLab oil painting print', w: 800, h: 800 },
-      manor: { src: 'images/manor-800.webp', alt: 'William Manor campaign', w: 800, h: 800 },
-      sneakers: { src: 'images/sneakers-800.webp', alt: 'Sneakers from the reselling years', w: 800, h: 800 },
-      cv: 'cv.pdf',
-      tiktoks: [],   // TODO Viking: klistra in 2 till 3 av dina basta Sweden AI-videor, hela adressen duger.
-    };
+      /* ---------- header ---------- */
+      VK.text('#title', P.title);
+      VK.text('#sub', P.sub);
 
-    /* PosterLab. The big label is empty until you decide what it should
-       say, and an empty value removes the label instead of guessing.
-       TODO Viking: lever bolaget fortfarande? Texten star i dadid tills du sager till.
-       TODO Viking: ett resultat har, t.ex. antal salda tryck eller omsattning. */
-    const POSTERLAB = { big: '', small: '' };
+      /* ---------- the projects ----------
+         Cards without a picture become typographic tiles (their number is the picture).
+         The Amida card carries flag SHOW_AMIDA; VK.tiles drops it when the flag is off. */
+      VK.tiles('#grid', P.cards, { event: 'project_open', go: 'Open →' });
+      VK.stagger('#grid', 3);
+      if (!document.getElementById('grid').children.length) document.getElementById('work').classList.add('hidden');
 
-    /* William Manor. Every empty field is left out of the list.
-       TODO Viking: fyll i det du vet. */
-    const MANOR_FACTS = [
-      { k: 'My role', v: '' },
-      { k: 'Year', v: '' },
-      { k: 'Views', v: '' },
-      { k: 'Platform', v: '' },
-    ];
+      /* ---------- where it started ---------- */
+      const K = P.sneakers || {};
+      const hasSteps = (K.steps || []).filter(Boolean).length > 0;
+      if (!K.title && !hasSteps && !K.num) {
+        document.getElementById('sneakers').classList.add('hidden');
+      } else {
+        // The big number. The real string stays in the HTML; the digits in it count up.
+        // 'SEK 1.3M' -> { pre: 'SEK ', value: 1.3, dec: 1, suf: 'M' }
+        const numHost = document.getElementById('sneak-num');
+        const m = /^(.*?)(\d+(?:[.,]\d+)?)(.*)$/.exec(K.num || '');
+        if (K.num) {
+          const item = m
+            ? { value: parseFloat(m[2].replace(',', '.')), dec: (m[2].split(/[.,]/)[1] || '').length, pre: m[1], suf: m[3], text: K.num }
+            : { text: K.num };
+          numHost.appendChild(VK.counter(item));
+          if (K.numLabel) numHost.appendChild(el('small', {}, K.numLabel));
+        } else numHost.classList.add('hidden');
 
-    /* The sneaker years, in four steps. Text is the original write-up, cut down.
-       TODO Viking: "150K a month" - omsattning eller vinst? Etiketten sager
-       bara "SEK a month at the peak" tills du svarat. */
-    const SNEAKER_TIMELINE = [
-      { t: 'The first sale, at 15',
-        b: 'I was obsessed with Jordans, Yeezys and Dunks I could not afford. Then a guy outside the store offered me SEK 200 over retail for the pair I had just bought. I sold on the spot, and my eyes lit up: he was a reseller.' },
-      { t: 'Release days',
-        b: 'My school was at Odenplan and the stores were spread across T-Centralen, Södermalm and Mall of Scandinavia. Release days meant sprinting out of class and throwing myself onto trains to make every drop.' },
-      { t: 'The operation',
-        b: 'Soon half the school was buying pairs for a hundred kronor each, my mum and grandma were on release duty, and 5 am queues were routine. When stores banned me, I sat in restaurants handing cash and cards to strangers I recruited on the street.' },
-      { t: 'The peak, and the end',
-        b: 'Roughly 1,000 pairs sold, about SEK 150,000 a month at the peak, until the Yeezy collapse and Nike flooding the market killed resale in early 2023.' },
-    ];
+        VK.text('#sneak-title', K.title);
+        VK.text('#sneak-sub', K.sub);
 
-    /* ============================================================
-       RENDER. You should not need to change anything below.
-       ============================================================ */
-    VK.mountMedia(MEDIA);
+        // The four steps, one <li> per string. No titles are invented.
+        const ol = document.getElementById('sneak-steps');
+        (K.steps || []).filter(Boolean).forEach(s => ol.appendChild(el('li', {}, el('p', {}, s))));
+        if (!ol.children.length) ol.classList.add('hidden');
 
-    // PosterLab's big number, dropped entirely when there is nothing to show
-    const pn = document.getElementById('posterlab-no');
-    if (POSTERLAB.big) {
-      pn.textContent = POSTERLAB.big;
-      if (POSTERLAB.small) pn.appendChild(VK.el('small', { textContent: POSTERLAB.small }));
-    } else {
-      pn.remove();
-    }
+        // Station names on the metro line, in order. site.js runs the sneaker and pushes sneaker_run on tap.
+        const stations = (K.stations || []).filter(Boolean);
+        if (!stations.length) document.getElementById('sneak-wrap').classList.add('hidden');
+        else VK.qa('#sneak-track .sneak-lbl').forEach((n, i) => VK.text(n, stations[i]));
+      }
 
-    // William Manor facts
-    const facts = document.getElementById('manor-facts');
-    MANOR_FACTS.filter(f => f.v).forEach(f => {
-      facts.appendChild(VK.el('dt', { textContent: f.k }));
-      facts.appendChild(VK.el('dd', { textContent: f.v }));
-    });
-    if (!facts.children.length) facts.remove();
-
-    // The sneaker timeline
-    const tlb = document.getElementById('sneaker-timeline');
-    SNEAKER_TIMELINE.forEach(s => {
-      const li = VK.el('li');
-      li.appendChild(VK.el('b', { textContent: s.t }));
-      li.appendChild(VK.el('p', { textContent: s.b }));
-      tlb.appendChild(li);
-    });
-    if (!SNEAKER_TIMELINE.length) tlb.remove();
-
-    // TikTok embeds. The grid removes itself when the list is empty.
-    const tt = document.getElementById('tiktoks');
-    (MEDIA.tiktoks || []).forEach(u => {
-      const m = String(u).match(/video\/(\d+)/);
-      const id = m ? m[1] : String(u).trim();
-      if (!/^\d+$/.test(id)) return;
-      tt.appendChild(VK.el('iframe', {
-        src: 'https://www.tiktok.com/embed/v2/' + id,
-        title: 'Sweden AI on TikTok', loading: 'lazy', allowFullscreen: true,
-      }));
-    });
-    if (!tt.children.length) tt.remove();
-
-    // The shared tool list and the CV button
-    VK.tools('tools');
-    VK.cv(MEDIA.cv, [
-      { sel: '#cv-contact', label: 'Download CV', className: 'btn' },
-      { sel: '#cv-menu', label: 'Download CV', className: 'btn' },
-    ]);
+      /* ---------- prev / next, contact, footer ---------- */
+      VK.pagenav('#pagenav',
+        { href: 'berghs.html', label: 'Berghs, course by course', dir: 'Also', event: 'course_open', channel: 'berghs_from_projects' },
+        { href: 'case-sweden-ai.html', label: 'Sweden AI', dir: 'First project', event: 'project_open', channel: 'sweden_ai' });
+      VK.contact('#contact', { channel: 'email_footer' });
+      VK.text('#footer-left', VK.S.footer);
+    })();
   </script>
 </body>
 </html>

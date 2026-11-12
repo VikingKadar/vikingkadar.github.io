@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The suburbs woke up – voter turnout 2022 vs 2026 | Viking Kadar</title>
+  <title>The suburbs woke up – turnout 2022 vs 2026 | Viking Kadar</title>
   <meta name="description" content="Voter turnout fell in Sweden in 2026. In the big-city suburbs the opposite happened. Data, sources and caveats.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://vikingkadar.github.io/fororten.html">
@@ -264,7 +264,7 @@
 
     /* ---------- hero image (hides silently if missing) ---------- */
     if (HERO_IMG) {
-      const img = Object.assign(document.createElement('img'), { src: HERO_IMG, alt: '' });
+      const img = Object.assign(document.createElement('img'), { src: HERO_IMG, alt: '', width: 1200, height: 671, fetchPriority: 'high' });
       img.addEventListener('error', () => img.remove());
       document.getElementById('hero-bg').appendChild(img);
     }

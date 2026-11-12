@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PosterLab – my own AI company | Viking Kadar</title>
+  <meta name="description" content="My own AI company. Upload a photo, get a painting. Why V1 failed, the one sale that showed the real product, and the V2 rebuilt around zero friction.">
+  <link rel="canonical" href="https://vikingkadar.github.io/case-posterlab.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://vikingkadar.github.io/case-posterlab.html">
+  <meta property="og:title" content="PosterLab – my own AI company">
+  <meta property="og:description" content="My own AI company. Upload a photo, get a painting. Why version 1 failed, the one sale that showed the real product, and the V2 rebuilt around zero friction.">
+  <meta property="og:image" content="https://vikingkadar.github.io/images/og-posterlab.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PosterLab – my own AI company">
+  <meta name="twitter:description" content="My own AI company. Upload a photo, get a painting. Why version 1 failed, the one sale that showed the real product, and the V2 rebuilt around zero friction.">
+  <meta name="twitter:image" content="https://vikingkadar.github.io/images/og-posterlab.jpg">
+  <meta name="theme-color" content="#0B0B0B">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23FF3B2F'/%3E%3Ctext x='32' y='44' font-family='Impact,Arial Narrow,Arial' font-size='32' font-weight='bold' fill='%23F2EFE9' text-anchor='middle'%3EVK%3C/text%3E%3C/svg%3E">
+
+  <!-- ============================================================
+       GOOGLE TAG MANAGER (GTM-T7ZGSTLG). Ror inte dessa rader.
+       dataLayer maste ligga FORE gtm.js-snippet, sa ror inte ordningen.
+       ============================================================ -->
+  <script>window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'page_meta', page_type: 'case_posterlab' });</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T7ZGSTLG');</script>
+  <!-- End Google Tag Manager -->
+
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <!-- No header image is preloaded: CONTENT.posterlab.hero.src is empty for now.
+       Add  <link rel="preload" as="image" href="images/posterlab-hero.webp" fetchpriority="high">  here once the file exists. -->
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    /* Page-only styles. Shared components live in assets/site.css. */
+
+    /* Header without a picture (the hero file does not exist yet): one column,
+       no screen-high empty half, and the title carries the weight instead. */
+    .case-head.nomedia{grid-template-columns:1fr;min-height:0;padding-bottom:clamp(48px,8vh,96px)}
+    .case-head.nomedia h1{font-size:clamp(3.4rem,12vw,10.5rem)}
+    .case-head.nomedia .kicker2{max-width:40ch}
+
+    /* Small uppercase labels above a block ("The insight", "Built with", "What I'd do next"). */
+    .sublbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:500;margin:0 0 12px}
+
+    /* 01: the body and the insight sit side by side on wide screens. */
+    #challenge .callout{margin-top:0}
+    #challenge .body{margin-top:0}
+
+    /* 02: the strategy is four sentences, so the flow runs four across, not three plus one. */
+    #strategy .flow p{font-family:var(--serif);font-size:clamp(1.15rem,1.6vw,1.45rem);line-height:1.22}
+    @media(min-width:860px) and (max-width:1099px){
+      #strategy .flow{grid-template-columns:repeat(2,1fr)}
+      #strategy .flow>div::after{display:none}
+    }
+    @media(min-width:1100px){#strategy .flow{grid-template-columns:repeat(4,1fr)}}
+    #tech-wrap{margin-top:clamp(32px,5vh,56px)}
+    #strategy .toollist li{color:var(--ink)}
+
+    /* 03: the status is the lead while the slider waits for its two pictures. */
+    #execution .step-head .kicker{margin-bottom:12px}
+    #ba-wrap{margin-top:8px}
+    #ba-wrap .h3{margin-bottom:18px;max-width:14ch}
+
+    /* 04: the lesson is the lead, the next step is a plain paragraph. */
+    #results .body p{max-width:56ch}
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T7ZGSTLG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <nav class="nav" id="nav" aria-label="Main menu">
+    <a class="brand" href="index.html">Viking Kadar<i aria-hidden="true"></i></a>
+    <ul>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="projects.html">Own projects</a></li>
+      <li><a href="berghs.html">Berghs</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="btn small nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="overlay">Menu</button>
+    </div>
+  </nav>
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <button class="close" id="menu-close">Close</button>
+    <a href="index.html#work"><small>01</small>Work</a>
+    <a href="projects.html"><small>02</small>Own projects</a>
+    <a href="berghs.html"><small>03</small>Berghs</a>
+    <a href="index.html#about"><small>04</small>About</a>
+    <a class="btn acc" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+  </div>
+  <div class="cur" id="cur" aria-hidden="true"></div>
+
+  <main>
+    <!-- 1. HEADER: VK.caseHead('#top', {...}) fills this. -->
+    <header class="case-head grain" id="top"></header>
+
+    <!-- IN SHORT: VK.inShort('#inshort', [...]) -->
+    <section class="sec tight" id="inshort-sec"><div class="inshort rv" id="inshort"></div></section>
+
+    <!-- 2. THE CHALLENGE: the first sentence as the lead, the whole paragraph as the body, the insight beside it. -->
+    <section class="step grain" id="challenge">
+      <div class="step-head rv">
+        <div><p class="kicker">01 · The challenge</p><h2 class="disp h2" id="challenge-h2">V1 failed.</h2></div>
+        <p class="lead" id="challenge-lead"></p>
+      </div>
+      <div class="two">
+        <div class="body rv d1" id="challenge-body"></div>
+        <div class="rv d2" id="insight-wrap">
+          <p class="sublbl">The insight</p>
+          <blockquote class="callout" id="insight" data-hide="#insight-wrap"></blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. STRATEGY (paper): one box per sentence, then what it is built with. -->
+    <section class="step paper grain" id="strategy">
+      <div class="step-head rv">
+        <div><p class="kicker" id="strategy-kicker">02 · Strategy</p><h2 class="disp h2" id="strategy-h2">V2 rebuilt around zero friction.</h2></div>
+      </div>
+      <div class="flow" id="flow"></div>
+      <div id="tech-wrap" class="rv">
+        <p class="sublbl">Built with</p>
+        <ul class="toollist" id="tech" data-hide="#tech-wrap"></ul>
+      </div>
+    </section>
+
+    <!-- 4. EXECUTION: the before/after slider (hidden until both pictures exist) and the status. -->
+    <section class="step grain" id="execution">
+      <div class="step-head rv">
+        <div><p class="kicker">03 · Execution</p><h2 class="disp h2" id="execution-h2">Upload a photo, get a painting.</h2></div>
+        <div id="status-wrap">
+          <p class="kicker">Status</p>
+          <p class="lead" id="status" data-hide="#status-wrap"></p>
+        </div>
+      </div>
+      <div id="ba-wrap" class="rv">
+        <h3 class="disp h3">Photo in, painting out</h3>
+        <div id="ba" data-hide="#ba-wrap"></div>
+      </div>
+    </section>
+
+    <!-- 5. RESULTS & WHAT I'D DO NEXT: the lesson big, the next step plain. No budget, ROAS or revenue numbers on this page. -->
+    <section class="step grain" id="results">
+      <div class="step-head rv">
+        <div><p class="kicker">04 · Results &amp; what I'd do next</p><h2 class="disp h2" id="results-h2">One sale showed the real product.</h2></div>
+        <p class="lead" id="lesson"></p>
+      </div>
+      <div class="body rv d1" id="next-wrap">
+        <p class="sublbl">What I'd do next</p>
+        <p id="next" data-hide="#next-wrap"></p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="pagenav" id="pagenav" aria-label="More work"></nav>
+  <section class="contact grain" id="contact"></section>
+  <footer>
+    <span id="footer-left">Viking Kadar, Growth Marketing, Berghs School of Communication</span>
+    <a href="index.html" data-track="story_back" data-channel="case_posterlab_footer">Back to the portfolio</a>
+  </footer>
+
+  <script src="assets/content.js"></script>
+  <script src="assets/site.js"></script>
+  <script>
+    /* ============================================================
+       RENDER. Everything on this page comes from assets/content.js
+       (CONTENT.posterlab). An empty field hides its element.
+       ============================================================ */
+    (function () {
+      const C = VK.C, D = C.posterlab || {}, el = VK.el;
+
+      /* ---------- header ----------
+         D.hero.src is empty for now, so the header renders without a picture
+         (VK.caseHead adds .nomedia). The period chip hides itself when empty. */
+      VK.caseHead('#top', {
+        back: { href: 'projects.html', label: 'All my own projects', channel: 'posterlab_top' },
+        title: D.title, kicker: D.kicker,
+        role: D.role, period: D.period, tags: D.tags, media: D.hero,
+      });
+      // TODO Viking: posterlab.hero.src in content.js. The header shows the picture as soon as the file exists.
+
+      /* ---------- in short ---------- */
+      VK.inShort('#inshort', D.inShort);
+
+      /* ---------- 01 the challenge ----------
+         The lead is the first sentence of D.challenge, quoted as it stands in
+         content.js. It only shows while D.challenge still starts with it, so the
+         page can never quote something that is no longer there. */
+      const LEAD = 'Version 1 burned ad money and sold almost nothing.';
+      VK.text('#challenge-lead', (D.challenge || '').indexOf(LEAD) === 0 ? LEAD : '');
+      VK.paras('#challenge-body', [D.challenge]);
+      VK.text('#insight', D.insight);
+
+      /* ---------- 02 strategy ----------
+         One box per sentence of D.strategy. Split on sentence-ending punctuation
+         followed by a space, so a comma clause stays with its sentence. */
+      VK.text('#strategy-kicker', '02 · Strategy' + (D.strategyLabel ? ' · ' + D.strategyLabel : ''));
+      const flow = document.getElementById('flow');
+      const sentences = ((D.strategy || '').match(/[^.!?]+[.!?]*/g) || []).map(s => s.trim()).filter(Boolean);
+      sentences.forEach(s => flow.appendChild(el('div', {}, el('p', {}, s))));
+      if (!flow.children.length) flow.classList.add('hidden'); else VK.stagger('#flow', 4);
+      const tech = document.getElementById('tech');
+      (D.tech || []).filter(Boolean).forEach(t => tech.appendChild(el('li', {}, t)));
+      if (!tech.children.length) document.getElementById('tech-wrap').classList.add('hidden');
+
+      /* ---------- 03 execution ----------
+         The before/after slider needs both files; until then the whole
+         #ba-wrap hides and the status carries the section. */
+      VK.beforeAfter('#ba', D.before, D.after, D.sliderLabels);
+      // TODO Viking: posterlab.before.src and posterlab.after.src in content.js (a dog photo and the same dog as an oil painting, same size). The slider appears when both files exist.
+      VK.text('#status', D.status);
+
+      /* ---------- 04 results & what I'd do next ---------- */
+      VK.text('#lesson', D.lesson);
+      VK.text('#next', D.next);
+
+      /* ---------- prev / next, contact, footer ---------- */
+      VK.pagenav('#pagenav',
+        { href: 'case-sweden-ai.html', label: 'Sweden AI', dir: 'Previous project', event: 'project_open', channel: 'sweden_ai' },
+        { href: 'case-william-manor.html', label: 'William Manor', dir: 'Next project', event: 'project_open', channel: 'manor' });
+      VK.contact('#contact', { channel: 'email_footer' });
+      VK.text('#footer-left', VK.S.footer);
+    })();
+  </script>
+</body>
+</html>
