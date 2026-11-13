@@ -686,8 +686,9 @@ window.VK = (function () {
   }
 
   // Redirect a flagged page to its hub when the flag is off.
+  // Add ?preview to the address to look at the page anyway (local preview only, nothing links to it).
   function gate(flag, fallback) {
-    if (isOn(flag)) return true;
+    if (isOn(flag) || /[?&]preview\b/.test(location.search)) return true;
     location.replace(fallback);
     return false;
   }

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEO &amp; Content Marketing – Byggalliansen | Viking Kadar</title>
+  <meta name="description" content="SEO &amp; Content Marketing, Berghs. Byggalliansen, a quality-assured network of local builders in Stockholm. Keywords, SERP, meta, GEO, content strategy.">
+  <link rel="canonical" href="https://vikingkadar.github.io/course-seo.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://vikingkadar.github.io/course-seo.html">
+  <meta property="og:title" content="SEO &amp; Content Marketing – Byggalliansen">
+  <meta property="og:description" content="SEO &amp; Content Marketing at Berghs. Case: Byggalliansen, a quality-assured network of local builders in Stockholm. Keywords, SERP, meta, GEO and a content strategy.">
+  <meta property="og:image" content="https://vikingkadar.github.io/images/og-seo.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SEO &amp; Content Marketing – Byggalliansen">
+  <meta name="twitter:description" content="SEO &amp; Content Marketing at Berghs. Case: Byggalliansen, a quality-assured network of local builders in Stockholm. Keywords, SERP, meta, GEO and a content strategy.">
+  <meta name="twitter:image" content="https://vikingkadar.github.io/images/og-seo.jpg">
+  <meta name="theme-color" content="#0B0B0B">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23FF3B2F'/%3E%3Ctext x='32' y='44' font-family='Impact,Arial Narrow,Arial' font-size='32' font-weight='bold' fill='%23F2EFE9' text-anchor='middle'%3EVK%3C/text%3E%3C/svg%3E">
+
+  <!-- ============================================================
+       GOOGLE TAG MANAGER (GTM-T7ZGSTLG). Ror inte dessa rader.
+       dataLayer maste ligga FORE gtm.js-snippet, sa ror inte ordningen.
+       ============================================================ -->
+  <script>window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'page_meta', page_type: 'course_seo' });</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T7ZGSTLG');</script>
+  <!-- End Google Tag Manager -->
+
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <!-- No header image is preloaded: CONTENT.seo.hero is null for now.
+       Add  <link rel="preload" as="image" href="images/seo-hero.webp" fetchpriority="high">  here once the file exists and seo.hero points at it. -->
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    /* Page-only styles. Shared components live in assets/site.css. */
+
+    /* Header without a picture (seo.hero is null): one column, no screen-high
+       empty half, and the title carries the weight instead. */
+    .case-head.nomedia{grid-template-columns:1fr;min-height:0;padding-bottom:clamp(48px,8vh,96px)}
+    .case-head.nomedia h1{font-size:clamp(3.4rem,12vw,10.5rem)}
+    .case-head.nomedia .kicker2{max-width:40ch}
+
+    /* The case in one line sits directly under the header. */
+    #caseline-sec{padding-top:0}
+    #caseline{max-width:36ch}
+
+    /* A step whose head is its only content should not carry the head's bottom margin. */
+    .step .step-head:last-child{margin-bottom:0}
+
+    /* Heads whose right column is running text, a card or a callout align to the
+       top of the heading, not to its baseline. On one column they get a little air. */
+    @media(min-width:960px){.step .step-head.top{align-items:start}}
+    @media(max-width:959px){.step .step-head.top>:last-child{margin-top:14px}}
+
+    /* The SERP: the screenshot opens the section. */
+    .serp-fig{margin:0 0 clamp(24px,4vh,40px)}
+    .serp-fig img{width:100%;max-width:1100px;height:auto;border-radius:var(--r);border:1px solid var(--line)}
+
+    /* Meta: a search-result preview card. The counters read "x / 60" and "y / 150";
+       they turn red when the text is over the limit. */
+    .serp-card{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:clamp(18px,2.6vw,28px);max-width:640px}
+    .serp-card .url{font-size:13px;color:var(--mute);margin:0 0 6px;max-width:none;overflow-wrap:anywhere}
+    .serp-card .ttl{font-family:var(--serif);font-size:20px;line-height:1.25;margin:0 0 8px;max-width:none}
+    .serp-card .dsc{font-size:15px;line-height:1.45;margin:0;max-width:none}
+    .serp-card .cnt{display:inline-block;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.08em;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:2px 7px;margin-left:10px;vertical-align:middle;white-space:nowrap}
+    .serp-card .cnt.over{color:var(--acc);border-color:var(--acc)}
+
+    /* How we measure: the callout holds the paragraphs. */
+    #measure .callout{margin:0}
+    #measure .callout p{max-width:none}
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T7ZGSTLG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <nav class="nav" id="nav" aria-label="Main menu">
+    <a class="brand" href="index.html">Viking Kadar<i aria-hidden="true"></i></a>
+    <ul>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="projects.html">Own projects</a></li>
+      <li><a href="berghs.html">Berghs</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="btn small nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="overlay">Menu</button>
+    </div>
+  </nav>
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <button class="close" id="menu-close">Close</button>
+    <a href="index.html#work"><small>01</small>Work</a>
+    <a href="projects.html"><small>02</small>Own projects</a>
+    <a href="berghs.html"><small>03</small>Berghs</a>
+    <a href="index.html#about"><small>04</small>About</a>
+    <a class="btn acc" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+  </div>
+  <div class="cur" id="cur" aria-hidden="true"></div>
+
+  <main>
+    <!-- 1. HEADER: VK.caseHead('#top', {...}) fills this. No picture until seo.hero exists. -->
+    <header class="case-head grain" id="top"></header>
+
+    <!-- THE CASE IN ONE LINE: seo.caseLine, directly under the header. -->
+    <section class="sec tight" id="caseline-sec"><p class="lead rv" id="caseline" data-hide="#caseline-sec"></p></section>
+
+    <!-- IN SHORT: VK.inShort('#inshort', [...]). The whole section hides while seo.inShort is empty. -->
+    <section class="sec tight" id="inshort-sec"><div class="inshort rv" id="inshort"></div></section>
+
+    <!-- Every step below hides while its field is empty, and the visible ones are
+         renumbered 01, 02, 03 … by the script. The kicker carries the number, the heading the name. -->
+
+    <!-- THE GOAL: opens with the heading, the goal as the lead. -->
+    <section class="step grain" id="goal">
+      <div class="step-head rv">
+        <div><p class="kicker" data-step="The goal">01</p><h2 class="disp h2">The goal</h2></div>
+        <p class="lead" id="goal-lead"></p>
+      </div>
+    </section>
+
+    <!-- KEYWORDS: heading, then the table Keyword | Volume | Intent. -->
+    <section class="step grain" id="keywords">
+      <div class="step-head rv">
+        <div><p class="kicker" data-step="Keywords">02</p><h2 class="disp h2">Keywords</h2></div>
+      </div>
+      <div class="tbl-wrap rv d1" id="kw-wrap">
+        <table class="tbl small">
+          <thead><tr><th scope="col">Keyword</th><th scope="col">Volume</th><th scope="col">Intent</th></tr></thead>
+          <tbody id="kw-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- THE SERP: opens with the screenshot, the heading follows. -->
+    <section class="step grain" id="serp">
+      <figure class="serp-fig rv" id="serp-fig"></figure>
+      <div class="step-head rv d1">
+        <div><p class="kicker" data-step="The SERP">03</p><h2 class="disp h2">The SERP</h2></div>
+      </div>
+    </section>
+
+    <!-- META: heading left, the search-result preview card right. -->
+    <section class="step grain" id="meta">
+      <div class="step-head top rv">
+        <div><p class="kicker" data-step="Meta">04</p><h2 class="disp h2">Meta</h2></div>
+        <div class="serp-card" id="meta-card">
+          <p class="url" id="meta-url"></p>
+          <p class="ttl" id="meta-title-row"><span id="meta-title"></span></p>
+          <p class="dsc" id="meta-desc-row"><span id="meta-desc"></span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GEO: heading left, the paragraphs right. -->
+    <section class="step grain" id="geo">
+      <div class="step-head top rv">
+        <div><p class="kicker" data-step="GEO">05</p><h2 class="disp h2">GEO</h2></div>
+        <div class="body" id="geo-body"></div>
+      </div>
+    </section>
+
+    <!-- HOW WE MEASURE: heading left, a callout right. -->
+    <section class="step grain" id="measure">
+      <div class="step-head top rv">
+        <div><p class="kicker" data-step="How we measure">06</p><h2 class="disp h2">How we measure</h2></div>
+        <div class="callout" id="measure-callout"></div>
+      </div>
+    </section>
+
+    <!-- GROUP CASE, TWO CHANNELS: heading left, the paragraphs right. -->
+    <section class="step grain" id="groupcase">
+      <div class="step-head top rv">
+        <div><p class="kicker" data-step="Group case, two channels">07</p><h2 class="disp h2">Group case, two channels</h2></div>
+        <div class="body" id="groupcase-body"></div>
+      </div>
+    </section>
+
+    <!-- WHAT I'D DO NEXT: heading, the next step as the lead. -->
+    <section class="step grain" id="next">
+      <div class="step-head rv">
+        <div><p class="kicker" data-step="What I'd do next">08</p><h2 class="disp h2">What I'd do next</h2></div>
+        <p class="lead" id="next-lead"></p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="pagenav" id="pagenav" aria-label="More work"></nav>
+  <section class="contact grain" id="contact"></section>
+  <footer>
+    <span id="footer-left">Viking Kadar, Growth Marketing, Berghs School of Communication</span>
+    <a href="index.html" data-track="story_back" data-channel="course_seo_footer">Back to the portfolio</a>
+  </footer>
+
+  <script src="assets/content.js"></script>
+  <script src="assets/site.js"></script>
+  <script>
+    /* ============================================================
+       RENDER. Everything on this page comes from assets/content.js
+       (CONTENT.seo). An empty field hides its element; the steps are
+       renumbered so a hidden one leaves no gap.
+       The page is gated: while flags.SEO_READY is false it redirects to berghs.html.
+       ============================================================ */
+    (function () {
+      if (!VK.gate('SEO_READY', 'berghs.html')) return;
+      const C = VK.C, D = C.seo || {}, el = VK.el, q = VK.q;
+      const hide = sel => { const n = q(sel); if (n) n.classList.add('hidden'); };
+      // A text field may hold one string or a list of strings; a blank line splits a string into paragraphs.
+      const parts = v => (Array.isArray(v) ? v : String(v || '').split(/\n\s*\n/)).map(s => String(s).trim()).filter(Boolean);
+
+      /* ---------- header ----------
+         seo.hero is null for now, so the header renders without a picture
+         (VK.caseHead adds .nomedia). The role line hides itself while empty. */
+      // TODO Viking: seo.role in content.js is empty. Your part in the group; the line under the chips hides until then.
+      // TODO Viking: seo.hero in content.js is null. One picture { src, alt, w, h }; the header shows it as soon as the file exists (and add the <link rel="preload"> noted in <head>).
+      VK.caseHead('#top', {
+        back: { href: 'berghs.html', label: 'All courses', channel: 'seo_top' },
+        title: D.title, kicker: D.kicker,
+        role: D.role, period: D.period, course: D.course, tags: D.tags, media: D.hero,
+      });
+
+      /* ---------- the case in one line ---------- */
+      VK.text('#caseline', D.caseLine);
+
+      /* ---------- in short ---------- */
+      // TODO Viking: seo.inShort in content.js is []. Three short lines; the box hides until then.
+      VK.inShort('#inshort', D.inShort);
+      if (q('#inshort').classList.contains('hidden')) hide('#inshort-sec');
+
+      /* ---------- the goal ---------- */
+      // TODO Viking: seo.goal in content.js is empty. Which of the case goals the group chose; it is the lead of this step.
+      VK.text('#goal-lead', D.goal);
+      if (!D.goal) hide('#goal');
+
+      /* ---------- keywords ---------- */
+      // TODO Viking: seo.keywords in content.js is []. One to five rows { kw, volume, intent } (shape in content.js); the table hides until then.
+      const kwBody = q('#kw-body');
+      (D.keywords || []).filter(k => k && k.kw).forEach(k => {
+        kwBody.appendChild(el('tr', {}, [
+          el('td', {}, el('b', {}, k.kw)),
+          el('td', {}, k.volume != null ? String(k.volume) : ''),
+          el('td', {}, k.intent != null ? String(k.intent) : ''),
+        ]));
+      });
+      if (!kwBody.children.length) hide('#keywords');
+
+      /* ---------- the SERP ---------- */
+      // TODO Viking: seo.serp in content.js is null. A screenshot of the results page { src, alt, w, h }; the step hides until the file exists.
+      const serpImg = VK.img(D.serp, { onDead: () => { hide('#serp'); layout(); } });
+      if (serpImg) q('#serp-fig').appendChild(serpImg); else hide('#serp');
+
+      /* ---------- meta ----------
+         A preview of the result as Google would show it: url line, title, description.
+         The counters are plain text computed from the string length, nothing animates. */
+      // TODO Viking: seo.meta in content.js is { title: '', description: '', url: '' }. Title ≤ 60 characters, description ≤ 150, and the URL; the card hides while all three are empty.
+      const M = D.meta || {};
+      const cnt = (s, max) => el('span', { class: 'cnt' + (s.length > max ? ' over' : '') }, s.length + ' / ' + max);
+      VK.text('#meta-url', M.url);
+      if (M.title) { q('#meta-title').textContent = M.title; q('#meta-title-row').appendChild(cnt(String(M.title), 60)); } else hide('#meta-title-row');
+      if (M.description) { q('#meta-desc').textContent = M.description; q('#meta-desc-row').appendChild(cnt(String(M.description), 150)); } else hide('#meta-desc-row');
+      if (!M.url && !M.title && !M.description) hide('#meta');
+
+      /* ---------- GEO ---------- */
+      // TODO Viking: seo.geo in content.js is empty. How the text was optimised for AI search (short quotable answers under question headings); a blank line makes a new paragraph.
+      VK.paras('#geo-body', parts(D.geo));
+      if (!parts(D.geo).length) hide('#geo');
+
+      /* ---------- how we measure ---------- */
+      // TODO Viking: seo.measure in content.js is empty. How the group measures the work; it sits in the callout.
+      VK.paras('#measure-callout', parts(D.measure));
+      if (!parts(D.measure).length) hide('#measure');
+
+      /* ---------- group case, two channels ---------- */
+      // TODO Viking: seo.groupCase in content.js is empty. The content strategy for the two channels; a blank line makes a new paragraph.
+      VK.paras('#groupcase-body', parts(D.groupCase));
+      if (!parts(D.groupCase).length) hide('#groupcase');
+
+      /* ---------- what I'd do next ---------- */
+      // TODO Viking: seo.next in content.js is empty. What you would do next; it is the lead of this step.
+      VK.text('#next-lead', D.next);
+      if (!D.next) hide('#next');
+
+      /* Number the visible steps in order, so a hidden step leaves no gap in 01, 02, 03 …,
+         and make the second visible step (then every third one after it) the light paper
+         section, so two paper sections never touch. Runs again if the SERP file 404s later. */
+      function layout() {
+        VK.qa('main .step').filter(s => !s.classList.contains('hidden')).forEach((s, i) => {
+          const k = q('.kicker[data-step]', s);
+          if (k) k.textContent = String(i + 1).padStart(2, '0');
+          s.classList.toggle('paper', i % 3 === 1);
+        });
+      }
+      layout();
+
+      /* ---------- prev / next, contact, footer ---------- */
+      VK.pagenav('#pagenav',
+        { href: 'course-performance-marketing.html', label: 'Performance Marketing', dir: 'Previous course', event: 'course_open', channel: 'performance_marketing' },
+        { href: 'projects.html', label: 'My own projects', dir: 'Next', event: 'project_open', channel: 'from_seo' });
+      VK.contact('#contact', { channel: 'email_footer' });
+      VK.text('#footer-left', VK.S.footer);
+    })();
+  </script>
+</body>
+</html>

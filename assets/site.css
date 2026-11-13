@@ -318,8 +318,8 @@ button{font:inherit;color:inherit}
 .list li{position:relative;padding-left:32px;font-size:16px}
 .list li::before{content:"";position:absolute;left:0;top:.55em;width:16px;height:1px;background:var(--acc)}
 .numbered{list-style:none;counter-reset:nm;display:grid;gap:0;border-top:1px solid var(--line)}
-.numbered li{counter-increment:nm;display:grid;grid-template-columns:56px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);font-size:16px;align-items:start}
-.numbered li::before{content:counter(nm,decimal-leading-zero);font-family:var(--disp);font-size:30px;line-height:1;color:var(--acc)}
+.numbered li{counter-increment:nm;position:relative;padding:18px 0 18px 68px;border-bottom:1px solid var(--line);font-size:16px}
+.numbered li::before{content:counter(nm,decimal-leading-zero);position:absolute;left:0;top:16px;font-family:var(--disp);font-size:30px;line-height:1;color:var(--acc)}
 .numbered li b{display:block;font-family:var(--serif);font-weight:400;font-size:21px;line-height:1.15;margin-bottom:4px}
 .core{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
 @media(min-width:760px){.core{grid-template-columns:repeat(2,1fr)}}

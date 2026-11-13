@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amida – an AI product I'm building | Viking Kadar</title>
+  <meta name="description" content="An AI product I'm building: a minimal web app that turns a curated research database into structured protocols, with a growth loop that runs on email.">
+  <link rel="canonical" href="https://vikingkadar.github.io/case-amida.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://vikingkadar.github.io/case-amida.html">
+  <meta property="og:title" content="Amida – an AI product I'm building">
+  <meta property="og:description" content="An AI product I'm building: a minimal web app that turns a curated research database into structured protocols, with a growth loop that runs on email.">
+  <meta property="og:image" content="https://vikingkadar.github.io/images/og-amida.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Amida – an AI product I'm building">
+  <meta name="twitter:description" content="An AI product I'm building: a minimal web app that turns a curated research database into structured protocols, with a growth loop that runs on email.">
+  <meta name="twitter:image" content="https://vikingkadar.github.io/images/og-amida.jpg">
+  <meta name="theme-color" content="#0B0B0B">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23FF3B2F'/%3E%3Ctext x='32' y='44' font-family='Impact,Arial Narrow,Arial' font-size='32' font-weight='bold' fill='%23F2EFE9' text-anchor='middle'%3EVK%3C/text%3E%3C/svg%3E">
+
+  <!-- ============================================================
+       GOOGLE TAG MANAGER (GTM-T7ZGSTLG). Ror inte dessa rader.
+       dataLayer maste ligga FORE gtm.js-snippet, sa ror inte ordningen.
+       ============================================================ -->
+  <script>window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'page_meta', page_type: 'case_amida' });</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T7ZGSTLG');</script>
+  <!-- End Google Tag Manager -->
+
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <!-- No header image is preloaded: CONTENT.amida.hero.src is empty for now.
+       Add  <link rel="preload" as="image" href="images/amida-hero.webp" fetchpriority="high">  here once the file exists. -->
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    /* Page-only styles. Shared components live in assets/site.css. */
+
+    /* Header without a picture (the hero file does not exist yet): one column,
+       no screen-high empty half, and the short title is set big enough to carry the header. */
+    .case-head.nomedia{grid-template-columns:1fr;min-height:0;padding-bottom:clamp(48px,8vh,96px)}
+    .case-head.nomedia h1{font-size:clamp(4rem,16vw,13rem)}
+    .case-head.nomedia .kicker2{max-width:40ch}
+
+    /* A step whose head is its only content should not carry the head's bottom margin. */
+    .step .step-head:last-child{margin-bottom:0}
+
+    /* Small uppercase label above a block ("Built with"). */
+    .sublbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:500;margin:0 0 12px}
+
+    /* 02 The product (paper): the description sits beside the heading, the stack below it. */
+    #product .body{margin-top:0;font-size:clamp(1.05rem,1.4vw,1.3rem)}
+    #tech-wrap{margin-top:clamp(32px,5vh,56px)}
+    #product .toollist li{color:var(--ink)}
+
+    /* 03 The growth loop: three boxes, set in serif so the diagram carries the section; the arrows come from .flow. */
+    #loop .flow>div{padding:26px 24px 30px}
+    #loop .flow p{font-family:var(--serif);font-size:clamp(1.25rem,1.8vw,1.6rem);line-height:1.2}
+    #loop-note{margin-top:20px}
+
+    /* 04 What I'd do next: the two sentences are the lead, so they get a little more room. */
+    #next .lead{max-width:40ch}
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T7ZGSTLG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <nav class="nav" id="nav" aria-label="Main menu">
+    <a class="brand" href="index.html">Viking Kadar<i aria-hidden="true"></i></a>
+    <ul>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="projects.html">Own projects</a></li>
+      <li><a href="berghs.html">Berghs</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="btn small nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="overlay">Menu</button>
+    </div>
+  </nav>
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <button class="close" id="menu-close">Close</button>
+    <a href="index.html#work"><small>01</small>Work</a>
+    <a href="projects.html"><small>02</small>Own projects</a>
+    <a href="berghs.html"><small>03</small>Berghs</a>
+    <a href="index.html#about"><small>04</small>About</a>
+    <a class="btn acc" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+  </div>
+  <div class="cur" id="cur" aria-hidden="true"></div>
+
+  <main>
+    <!-- 1. HEADER: VK.caseHead('#top', {...}) fills this. No picture until the hero file exists. -->
+    <header class="case-head grain" id="top"></header>
+
+    <!-- IN SHORT: VK.inShort('#inshort', [...]) -->
+    <section class="sec tight" id="inshort-sec"><div class="inshort rv" id="inshort"></div></section>
+
+    <!-- 2. THE CHALLENGE: one sentence, set as the lead. -->
+    <section class="step grain" id="challenge">
+      <div class="step-head rv">
+        <div><p class="kicker" data-step="The challenge">01 · The challenge</p><h2 class="disp h2" id="challenge-h2">The challenge</h2></div>
+        <p class="lead" id="challenge-lead"></p>
+      </div>
+    </section>
+
+    <!-- 3. THE PRODUCT (paper): what it is, then what it is built with. -->
+    <section class="step paper grain" id="product">
+      <div class="step-head rv">
+        <div><p class="kicker" data-step="The product">02 · The product</p><h2 class="disp h2" id="product-h2">Two modes: research and practical.</h2></div>
+        <div class="body" id="product-body"></div>
+      </div>
+      <div id="tech-wrap" class="rv d1">
+        <p class="sublbl">Built with</p>
+        <ul class="toollist" id="tech" data-hide="#tech-wrap"></ul>
+      </div>
+    </section>
+
+    <!-- 4. THE GROWTH LOOP: one box per step, arrows between them, then the note. -->
+    <section class="step grain" id="loop">
+      <div class="step-head rv">
+        <div><p class="kicker" data-step="The growth loop">03 · The growth loop</p><h2 class="disp h2" id="loop-h2">Free on screen, full version by email.</h2></div>
+      </div>
+      <div class="flow" id="flow"></div>
+      <p class="note rv" id="loop-note"></p>
+    </section>
+
+    <!-- 5. WHAT I'D DO NEXT: the plan as the lead. No numbers on this page yet. -->
+    <section class="step grain" id="next">
+      <div class="step-head rv">
+        <div><p class="kicker" data-step="What I'd do next">04 · What I'd do next</p><h2 class="disp h2" id="next-h2">Then fix the weakest step first.</h2></div>
+        <p class="lead" id="next-lead"></p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="pagenav" id="pagenav" aria-label="More work"></nav>
+  <section class="contact grain" id="contact"></section>
+  <footer>
+    <span id="footer-left">Viking Kadar, Growth Marketing, Berghs School of Communication</span>
+    <a href="index.html" data-track="story_back" data-channel="case_amida_footer">Back to the portfolio</a>
+  </footer>
+
+  <script src="assets/content.js"></script>
+  <script src="assets/site.js"></script>
+  <script>
+    /* ============================================================
+       RENDER. Everything on this page comes from assets/content.js
+       (CONTENT.amida). An empty field hides its element. The page only
+       exists while flags.SHOW_AMIDA is on; otherwise it sends the visitor
+       to the projects hub.
+       ============================================================ */
+    (function () {
+      if (!VK.gate('SHOW_AMIDA', 'projects.html')) return;
+      const C = VK.C, D = C.amida || {}, el = VK.el, q = VK.q;
+
+      /* Every h2 on this page is a phrase quoted from content.js. It only shows
+         while the phrase is still in the source string; otherwise the step name. */
+      const h2 = (sel, phrase, source, fallback) => {
+        const n = q(sel);
+        if (n) n.textContent = (source || '').indexOf(phrase) > -1 ? phrase : fallback;
+      };
+
+      /* ---------- header ----------
+         D.hero.src is empty for now, so the header renders without a picture
+         (VK.caseHead adds .nomedia) and nothing is requested from the server. */
+      VK.caseHead('#top', {
+        back: { href: 'projects.html', label: 'All my own projects', channel: 'amida_top' },
+        title: D.title, kicker: D.kicker,
+        role: D.role, period: D.period, tags: D.tags, media: D.hero,
+      });
+      // TODO Viking: amida.hero.src in content.js (a screenshot of the app, e.g. images/amida-hero.webp).
+      //   The header shows the picture as soon as the file exists; also add the <link rel="preload"> noted in <head>.
+
+      /* ---------- in short ---------- */
+      VK.inShort('#inshort', D.inShort);
+      if (q('#inshort').classList.contains('hidden')) q('#inshort-sec').classList.add('hidden');
+
+      /* ---------- 01 the challenge ---------- */
+      VK.text('#challenge-lead', D.challenge);
+      if (!D.challenge) q('#challenge').classList.add('hidden');
+
+      /* ---------- 02 the product ---------- */
+      h2('#product-h2', 'Two modes: research and practical.', D.product, 'The product');
+      VK.paras('#product-body', [D.product]);
+      const tech = q('#tech');
+      (D.tech || []).filter(Boolean).forEach(t => tech.appendChild(el('li', {}, t)));
+      if (!tech.children.length) q('#tech-wrap').classList.add('hidden');
+      if (!D.product && !tech.children.length) q('#product').classList.add('hidden');
+
+      /* ---------- 03 the growth loop ----------
+         One box per string in D.loop; the arrows between the boxes come from .flow in site.css. */
+      h2('#loop-h2', 'Free on screen, full version by email.', (D.inShort || []).join(' '), 'The growth loop');
+      const flow = q('#flow');
+      (D.loop || []).filter(Boolean).forEach(s => flow.appendChild(el('div', {}, el('p', {}, s))));
+      if (!flow.children.length) flow.classList.add('hidden'); else VK.stagger('#flow', 3);
+      VK.text('#loop-note', D.loopNote);
+      if (!flow.children.length && !D.loopNote) q('#loop').classList.add('hidden');
+
+      /* ---------- 04 what I'd do next ---------- */
+      h2('#next-h2', 'Then fix the weakest step first.', D.next, 'What I\'d do next');
+      VK.text('#next-lead', D.next);
+      if (!D.next) q('#next').classList.add('hidden');
+
+      /* Number the visible steps in order, so a hidden step leaves no gap in 01, 02, 03 … */
+      let n = 0;
+      VK.qa('main .step').forEach(s => {
+        if (s.classList.contains('hidden')) return;
+        const k = q('.kicker[data-step]', s);
+        if (k) k.textContent = String(++n).padStart(2, '0') + ' · ' + k.dataset.step;
+      });
+
+      /* ---------- prev / next, contact, footer ---------- */
+      VK.pagenav('#pagenav',
+        { href: 'case-william-manor.html', label: 'William Manor', dir: 'Previous project', event: 'project_open', channel: 'manor' },
+        { href: 'berghs.html', label: 'Berghs, course by course', dir: 'Next', event: 'course_open', channel: 'berghs_from_amida' });
+      VK.contact('#contact', { channel: 'email_footer' });
+      VK.text('#footer-left', VK.S.footer);
+    })();
+  </script>
+</body>
+</html>

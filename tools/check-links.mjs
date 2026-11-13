@@ -40,9 +40,12 @@ const ATTR_RE = /\b(?:href|src)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>`]+))/gi;
    img.src = url; or a highlighted <span> inside <pre> is not a link.
    The opening tag is kept, so <script src="..."> is still checked. */
 const NOT_MARKUP = /(<(?:script|style|pre|code)\b[^>]*>)[\s\S]*?<\/(?:script|style|pre|code)>/gi;
+/* HTML comments are notes to the editor, not links: a comment that says
+   "add <link href=...> when the file exists" must not count as broken. */
+const COMMENTS = /<!--[\s\S]*?-->/g;
 
 function extractLinks(html) {
-  const markup = html.replace(NOT_MARKUP, '$1');
+  const markup = html.replace(COMMENTS, '').replace(NOT_MARKUP, '$1');
   const found = [];
   let m;
   while ((m = ATTR_RE.exec(markup)) !== null) {

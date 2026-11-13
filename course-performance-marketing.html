@@ -3,16 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Performance Marketing – the Aroma Roast case | Viking Kadar</title>
-  <meta name="description" content="Performance Marketing at Berghs, autumn 2026. Paid social for the coffee brand Aroma Roast: six ads across a Stop, Interest and Action funnel, and the one ad that took every purchase.">
+  <title>Aroma Roast – Performance Marketing | Viking Kadar</title>
+  <meta name="description" content="Paid social for the coffee brand Aroma Roast at Berghs. Six ads, three funnel stages, three days live, and the one ad that took every purchase.">
   <link rel="canonical" href="https://vikingkadar.github.io/course-performance-marketing.html">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://vikingkadar.github.io/course-performance-marketing.html">
-  <meta property="og:title" content="Aroma Roast – the ad that took every purchase">
-  <meta property="og:description" content="Paid social for a real coffee brand. Three purchases, all of them from the chocolate ad.">
+  <meta property="og:title" content="Aroma Roast – Performance Marketing">
+  <meta property="og:description" content="Paid social for the coffee brand Aroma Roast at Berghs: six ads across a Stop, Interest and Action funnel, three days live, and the one ad that took every purchase.">
   <meta property="og:image" content="https://vikingkadar.github.io/images/og-aromaroast.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='44' font-family='Arial Narrow,Arial' font-size='34' font-weight='bold' fill='%23fff' text-anchor='middle'%3EVK%3C/text%3E%3C/svg%3E">
+  <meta name="twitter:title" content="Aroma Roast – Performance Marketing">
+  <meta name="twitter:description" content="Paid social for the coffee brand Aroma Roast at Berghs: six ads across a Stop, Interest and Action funnel, three days live, and the one ad that took every purchase.">
+  <meta name="twitter:image" content="https://vikingkadar.github.io/images/og-aromaroast.jpg">
+  <meta name="theme-color" content="#0B0B0B">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23FF3B2F'/%3E%3Ctext x='32' y='44' font-family='Impact,Arial Narrow,Arial' font-size='32' font-weight='bold' fill='%23F2EFE9' text-anchor='middle'%3EVK%3C/text%3E%3C/svg%3E">
 
   <!-- ============================================================
        GOOGLE TAG MANAGER (GTM-T7ZGSTLG). Ror inte dessa rader.
@@ -26,86 +32,54 @@
   })(window,document,'script','dataLayer','GTM-T7ZGSTLG');</script>
   <!-- End Google Tag Manager -->
 
+  <script>document.documentElement.classList.add('js')</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <!-- The header picture (CONTENT.performance.hero) is the winning ad, so it is fetched first. -->
+  <link rel="preload" as="image" href="images/aroma/choco.webp" fetchpriority="high">
   <link rel="stylesheet" href="assets/site.css">
   <style>
-    /* Aroma Roast brand colours and the few components only this page uses.
-       Type, grid, navigation and footer stay shared with the rest of the site.
-       The client's blue and pink are accent only: they mark a result or a
-       number. Backgrounds, body copy, nav and footer stay black and white,
-       so the hero keeps the shared .phero black from site.css. */
-    :root{ --acc:#1A0089; --acc2:#FF8FD8; }
-    .brandline{height:6px;background:linear-gradient(90deg,var(--acc) 50%,var(--acc2) 50%)}
+    /* Page-only styles. Shared components live in assets/site.css.
+       The client's blue and pink stay out of this page on purpose: one accent, the site's red. */
 
-    /* in-page sub menu. It parks just under the fixed main nav, and the
-       extra scroll padding keeps anchor jumps clear of both bars. */
-    html{scroll-padding-top:132px}
-    .submenu{display:flex;flex-wrap:wrap;gap:8px;padding:18px var(--gut);border-bottom:1px solid var(--line);position:sticky;top:var(--nav-h);background:var(--w);z-index:40}
-    .submenu a{font-size:13px;font-weight:500;text-decoration:none;border:1px solid var(--line);padding:7px 12px}
-    .submenu a:hover{background:var(--b);color:var(--w);border-color:var(--b)}
-    .submenu a.last{margin-left:auto;border-color:var(--acc);color:var(--acc)}
+    /* Small uppercase labels above a block, and the spacing of a sub-block inside a step. */
+    .sublbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:500;margin:0 0 12px}
+    .blk{margin-top:clamp(40px,6vh,64px)}
+    .blk>.h3{margin-bottom:clamp(16px,2.5vh,24px);max-width:24ch}
 
-    /* vertical campaign film, kept narrow so a 9:16 Short does not dominate */
-    .shortwrap{max-width:360px;margin:0 auto}
-    .shortwrap .vid{aspect-ratio:9/16}
-    .shortwrap figcaption{font-size:14px;margin-top:12px;text-align:center}
+    /* 02: one funnel box per stage, the stage name big and its job under it. */
+    #flow b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(1.4rem,2.2vw,1.9rem);line-height:1.05;margin-bottom:6px}
+    .strat-foot{border-top:1px solid var(--line);padding-top:24px;margin-top:clamp(32px,5vh,48px)}
+    .strat-foot .rule{border-top:0;padding-top:0;margin-top:0}
+    #tests{margin-top:0}
 
-    /* one block per funnel stage */
-    .stage{margin-bottom:clamp(40px,6vh,72px)}
-    .stage-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;border-top:2px solid var(--b);padding-top:14px;margin-bottom:22px}
-    .stage-head .sn{font-family:var(--disp);text-transform:uppercase;font-size:clamp(28px,3.6vw,48px);line-height:1;color:var(--acc)}
-    .stage-head .sj{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2vw,24px)}
-    .stage-result{margin-top:18px;border-left:3px solid var(--acc2);padding:12px 0 12px 16px;font-size:15px}
-    .stage-result b{font-family:var(--disp);text-transform:uppercase;font-size:11px;letter-spacing:.09em;display:block;margin-bottom:4px;color:var(--g)}
+    /* 03: the campaign film sits beside the heading, then one block of ad cards per stage. */
+    #execution .step-head{align-items:start}
+    #ads-wrap{margin-top:clamp(40px,6vh,64px)}
+    #ads-heading{margin-bottom:clamp(24px,4vh,40px);max-width:24ch}
+    .ad .adshot .vid{border-radius:0}
+    /* A stage with two or four cards gets a grid that fits them, so no row is left with a hole. */
+    @media(min-width:960px){
+      .ads[data-n="2"]{grid-template-columns:repeat(2,1fr);max-width:900px}
+      .ads[data-n="4"]{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(min-width:1200px){.ads[data-n="4"]{grid-template-columns:repeat(4,1fr)}}
 
-    /* an ad card */
-    .ad{border:1px solid var(--line);display:flex;flex-direction:column;background:var(--w);position:relative}
-    .ad.win{border:2px solid var(--acc2)}
-    .ad .winner{position:absolute;top:0;right:0;background:var(--acc2);color:var(--b);font-family:var(--disp);text-transform:uppercase;font-size:11px;letter-spacing:.09em;padding:6px 10px;z-index:2}
-    .ad .adshot{margin:0;background:#f2f2f2}
-    .ad .adshot button{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
-    .ad .adshot img{width:100%;aspect-ratio:4/5;object-fit:cover}
-    .ad .adbody{padding:18px 18px 20px;display:flex;flex-direction:column;flex:1}
-    .ad .sv{font-family:var(--serif);font-size:clamp(19px,2vw,23px);line-height:1.15}
-    .ad .en{font-size:13px;color:var(--g);margin-top:5px}
-    .ad .lbl{font-family:var(--disp);text-transform:uppercase;font-size:11px;letter-spacing:.09em;color:var(--g);margin:16px 0 5px}
-    .ad p{font-size:14px;margin:0}
-    .ad .res{margin-top:14px;background:var(--acc);color:var(--w);padding:10px 12px;font-size:13px;font-weight:500}
-    .ad.vid-ad .adshot img{aspect-ratio:9/16}
+    /* 04: three big numbers; the third spans the row on narrow screens so the grid has no hole.
+       Then the table beside the Choco bars, the analysis, the landing page and the next steps. */
+    @media(max-width:859px){#headline>div:nth-child(3){grid-column:1/-1}}
+    .res-two{margin-top:clamp(28px,4vh,40px)}
+    #stats-tbl td:last-child{text-align:right;white-space:nowrap}
+    #bars .barrow:first-child{margin-top:0}
+    #beyond:has(#landing-wrap.hidden){grid-template-columns:1fr}
+    #landing-wrap img{border-radius:var(--r)}
 
-    .rule{font-family:var(--serif);font-size:clamp(21px,2.4vw,30px);line-height:1.2;border-top:1px solid var(--line);padding-top:24px;max-width:34ch}
-
-    /* see / think / don't know */
-    .stk{display:grid;grid-template-columns:1fr;gap:12px}
-    @media(min-width:860px){.stk{grid-template-columns:repeat(3,1fr)}}
-    .stk>div{border:1px solid var(--linei);padding:22px}
-    .stk h3{font-family:var(--serif);font-size:clamp(22px,2.3vw,28px);margin-bottom:12px}
-    .stk ul{margin:0;padding-left:18px;font-size:15px}
-    .stk li{margin-bottom:6px}
-
-    .steps{list-style:none;margin:0;padding:0;counter-reset:s}
-    .steps li{counter-increment:s;border-bottom:1px solid var(--line);padding:18px 0 18px 48px;position:relative;font-size:16px}
-    .steps li::before{content:counter(s);position:absolute;left:0;top:14px;font-family:var(--disp);font-size:28px;line-height:1;color:var(--acc)}
-    .steps li b{font-family:var(--serif);font-weight:400;font-size:20px;display:block;margin-bottom:3px}
-
-    .tests{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-    .tests li{border:1px solid currentColor;padding:7px 12px;font-size:13px}
-
-    .pass li.hi{background:var(--acc2);color:var(--b);border-color:var(--acc2)}
-    .pass .when{font-size:12px;color:var(--gd);margin-top:2px}
-
-    /* The ten sessions are folded away behind a button, so the section opens
-       on the two things worth reading first. Plain details/summary, so it
-       works with JavaScript switched off. */
-    details.sessions{margin:clamp(48px,7vh,80px) 0 0}
-    details.sessions summary{display:inline-block;list-style:none;border:1px solid var(--linei);color:inherit;padding:14px 20px;font-size:15px;font-weight:500;line-height:1;cursor:pointer}
-    details.sessions summary::-webkit-details-marker{display:none}
-    details.sessions summary::after{content:' +';font-weight:400}
-    details.sessions[open] summary::after{content:' −'}
-    details.sessions summary:hover,details.sessions summary:focus-visible{background:var(--w);color:var(--b);border-color:var(--w)}
-    details.sessions .passes{margin-top:22px}
+    /* What I learned: a dark section of its own after the results. */
+    #learned .kicker{margin-bottom:clamp(20px,3vh,28px)}
+    #learned .h3{margin-bottom:clamp(16px,2.5vh,24px)}
+    #notes-wrap,#tools-wrap{margin-top:clamp(40px,6vh,64px)}
+    #credit{margin-top:clamp(32px,5vh,48px)}
   </style>
 </head>
 <body>
@@ -114,572 +88,323 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <nav class="nav" id="nav" aria-label="Main menu">
-    <a href="index.html"><strong>Viking Kadar</strong></a>
+    <a class="brand" href="index.html">Viking Kadar<i aria-hidden="true"></i></a>
     <ul>
       <li><a href="index.html#work">Work</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="index.html#courses">Courses</a></li>
+      <li><a href="projects.html">Own projects</a></li>
+      <li><a href="berghs.html">Berghs</a></li>
       <li><a href="index.html#about">About</a></li>
     </ul>
     <div class="nav-right">
-      <a class="nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+      <a class="btn small nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
       <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="overlay">Menu</button>
     </div>
   </nav>
-
-  <div class="overlay" id="overlay">
+  <div class="overlay" id="overlay" aria-hidden="true">
     <button class="close" id="menu-close">Close</button>
-    <a href="index.html#work">Work</a>
-    <a href="projects.html">Projects</a>
-    <a href="index.html#courses">Courses</a>
-    <a href="index.html#about">About</a>
-    <a href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+    <a href="index.html#work"><small>01</small>Work</a>
+    <a href="projects.html"><small>02</small>Own projects</a>
+    <a href="berghs.html"><small>03</small>Berghs</a>
+    <a href="index.html#about"><small>04</small>About</a>
+    <a class="btn acc" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
   </div>
+  <div class="cur" id="cur" aria-hidden="true"></div>
 
-  <header class="phero" id="top">
-    <a class="back" href="index.html#courses" data-track="story_back" data-channel="performance_top">← All courses</a>
-    <h1 class="disp">Aroma<br>Roast</h1>
-    <div class="meta"><span class="on">Done</span><span>Sep to Oct 2026</span><span>Performance Marketing, Berghs</span></div>
-    <p class="sub">Paid social for a real coffee brand. My part: the creative concept and all of the ad creative.</p>
-    <p class="role">Group 4: Clara, Tuva, Lowe, Viking and Rahel.</p>
-  </header>
-  <div class="brandline"></div>
+  <main>
+    <!-- 1. HEADER: VK.caseHead('#top', {...}) fills this. The picture is the winning ad. -->
+    <header class="case-head grain" id="top"></header>
 
-  <nav class="submenu" aria-label="On this page">
-    <a href="#problem">The problem</a>
-    <a href="#film">Campaign film</a>
-    <a href="#ads">The ads</a>
-    <a href="#results">Results</a>
-    <a href="#analysis">The analysis</a>
-    <a href="#next">Next steps</a>
-    <a class="last" href="#learned">What I learned ↓</a>
-  </nav>
+    <!-- IN SHORT: VK.inShort('#inshort', [...]) -->
+    <section class="sec tight" id="inshort-sec"><div class="inshort rv" id="inshort"></div></section>
 
-  <section class="sec" id="tldr">
-    <div class="tldr">
-      <h2>In short</h2>
-      <ol id="tldr-rows"></ol>
-      <div class="cta" style="margin-top:22px">
-        <a class="btn" href="#learned">What I learned ↓</a>
+    <!-- 2. THE CHALLENGE: the first sentence as the lead, the three paragraphs as the body. -->
+    <section class="step grain" id="challenge">
+      <div class="step-head rv">
+        <div><p class="kicker">01 · The challenge</p><h2 class="disp h2">The challenge</h2></div>
+        <p class="lead" id="challenge-lead"></p>
       </div>
-    </div>
-  </section>
+      <div class="body rv d1" id="challenge-body"></div>
+    </section>
 
-  <section class="sec" id="problem">
-    <div class="head">
-      <h2 class="disp">The problem</h2>
-      <p class="sub">What the brief actually asked us to solve.</p>
-    </div>
-    <div id="problem-body"></div>
-  </section>
+    <!-- 3. STRATEGY (paper): the funnel as three boxes, then the rule and what we tested. -->
+    <section class="step paper grain" id="strategy">
+      <div class="step-head rv">
+        <div><p class="kicker">02 · Strategy</p><h2 class="disp h2">Strategy</h2></div>
+        <p class="lead" id="strategy-lead"></p>
+      </div>
+      <div class="flow" id="flow"></div>
+      <div class="two strat-foot rv" id="strat-foot">
+        <p class="rule" id="rule"></p>
+        <div id="tests-wrap">
+          <p class="sublbl">What we tested</p>
+          <ul class="tests" id="tests"></ul>
+        </div>
+      </div>
+    </section>
 
-  <section class="sec inv" id="film">
-    <div class="head">
-      <h2 class="disp">Campaign<br>film</h2>
-      <p class="sub">Shot vertical, built for the feed.</p>
-    </div>
-    <figure class="shortwrap" id="shortfig">
-      <div data-video="short" data-hide="#film"></div>
-      <figcaption id="short-cap"></figcaption>
-    </figure>
-  </section>
+    <!-- 4. EXECUTION: the campaign film, then the ads stage by stage. -->
+    <section class="step grain" id="execution">
+      <div class="step-head rv">
+        <div><p class="kicker">03 · Execution</p><h2 class="disp h2">Execution</h2></div>
+        <figure class="shortwrap" id="film"><div id="film-slot"></div><figcaption id="film-cap"></figcaption></figure>
+      </div>
+      <div id="ads-wrap">
+        <h3 class="disp h3 rv" id="ads-heading"></h3>
+        <div id="ads"></div>
+      </div>
+    </section>
 
-  <section class="sec" id="ads">
-    <div class="head">
-      <h2 class="disp">The ads</h2>
-      <p class="sub">Six stills and three films across three stages. One of them did all the work.</p>
-    </div>
-    <div id="stages"></div>
-    <p class="rule">The further down the funnel, the less play and the clearer the call to action.</p>
-    <ul class="tests" id="tests" aria-label="What we tested"></ul>
-  </section>
+    <!-- 5. RESULTS & WHAT I'D DO NEXT: numbers in context, the analysis, the landing page, the next steps. -->
+    <section class="step grain" id="results">
+      <div class="step-head rv">
+        <div><p class="kicker">04 · Results &amp; what I'd do next</p><h2 class="disp h2">Results &amp; what I'd do next</h2></div>
+      </div>
+      <div id="headline" class="rv"></div>
+      <div class="two res-two">
+        <div class="rv" id="stats-wrap">
+          <div class="tbl-wrap">
+            <table class="tbl small" id="stats-tbl">
+              <thead><tr><th scope="col">Metric</th><th scope="col">Value</th></tr></thead>
+              <tbody id="stats-body"></tbody>
+            </table>
+          </div>
+          <p class="statcap" id="statcap"></p>
+        </div>
+        <div class="rv d1" id="bars"></div>
+      </div>
+      <div class="blk rv" id="analysis-wrap">
+        <h3 class="disp h3">The analysis</h3>
+        <div class="stk" id="analysis"></div>
+      </div>
+      <div class="blk two rv" id="beyond">
+        <div>
+          <h3 class="disp h3">Beyond the ad</h3>
+          <div class="body" id="beyond-body"></div>
+        </div>
+        <div id="landing-wrap"><div data-img="landing" data-hide="#landing-wrap"></div></div>
+      </div>
+      <div class="blk rv" id="next">
+        <h3 class="disp h3">Next steps</h3>
+        <ol class="numbered" id="next-steps"></ol>
+      </div>
+    </section>
 
-  <section class="sec inv" id="results">
-    <div class="head">
-      <h2 class="disp">Results</h2>
-      <p class="sub">What the platform reported when the campaign closed.</p>
-    </div>
-    <div class="stats" id="stat-wall" aria-label="Campaign results"></div>
-    <p class="stats-cap" id="stat-cap"></p>
-    <div id="bars" style="margin-top:28px"></div>
-  </section>
+    <!-- WHAT I LEARNED: the course itself, in its own dark section. -->
+    <section class="step grain" id="learned">
+      <p class="kicker rv">What I learned</p>
+      <div id="core-wrap" class="rv">
+        <h3 class="disp h3">Four things to keep</h3>
+        <div class="core" id="core"></div>
+      </div>
+      <div id="notes-wrap" class="rv">
+        <h3 class="disp h3">My three notes</h3>
+        <div class="refl" id="notes"></div>
+      </div>
+      <details class="more" id="sessions">
+        <summary>See all ten sessions</summary>
+        <div class="passes" id="passes"></div>
+      </details>
+      <div id="tools-wrap" class="rv">
+        <p class="sublbl">The toolbox</p>
+        <ul class="toollist" id="tools"></ul>
+      </div>
+      <p class="note rv" id="credit"></p>
+    </section>
+  </main>
 
-  <section class="sec" id="analysis">
-    <div class="head">
-      <h2 class="disp">The analysis</h2>
-      <p class="sub">What I see, what I think it means, and what I genuinely cannot tell.</p>
-    </div>
-    <div class="stk" id="analysis-grid" style="--linei:var(--line)"></div>
-  </section>
-
-  <section class="sec inv" id="beyond">
-    <div class="head">
-      <h2 class="disp">Beyond<br>the ad</h2>
-      <p class="sub">The ad is only the first half. The landing page decides the rest.</p>
-    </div>
-    <div id="beyond-body"></div>
-    <div class="measure-block" data-img="landing"></div>
-  </section>
-
-  <section class="sec" id="next">
-    <div class="head">
-      <h2 class="disp">Next steps</h2>
-      <p class="sub">What I would run if the budget carried on.</p>
-    </div>
-    <ol class="steps" id="next-steps"></ol>
-  </section>
-
-  <section class="sec inv" id="learned">
-    <div class="head">
-      <h2 class="disp">What I<br>learned</h2>
-      <p class="sub">Three weeks, ten sessions. The most important in blue.</p>
-    </div>
-
-    <h3 class="disp" id="core-head" style="font-size:clamp(28px,4vw,56px);margin:clamp(40px,6vh,64px) 0 24px">Four things to keep</h3>
-    <div class="core" id="core" style="--line:var(--linei)"></div>
-
-    <h3 class="disp" id="notes-head" style="font-size:clamp(28px,4vw,56px);margin:clamp(48px,7vh,80px) 0 24px">My three notes</h3>
-    <div class="refl" id="notes"></div>
-
-    <details class="sessions" id="sessions">
-      <summary>See all ten sessions</summary>
-      <div class="passes" id="passes"></div>
-    </details>
-
-    <h3 class="disp" id="tools-head" style="font-size:clamp(28px,4vw,56px);margin:clamp(48px,7vh,80px) 0 24px">The toolbox</h3>
-    <ul class="tools" id="tools"></ul>
-
-    <p class="note">Group 4: Clara, Tuva, Lowe, Viking and Rahel. My part was the creative concept and all of the ad creative, mostly made with AI in Higgsfield and combined with real footage. Campaign setup and budget were shared. The analysis on this page is my own.</p>
-  </section>
-
-  <nav class="pagenav" aria-label="More courses">
-    <a href="course-growth-toolbox.html" data-track="course_open" data-channel="growth_toolbox"><div class="dir">Previous course</div><div class="t">← Growth Toolbox</div></a>
-    <a class="next" href="projects.html" data-track="project_open" data-channel="from_performance"><div class="dir">Next</div><div class="t">My own projects →</div></a>
-  </nav>
-
-  <section class="sec contact" id="contact">
-    <h2 class="disp">Get in touch</h2>
-    <a class="mail" href="mailto:viking@posterlab.ai?subject=Internship" data-track="contact_click" data-channel="email">viking@posterlab.ai</a>
-    <p>Right now I'm looking for a six-week internship, March to April 2027. One email is enough, I reply fast.</p>
-  </section>
-
+  <nav class="pagenav" id="pagenav" aria-label="More work"></nav>
+  <section class="contact grain" id="contact"></section>
   <footer>
-    <span>Viking Kadar, Performance Marketing, Berghs 2026</span>
-    <a href="index.html" data-track="story_back" data-channel="performance_footer">Back to the portfolio</a>
+    <span id="footer-left">Viking Kadar, Growth Marketing, Berghs School of Communication</span>
+    <a href="index.html" data-track="story_back" data-channel="course_performance_footer">Back to the portfolio</a>
   </footer>
 
-  <dialog class="lb" id="lightbox"><button type="button" id="lb-close">Close</button><img id="lb-img" src="" alt=""></dialog>
-
+  <script src="assets/content.js"></script>
   <script src="assets/site.js"></script>
   <script>
     /* ============================================================
-       EVERYTHING ON THIS PAGE IS EDITED HERE.
-
-       Every list is rendered below. An empty list hides its own
-       section, so the page never shows an empty frame and never
-       claims a number it does not have. Fill a list and its
-       section appears by itself.
-
-       The ad images live in images/aroma/ as 1024x1280 WebP files.
+       RENDER. Everything on this page comes from assets/content.js
+       (CONTENT.performance). An empty field hides its element.
+       The client's brand colours (performance.brand) are not used.
        ============================================================ */
+    (function () {
+      const C = VK.C, D = C.performance || {}, el = VK.el, q = VK.q;
+      const FOLDER = D.folder || '';
+      const hide = sel => { const n = q(sel); n && n.classList.add('hidden'); };
 
-    const AROMA = 'images/aroma/';   // folder for every image on this page
+      /* ---------- header ---------- */
+      VK.caseHead('#top', {
+        back: { href: 'berghs.html', label: 'All courses', channel: 'performance_top' },
+        title: D.title, kicker: D.kicker,
+        role: D.role, period: D.period, course: D.course, tags: D.tags, media: D.hero,
+      });
 
-    /* ---------- 1. The three lines at the top ---------- */
-    const TLDR = [
-      { t: 'What I did', b: 'Paid social for the coffee brand Aroma Roast with group 4. Six still ads and three films across a Stop, Interest and Action funnel, then the follow-up on what the numbers said.' },
-      { t: 'What the data said', b: 'Three days, 972 SEK. One ad out of six took 75 % of the budget, 84 % of the link clicks and all three purchases. Too short to crown a winner, clear enough to know where to dig next.' },
-      { t: 'What I learned', b: 'Show the taste, don\'t describe it. And keep what the data shows apart from what we think it means.' },
-    ];
+      /* ---------- in short ---------- */
+      VK.inShort('#inshort', D.inShort);
 
-    /* ---------- 2. The problem ----------
-       skriv in briefen med dina egna ord, en strang per stycke.
-       Tom lista = hela sektionen doljs. */
-    const PROBLEM = [
-      'People think decaf tastes weak and boring. That belief stops the first purchase before anyone has tasted it. So we made the taste impossible to miss.',
-      'Audience: women 20 to 30 with a clean-girl lifestyle. Our hypothesis: they want to cut down on caffeine, not on taste or on the coffee moment.',
-      'Strategy: taste first, no caffeine as the bonus. Like Coke Zero and Heineken 0.0, don\'t sell what is missing, sell that nothing is missing. Full coffee taste. Without the caffeine.',
-    ];
+      /* ---------- 01 the challenge ----------
+         The lead is the first sentence of the first paragraph, cut from the
+         text itself, so it can never say something the paragraph no longer says. */
+      const problem = (D.problem || []).filter(Boolean);
+      const firstSentence = s => { const m = String(s || '').match(/^[^.!?]*[.!?]/); return m ? m[0].trim() : ''; };
+      VK.text('#challenge-lead', firstSentence(problem[0]));
+      VK.paras('#challenge-body', problem);
 
-    /* ---------- 3. The campaign film ---------- */
-    const MEDIA = {
-      // Vertical YouTube Short. The thumbnail loads first and the player
-      // is only created on click.
-      short: { youtube: 'OsPaCz2UoCY', title: 'Aroma Roast campaign film', channel: 'aroma_short' },
+      /* ---------- 02 strategy ----------
+         The lead is the sentence after "Strategy: " in the problem text, with
+         its first letter raised. No "Strategy:" paragraph = no lead. */
+      const stratPara = problem.find(p => /^Strategy:\s/.test(p)) || '';
+      const sm = stratPara.match(/^Strategy:\s*([^.!?]*[.!?])/);
+      VK.text('#strategy-lead', sm ? sm[1].charAt(0).toUpperCase() + sm[1].slice(1) : '');
 
-      // TODO Viking: en skarmdump av landningssidan, t.ex.
-      // { src: 'images/aroma/landing.webp', alt: 'Aroma Roast landing page', w: 1200, h: 800 }
-      landing: null,
-    };
-    // TODO Viking: vilken annons/vad visar filmen? Tom strang = ingen bildtext.
-    const SHORT_CAPTION = '';
+      const stages = (D.stages || []).filter(s => s && s.name);
+      const flow = q('#flow');
+      stages.forEach(s => flow.appendChild(el('div', {}, [el('b', {}, s.name), s.job ? el('p', {}, s.job) : null])));
+      if (!flow.children.length) flow.classList.add('hidden'); else VK.stagger('#flow', 3);
 
-    /* ---------- 4. The funnel stages ---------- */
-    const STAGES = [
-      { id: 'stop', name: 'Stop', job: 'Stop the scroll',
-        result: 'Awareness ads: zero purchases and almost no spend. Meta moved the budget elsewhere on its own.' },
-      { id: 'interest', name: 'Interest', job: 'Spark the craving',
-        result: 'Choco Roast took 75 % of the budget, 84 % of link clicks and all 3 purchases.' },
-      { id: 'action', name: 'Action', job: 'Make buying easy',
-        result: '' }, // TODO Viking: fyll i fran Ads Manager om du har siffror
-    ];
+      VK.text('#rule', D.rule);
+      const tests = q('#tests');
+      (D.tests || []).filter(Boolean).forEach(t => tests.appendChild(el('li', {}, t)));
+      if (!tests.children.length) hide('#tests-wrap');
+      if (q('#rule').classList.contains('hidden') && q('#tests-wrap').classList.contains('hidden')) hide('#strat-foot');
 
-    /* ---------- 5. The still ads ----------
-       sv = the headline as it ran, in Swedish. en = translation.
-       result = only shown when it is not empty. win = the pink winner frame. */
-    const ADS = [
-      { id: 'claw', stage: 'stop', img: 'claw.webp',
-        sv: 'Vinst i varje kopp', en: 'A win in every cup',
-        thinking: 'A claw machine in a coffee ad does not belong, and that is the point: the brain stops on things that do not fit. The bags are the prize, so the picture tells the message before the copy does.',
-        result: '' },
-      { id: 'suitcase', stage: 'stop', img: 'suitcase.webp',
-        sv: 'Nästa stopp: kaffestund. Utan koffeinet.', en: 'Next stop: coffee break. Without the caffeine.',
-        thinking: 'The whole range in one frame, and the first ad to say "without the caffeine", with a wink. The travel frame makes decaf feel like a small trip, not a sacrifice.',
-        result: '' },
-      { id: 'caramel', stage: 'interest', img: 'caramel.webp',
-        sv: 'Säg hej till din nya kaffefavorit', en: 'Say hi to your new favourite coffee',
-        thinking: 'Salted caramel is a trend flavour. The bag sits on the real thing, so you taste it with your eyes before reading a word. Aimed at someone still looking for a favourite.',
-        result: '' },
-      { id: 'choco', stage: 'interest', img: 'choco.webp', win: true,
-        sv: 'Smakkombon du inte visste att du saknade', en: 'The flavour combo you didn\'t know you were missing',
-        thinking: 'The bag pressed into a chocolate cake. The taste is understood in under a second, and there is no caffeine talk at all, only craving.',
-        result: '75 % of budget · 84 % of link clicks · 3 of 3 purchases' },
-      { id: 'everyday', stage: 'action', img: 'everyday.webp',
-        sv: 'Börja dagen på rätt sätt. Beställ idag!', en: 'Start the day the right way. Order today!',
-        thinking: 'Clearest product, clearest CTA: one bag on a bed of beans and a button-shaped "Order today". Built for retargeting people who have already seen the brand.',
-        result: '' },
-      { id: 'tv', stage: 'action', img: 'tv.webp',
-        sv: 'Byt kanal på kaffevanorna – klicka hem din favoritsmak direkt', en: 'Change channel on your coffee habits – order your favourite flavour now',
-        thinking: 'Three screens, three ways to drink it. Switching coffee should feel as easy as changing channel, and the copy says exactly what to do next.',
-        result: '' },
-    ];
+      /* ---------- 03 execution ----------
+         The campaign film: a facade, the player only on click. film.noThumb is
+         set in content.js while the video is not public, so the facade shows
+         the title on a dark card instead of asking YouTube for a thumbnail. */
+      const film = D.film || {};
+      if (film.youtube) {
+        q('#film-slot').appendChild(VK.facade(film));
+        // TODO Viking: performance.film.caption in content.js (one line on what the film shows). Empty = no caption under the film.
+        if (film.caption) q('#film-cap').textContent = film.caption; else q('#film-cap').remove();
+      } else hide('#film');
 
-    /* ---------- 6. The video ads ----------
-       Same card layout as the stills but with no Swedish headline.
-       skriv in beskrivningen for var film i 'thinking', och
-       lagg in YouTube-id om de finns olistade nagonstans. Utan id visas
-       tumnageln som stillbild. */
-    const VIDEO_ADS = [
-      { id: 'v-caramel', stage: 'stop', img: 'v-caramel.jpg', youtube: '', title: 'The sticker', thinking: 'Movement catches the eye faster than a still.', result: '' },
-      { id: 'v-mug', stage: 'stop', img: 'v-mug.jpg', youtube: '', title: 'The cup character', thinking: 'The brand\'s own character, out in the world.', result: '' },
-      { id: 'v-barbie', stage: 'interest', img: 'v-barbie.jpg', youtube: '', title: 'The Barbie morning', thinking: 'Borrowed recognition from pop culture.', result: '' },
-    ];
+      VK.text('#ads-heading', D.adsHeading);
 
-    /* ---------- 7. What we tested ----------
-       t.ex. 'Flavour vs caffeine', 'Still vs video'. Tom = doljs. */
-    const TESTS = ['Playful ↔ product focus', 'Chocolate ↔ caramel', 'Still ↔ video', 'Soft message ↔ clear CTA'];
+      // One card per ad. Stills open full size in the shared lightbox (ad_open);
+      // a video ad is a facade when it has a YouTube id, otherwise its still.
+      const adCard = (ad, isVideo) => {
+        const box = el('div', { class: 'ad' + (ad.win ? ' win' : '') + (isVideo ? ' vid-ad' : '') });
+        if (ad.win) box.appendChild(el('span', { class: 'winner' }, 'Winner'));
+        const shot = el('figure', { class: 'adshot' });
+        if (isVideo) {
+          if (ad.youtube) shot.appendChild(VK.facade({ youtube: ad.youtube, title: ad.title, channel: ad.id, vertical: true }));
+          else if (ad.img) {
+            const im = VK.img({ src: FOLDER + ad.img, alt: 'Aroma Roast video ad: ' + (ad.title || ''), w: ad.w, h: ad.h }, { onDead: () => shot.remove() });
+            if (im) shot.appendChild(im);
+          }
+        } else if (ad.img) {
+          const btn = el('button', { type: 'button', data: { zoom: FOLDER + ad.img, title: ad.sv || '', event: 'ad_open', channel: ad.id || '', cursor: 'Zoom' } });
+          btn.setAttribute('aria-label', 'Open ad: ' + (ad.sv || ad.id || ''));
+          const im = VK.img({ src: FOLDER + ad.img, alt: 'Aroma Roast ad: ' + (ad.sv || ''), w: 1024, h: 1280 }, { onDead: () => shot.remove() });
+          if (im) { btn.appendChild(im); shot.appendChild(btn); }
+        }
+        if (shot.children.length) box.appendChild(shot);
+        const body = el('div', { class: 'adbody' });
+        if (isVideo) {
+          if (ad.title) body.appendChild(el('div', { class: 'sv' }, ad.title));
+          body.appendChild(el('div', { class: 'en' }, 'Video ad'));
+        } else {
+          if (ad.sv) body.appendChild(el('div', { class: 'sv' }, '“' + ad.sv + '”'));
+          if (ad.en) body.appendChild(el('div', { class: 'en' }, ad.en));
+        }
+        if (ad.thinking) { body.appendChild(el('div', { class: 'lbl' }, 'The thinking')); body.appendChild(el('p', {}, ad.thinking)); }
+        if (ad.result) body.appendChild(el('div', { class: 'res' }, ad.result));
+        box.appendChild(body);
+        return box;
+      };
 
-    /* ---------- 8. Results ----------
-       { v: '3', dec: 0, suf: '', l: 'Purchases' }  -> v rullar upp som raknare
-       lagg till impressions, klick, CTR, spend och CPA. */
-    const STATS = [
-      { v: '7192', l: 'Reach' },
-      { v: '10296', l: 'Impressions' },
-      { v: '102', l: 'Link clicks' },
-      { v: '0.99', dec: 2, suf: ' %', l: 'CTR' },
-      { v: '9.53', dec: 2, suf: ' SEK', l: 'CPC' },
-      { v: '3', l: 'Purchases' },
-      { v: '324', suf: ' SEK', l: 'CPA, cost per purchase' },
-      { v: '2.9', dec: 1, suf: ' %', l: 'Click to purchase' },
-      { v: '0.66', dec: 2, l: 'ROAS, SEK back per SEK spent' },
-      { v: '972', suf: ' SEK', l: 'Total spend' },
-    ];
-    // kampanjperiod och kalla, t.ex. 'Meta Ads Manager, 1 to 14 October 2026.'
-    const STATS_CAPTION = 'Meta Ads Manager, three days live. Meta recommends around two weeks for the algorithm to learn, so these numbers are a compass, not a verdict. A ROAS under 1 means the test lost money, which is what a three-day test usually does.';
+      const adsHost = q('#ads');
+      let shown = 0;
+      stages.forEach((st, i) => {
+        const stills = (D.ads || []).filter(a => a && a.stage === st.id);
+        const vids = (D.videoAds || []).filter(a => a && a.stage === st.id);
+        if (!stills.length && !vids.length) return;
+        const sec = el('section', { class: 'stage' });
+        sec.appendChild(el('div', { class: 'stage-head rv' }, [
+          el('div', { class: 'sn' }, String(i + 1).padStart(2, '0') + ' ' + st.name),
+          st.job ? el('div', { class: 'sj' }, st.job) : null,
+        ]));
+        const grid = el('div', { class: 'ads' });
+        stills.forEach(a => { grid.appendChild(adCard(a, false)); shown++; });
+        vids.forEach(a => { grid.appendChild(adCard(a, true)); shown++; });
+        grid.dataset.n = String(grid.children.length);
+        VK.stagger(grid, 3);
+        sec.appendChild(grid);
+        // TODO Viking: performance.stages[2].result in content.js (the Action stage's numbers from Ads Manager). Empty = no "Stage result" box under that stage.
+        if (st.result) sec.appendChild(el('div', { class: 'stage-result rv' }, [el('b', {}, 'Stage result'), st.result]));
+        adsHost.appendChild(sec);
+      });
+      if (!shown) hide('#ads-wrap');
 
-    // Per-ad comparison bars.
-    const BARS = [
-      { label: 'Choco Roast: share of budget', value: 75, max: 100, unit: '%' },
-      { label: 'Choco Roast: share of link clicks', value: 84, max: 100, unit: '%' },
-      { label: 'Choco Roast: share of purchases', value: 100, max: 100, unit: '%' },
-    ];
+      /* ---------- 04 results & what I'd do next ----------
+         Three headline numbers count up; the rest sit in a small table
+         beside the three Choco bars. */
+      VK.stats('#headline', D.headline, 'big');
 
-    /* ---------- 9. The analysis ----------
-       fyll i punkterna. Tomma listor doljs. */
-    const ANALYSIS = {
-      see: ['Choco took 75 % of the budget, 84 % of the clicks and every purchase.', 'The awareness ads: zero purchases, almost no spend.', 'The videos got less engagement than we expected.'],
-      think: ['The taste is understood in under a second.', 'The middle of the funnel sits closer to the purchase.', 'A still and a straight message beat motion.'],
-      dontKnow: ['Whether it was the picture, the flavour or the budget that decided it.', 'The ads differed on several things at once.', 'Purchases that came after day three are not in the data.'],
-    };
+      const tbody = q('#stats-body');
+      (D.stats || []).filter(s => s && s.label && s.text).forEach(s => tbody.appendChild(el('tr', {}, [el('td', {}, s.label), el('td', {}, el('b', {}, s.text))])));
+      if (!tbody.children.length) q('#stats-tbl').closest('.tbl-wrap').classList.add('hidden');
+      VK.text('#statcap', D.statsCaption);
+      if (!tbody.children.length && q('#statcap').classList.contains('hidden')) hide('#stats-wrap');
 
-    /* ---------- 10. Beyond the ad ----------
-       en strang per stycke om landningssidan. */
-    const BEYOND = [
-      'The hero says nothing about taste. The ad promises taste and the site talks about something else. The message has to hold all the way to checkout.',
-      'The discount shows up in the wrong place. The subscription (−10 %) is only mentioned on the start page. The choice should sit right above "Add to cart".',
-    ];
+      const bars = q('#bars');
+      (D.bars || []).filter(b => b && b.label && b.value != null).forEach(b => bars.appendChild(VK.bar({ label: b.label, value: b.value, text: b.value + (b.unit ? ' ' + b.unit : '') })));
+      if (!bars.children.length) bars.classList.add('hidden');
 
-    /* ---------- 11. Next steps ----------
-       { t: 'Short title', b: 'One sentence.' } */
-    const NEXT_STEPS = [
-      { t: 'Build on Choco', b: 'Same look, new situations and messages. Even more chocolate, even more coffee in the frame.' },
-      { t: 'A clearer CTA', b: 'Say exactly what the person should do: "Buy now".' },
-      { t: 'One thing at a time', b: 'A/B test hooks with everything else equal, so we know what makes the difference.' },
-      { t: 'UGC at the top of the funnel', b: 'Creators who taste it and say it holds up against regular coffee.' },
-      { t: 'Scale out', b: 'TikTok and YouTube once we know which combination sells.' },
-    ];
+      // The analysis: one box per key in analysisHeads (what I see / think / cannot tell).
+      const heads = D.analysisHeads || {}, an = D.analysis || {};
+      const stk = q('#analysis');
+      Object.keys(heads).forEach(k => {
+        const items = (an[k] || []).filter(Boolean);
+        if (!heads[k] || !items.length) return;
+        stk.appendChild(el('div', {}, [el('h3', {}, heads[k]), el('ul', {}, items.map(t => el('li', {}, t)))]));
+      });
+      if (!stk.children.length) hide('#analysis-wrap'); else VK.stagger('#analysis', 3);
 
-    /* ---------- 12. What I learned ----------
-       PASSES: { n: '01', when: '2 Sep', t: 'Session title', k: ['Keyword'], hi: 0 }
-         hi = index of the keyword to highlight in pink.
-       fyll i alla tio pass. */
-    const PASSES = [
-      { n: '01', when: '21 Sep', t: 'Performance marketing', k: ['Every krona tied to a business goal', 'Traditional vs performance', 'Push vs pull', 'The channels'], hi: 0 },
-      { n: '02', when: '22 Sep', t: 'Audience, channel mix, KPIs', k: ['Awareness → Consideration → Conversion → Loyalty', 'Channels reinforce each other', 'No demand without push', 'Measure across channels in GA4'], hi: 2 },
-      { n: '03', when: '23 Sep', t: 'Paid social', k: ['Organic vs paid', 'The campaign goal steers optimisation', 'Meta, TikTok, LinkedIn'], hi: 1 },
-      { n: '04', when: '24 Sep', t: 'Paid social, part 2', k: ['Campaign → ad set → ad', 'Stop · Interest · Action', 'Retargeting', 'One audience, many triggers'], hi: 1 },
-      { n: '05', when: '28 Sep', t: 'Best practice & PlentyLabs', k: ['4:5 feed, 9:16 Reels', 'Safe zones', 'Copy: simple, relevant, on brand', 'AI for hooks and variants'], hi: 1 },
-      { n: '06', when: '29 Sep', t: 'Feedback with the client', k: ['Show the client early', 'Iterate before launch', 'The client\'s goal is our goal'], hi: 2 },
-      { n: '07', when: '30 Sep', t: 'Campaign in Meta', k: ['Set up the campaign ourselves', 'One goal, ads for the whole customer journey', 'The algorithm moves budget on its own'], hi: 2 },
-      { n: '08', when: '1 Oct', t: 'Google Ads, part 1', k: ['SEM vs SEO', 'Auction & CPC', 'Search intent', 'Keyword research'], hi: 2 },
-      { n: '09', when: '5 Oct', t: 'Google Ads, part 2', k: ['Ad strength', 'Pinning headlines', 'Data segments', 'YouTube · PMax · ChatGPT Ads'], hi: 3 },
-      { n: '10', when: '6 Oct', t: 'Optimisation, analysis & CRO', k: ['The KPI hierarchy', 'Data vs interpretation', 'Analysis in five steps', 'Lots of clicks, few purchases? Check the site'], hi: 1 },
-    ];
+      // Beyond the ad: the landing page notes, with the screenshot beside them when one exists.
+      VK.paras('#beyond-body', D.beyond);
+      // TODO Viking: performance.landing in content.js (a screenshot of the landing page, { src, alt, w, h }). null = the picture slot stays hidden and the text takes the full width.
+      VK.mount({ landing: D.landing });
+      if (q('#beyond-body').classList.contains('hidden') && !D.landing) hide('#beyond');
 
-    // Four things to keep. { t: 'Short title', b: 'One sentence.' }
-    const CORE = [
-      { t: 'The funnel steers the message', b: 'Stop the scroll, spark the craving, make buying easy.' },
-      { t: 'Show, don\'t tell', b: 'The picture is the flavour description.' },
-      { t: 'Start with purchases', b: 'Purchases and CPA first. Reach explains, it proves nothing.' },
-      { t: 'Data ≠ interpretation', b: 'Say what you see, what you think and what you don\'t know.' },
-    ];
+      const ol = q('#next-steps');
+      (D.nextSteps || []).filter(s => s && s.t).forEach(s => ol.appendChild(el('li', {}, [el('b', {}, s.t), s.b || ''])));
+      if (!ol.children.length) hide('#next');
 
-    // My three notes. { q: 'The question', items: ['...'] }
-    const NOTES = [
-      { q: 'What am I proud of?', items: ['The concept and all the ads, mostly made with AI in a few days.', 'The Choco image, which drove every purchase.', 'A visual language the whole group could build on.'] },
-      { q: 'What would I do differently?', items: ['Test one variable at a time.', 'Give every ad enough budget and time to be comparable.', 'Proofread AI images like text: everything on the pack has to be right.'] },
-      { q: 'What do I want to get better at?', items: ['Google Ads in practice, not just in theory.', 'A/B tests and CRO on landing pages.', 'Reading Ads Manager faster and drawing conclusions myself.'] },
-    ];
+      /* ---------- what I learned ---------- */
+      const core = q('#core');
+      (D.core || []).filter(c => c && c.t).forEach((c, i) => core.appendChild(el('div', {}, [el('div', { class: 'n' }, String(i + 1)), el('h3', {}, c.t), c.b ? el('p', {}, c.b) : null])));
+      if (!core.children.length) hide('#core-wrap'); else VK.stagger('#core', 4);
 
-    // Tools used in the course. t.ex. 'Meta Ads Manager'
-    const TOOLS = ['Meta Ads Manager', 'Higgsfield', 'PlentyLabs', 'Canva', 'CapCut', 'Google Ads', 'GA4', 'ChatGPT / Claude'];
+      const notes = q('#notes');
+      (D.notes || []).filter(n => n && n.q).forEach(n => notes.appendChild(el('div', {}, [el('h3', {}, n.q), el('ul', {}, (n.items || []).filter(Boolean).map(t => el('li', {}, t)))])));
+      if (!notes.children.length) hide('#notes-wrap'); else VK.stagger('#notes', 3);
 
-    /* ============================================================
-       RENDER. You should not need to change anything below.
-       ============================================================ */
-    const hide = id => { const n = document.getElementById(id); if (n) n.classList.add('hidden'); };
-    const drop = id => { const n = document.getElementById(id); if (n) n.remove(); };
+      const passes = q('#passes');
+      (D.passes || []).filter(p => p && p.t).forEach(p => passes.appendChild(el('div', { class: 'pass' }, [
+        el('div', { class: 'n' }, p.n || ''),
+        p.when ? el('div', { class: 'when' }, p.when) : null,
+        el('h3', {}, p.t),
+        el('ul', {}, (p.k || []).filter(Boolean).map((k, i) => el('li', { class: i === p.hi ? 'hi' : '' }, k))),
+      ])));
+      if (!passes.children.length) hide('#sessions');
 
-    /* TL;DR. A line with no body shows its title only, never a placeholder. */
-    const tl = document.getElementById('tldr-rows');
-    TLDR.forEach(item => {
-      const li = VK.el('li');
-      li.appendChild(VK.el('b', { textContent: item.t }));
-      // TODO Viking: skriv in brodtexten i TLDR, en tom 'b' ger bara rubriken.
-      if (item.b) li.appendChild(document.createTextNode(item.b));
-      tl.appendChild(li);
-    });
+      const tools = q('#tools');
+      (D.tools || []).filter(Boolean).forEach(t => tools.appendChild(el('li', {}, t)));
+      if (!tools.children.length) hide('#tools-wrap');
 
-    /* The problem */
-    const pb = document.getElementById('problem-body');
-    PROBLEM.forEach(t => pb.appendChild(VK.el('p', { textContent: t })));
-    if (!PROBLEM.length) hide('problem');
+      VK.text('#credit', D.credit);
 
-    /* Campaign film and the landing-page screenshot */
-    VK.mountMedia(MEDIA);
-    if (SHORT_CAPTION) document.getElementById('short-cap').textContent = SHORT_CAPTION;
-    else drop('short-cap');
-
-    /* The ads, grouped by stage */
-    function adCard(ad, isVideo) {
-      const box = VK.el('div', { className: 'ad' + (ad.win ? ' win' : '') + (isVideo ? ' vid-ad' : '') });
-      if (ad.win) box.appendChild(VK.el('span', { className: 'winner', textContent: 'Winner' }));
-
-      const shot = VK.el('figure', { className: 'adshot' });
-      if (isVideo && ad.youtube) {
-        // A real film: facade first, player on click.
-        shot.appendChild(VK.smartVideo({ youtube: ad.youtube, title: ad.title, channel: ad.id }));
-        box.appendChild(shot);
-      } else if (ad.img) {
-        // A still: click opens it full size and pushes ad_open.
-        const btn = VK.el('button', { className: 'adzoom', type: 'button' });
-        btn.dataset.full = AROMA + ad.img;
-        btn.dataset.ad = ad.id;
-        const alt = ad.sv ? 'Aroma Roast ad: ' + ad.sv : 'Aroma Roast ad: ' + (ad.title || ad.id);
-        const img = VK.smartImg({ src: AROMA + ad.img, alt: alt, w: 1024, h: 1280 }, () => shot.remove());
-        if (img) { btn.appendChild(img); shot.appendChild(btn); box.appendChild(shot); }
-      }
-
-      const body = VK.el('div', { className: 'adbody' });
-      if (ad.sv) {
-        body.appendChild(VK.el('div', { className: 'sv', textContent: '“' + ad.sv + '”' }));
-        if (ad.en) body.appendChild(VK.el('div', { className: 'en', textContent: ad.en }));
-      } else if (ad.title) {
-        body.appendChild(VK.el('div', { className: 'sv', textContent: ad.title }));
-        body.appendChild(VK.el('div', { className: 'en', textContent: 'Video ad' }));
-      }
-      if (ad.thinking) {
-        body.appendChild(VK.el('div', { className: 'lbl', textContent: 'The thinking' }));
-        body.appendChild(VK.el('p', { textContent: ad.thinking }));
-      }
-      if (ad.result) body.appendChild(VK.el('div', { className: 'res', textContent: ad.result }));
-      box.appendChild(body);
-      return box;
-    }
-
-    const stageBox = document.getElementById('stages');
-    let adsShown = 0;
-    STAGES.forEach((st, i) => {
-      const stills = ADS.filter(a => a.stage === st.id);
-      const films = VIDEO_ADS.filter(a => a.stage === st.id);
-      if (!stills.length && !films.length) return;
-
-      const wrap = VK.el('section', { className: 'stage' });
-      const head = VK.el('div', { className: 'stage-head' });
-      head.appendChild(VK.el('div', { className: 'sn', textContent: String(i + 1).padStart(2, '0') + ' ' + st.name }));
-      head.appendChild(VK.el('div', { className: 'sj', textContent: st.job }));
-      wrap.appendChild(head);
-
-      const grid = VK.el('div', { className: 'cards c3' });
-      stills.forEach(a => { grid.appendChild(adCard(a, false)); adsShown++; });
-      films.forEach(a => { grid.appendChild(adCard(a, true)); adsShown++; });
-      wrap.appendChild(grid);
-
-      if (st.result) {
-        const r = VK.el('div', { className: 'stage-result' });
-        r.appendChild(VK.el('b', { textContent: 'Stage result' }));
-        r.appendChild(document.createTextNode(st.result));
-        wrap.appendChild(r);
-      }
-      stageBox.appendChild(wrap);
-    });
-    if (!adsShown) hide('ads');
-
-    const testList = document.getElementById('tests');
-    TESTS.forEach(t => testList.appendChild(VK.el('li', { textContent: t })));
-    if (!TESTS.length) drop('tests');
-
-    /* Lightbox for the ad stills. Reuses the shared dialog but pushes
-       ad_open instead of poster_open, so the two are never mixed up. */
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lb-img');
-    document.addEventListener('click', e => {
-      const b = e.target.closest('.adzoom');
-      if (!b) return;
-      lbImg.src = b.dataset.full;
-      const inner = b.querySelector('img');
-      lbImg.alt = inner ? inner.alt : '';
-      lb.showModal();
-      VK.push({ event: 'ad_open', channel: b.dataset.ad });
-    });
-
-    /* Results */
-    const wall = document.getElementById('stat-wall');
-    /* The box ships with the real, formatted number in it, so nothing ever
-       reads "0". Same formatting as the shared counter in site.js, which
-       still animates from zero up to this value when JS runs. */
-    const statText = s => {
-      const n = parseFloat(s.v), dec = +(s.dec || 0);
-      if (!isFinite(n)) return String(s.v);
-      return (dec ? n.toFixed(dec) : Math.round(n).toLocaleString('en-US')) + (s.suf || '');
-    };
-    STATS.forEach(s => {
-      const box = VK.el('div');
-      const v = VK.el('div', { className: 'v' });
-      const span = VK.el('span', { textContent: statText(s) });
-      span.dataset.count = s.v;
-      if (s.dec) span.dataset.dec = s.dec;
-      if (s.suf) span.dataset.suf = s.suf;
-      v.appendChild(span);
-      box.append(v, VK.el('div', { className: 'l', textContent: s.l }));
-      wall.appendChild(box);
-    });
-    if (!STATS.length) drop('stat-wall');
-    if (STATS_CAPTION) document.getElementById('stat-cap').textContent = STATS_CAPTION;
-    else drop('stat-cap');
-
-    const bars = document.getElementById('bars');
-    BARS.forEach(b => {
-      const wrap = VK.el('div', { className: 'source on', style: 'margin-top:14px' });
-      const row = VK.el('div', { className: 'row' });
-      row.append(VK.el('span', { textContent: b.label }),
-                 VK.el('span', { textContent: b.value + (b.unit ? ' ' + b.unit : '') }));
-      const bar = VK.el('div', { className: 'bar' });
-      const i = VK.el('i');
-      i.style.width = (b.max ? Math.max(2, Math.round(b.value / b.max * 100)) : 0) + '%';
-      bar.appendChild(i);
-      wrap.append(row, bar);
-      bars.appendChild(wrap);
-    });
-    if (!STATS.length && !BARS.length) hide('results');
-
-    /* The analysis */
-    const ag = document.getElementById('analysis-grid');
-    [
-      { h: 'What I see', items: ANALYSIS.see },
-      { h: 'What I think it means', items: ANALYSIS.think },
-      { h: 'What I cannot tell', items: ANALYSIS.dontKnow },
-    ].forEach(col => {
-      if (!col.items || !col.items.length) return;
-      const d = VK.el('div');
-      d.appendChild(VK.el('h3', { textContent: col.h }));
-      const ul = VK.el('ul');
-      col.items.forEach(t => ul.appendChild(VK.el('li', { textContent: t })));
-      d.appendChild(ul);
-      ag.appendChild(d);
-    });
-    if (!ag.children.length) hide('analysis');
-
-    /* Beyond the ad */
-    const bb = document.getElementById('beyond-body');
-    BEYOND.forEach(t => bb.appendChild(VK.el('p', { textContent: t })));
-    if (!BEYOND.length && !MEDIA.landing) hide('beyond');
-
-    /* Next steps */
-    const ns = document.getElementById('next-steps');
-    NEXT_STEPS.forEach(s => {
-      const li = VK.el('li');
-      li.appendChild(VK.el('b', { textContent: s.t }));
-      li.appendChild(document.createTextNode(s.b || ''));
-      ns.appendChild(li);
-    });
-    if (!NEXT_STEPS.length) hide('next');
-
-    /* What I learned */
-    const pwrap = document.getElementById('passes');
-    PASSES.forEach(p => {
-      const d = VK.el('div', { className: 'pass' });
-      d.appendChild(VK.el('div', { className: 'n', textContent: p.n }));
-      if (p.when) d.appendChild(VK.el('div', { className: 'when', textContent: p.when }));
-      d.appendChild(VK.el('h3', { textContent: p.t }));
-      const ul = VK.el('ul');
-      (p.k || []).forEach((k, i) => ul.appendChild(VK.el('li', { textContent: k, className: i === p.hi ? 'hi' : '' })));
-      d.appendChild(ul);
-      pwrap.appendChild(d);
-    });
-    // No sessions, no disclosure: the whole details goes, never an empty button.
-    if (!PASSES.length) { drop('passes'); drop('sessions'); }
-
-    const core = document.getElementById('core');
-    CORE.forEach((c, i) => {
-      const d = VK.el('div');
-      d.appendChild(VK.el('div', { className: 'n', textContent: String(i + 1) }));
-      d.appendChild(VK.el('h3', { textContent: c.t }));
-      d.appendChild(VK.el('p', { textContent: c.b || '' }));
-      core.appendChild(d);
-    });
-    if (!CORE.length) { drop('core'); drop('core-head'); }
-
-    const notes = document.getElementById('notes');
-    NOTES.forEach(n => {
-      const d = VK.el('div');
-      d.appendChild(VK.el('h3', { textContent: n.q }));
-      const ul = VK.el('ul');
-      (n.items || []).forEach(t => ul.appendChild(VK.el('li', { textContent: t })));
-      d.appendChild(ul);
-      notes.appendChild(d);
-    });
-    if (!NOTES.length) { drop('notes'); drop('notes-head'); }
-
-    const tools = document.getElementById('tools');
-    TOOLS.forEach(t => tools.appendChild(VK.el('li', { textContent: t })));
-    if (!TOOLS.length) { drop('tools'); drop('tools-head'); }
-
-    /* Drop a sub-menu link whose section is gone or hidden */
-    document.querySelectorAll('.submenu a[href^="#"]').forEach(a => {
-      const target = document.getElementById(a.getAttribute('href').slice(1));
-      if (!target || target.classList.contains('hidden')) a.remove();
-    });
+      /* ---------- prev / next, contact, footer ---------- */
+      VK.pagenav('#pagenav',
+        { href: 'course-growth-toolbox.html', label: 'Growth Toolbox', dir: 'Previous course', event: 'course_open', channel: 'growth_toolbox' },
+        VK.isOn('SEO_READY')
+          ? { href: 'course-seo.html', label: 'SEO & Content Marketing', dir: 'Next course', event: 'course_open', channel: 'seo' }
+          : { href: 'projects.html', label: 'My own projects', dir: 'Next', event: 'project_open', channel: 'from_performance' });
+      VK.contact('#contact', { channel: 'email_footer' });
+      VK.text('#footer-left', VK.S.footer);
+    })();
   </script>
 </body>
 </html>
