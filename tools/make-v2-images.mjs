@@ -19,10 +19,16 @@
 import sharp from 'sharp';
 import { existsSync } from 'node:fs';
 import { mkdir } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
+import vm from 'node:vm';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+// The number of custom events comes from the event table in content.js, like everywhere else.
+const win = {};
+vm.runInNewContext(readFileSync(path.join(ROOT, 'assets/content.js'), 'utf8'), { window: win });
+const EVENT_COUNT = (win.CONTENT.events || []).length;
 const IMG = path.join(ROOT, 'images');
 const WALL = path.join(IMG, 'wall');
 
@@ -84,14 +90,15 @@ function cardSvg({ kicker, title, sub, big, hasPhoto }) {
 }
 
 const CARDS = [
-  { out: 'og-home-v2.jpg', kicker: 'Open for internship · Mar–Apr 2027', title: ['Ideas that', 'move numbers'], sub: 'Content, tools and the numbers.', photo: 'portrait.webp', pos: 'top' },
+  { out: 'og-home-v2.jpg', kicker: 'Open for internship and junior roles', title: ['Ideas that', 'move numbers'], sub: 'Content, tools and the numbers.', photo: 'portrait.webp', pos: 'top' },
   { out: 'og-berghs.jpg', kicker: 'Berghs School of Communication · 2026–2027', title: ['Berghs,', 'course by course'], sub: 'Method, tracking and real client briefs.', photo: 'aroma/choco.webp' },
   { out: 'og-sweden-ai.jpg', kicker: 'My own TikTok · @sweden_ai', big: '41.8M', title: ['views in four months'], sub: 'Idea, production and editing, all me.' },
   { out: 'og-posterlab.jpg', kicker: 'My own AI company', title: ['PosterLab'], sub: 'Upload a photo, get a painting. V2 rebuilt around zero friction.' },
   { out: 'og-manor.jpg', kicker: 'My own belt brand · Founder', big: '500', title: ['belts sold out'], sub: 'Guerrilla marketing, four months.' },
   { out: 'og-amida.jpg', kicker: 'An AI product I am building', title: ['Amida'], sub: 'A growth loop with no stock and nothing to sell.' },
   { out: 'og-seo.jpg', kicker: 'Berghs · SEO & Content Marketing', title: ['SEO & Content', 'Marketing'], sub: 'Case: Byggalliansen.' },
-  { out: 'og-growth-toolbox.jpg', kicker: 'Berghs · Growth Toolbox', title: ['Growth', 'Toolbox'], sub: 'GTM, GA4, 19 custom events, scraping and a data story.', photo: 'rostning.webp' },
+  { out: 'og-growth-toolbox.jpg', kicker: 'Berghs · Growth Toolbox', title: ['Growth', 'Toolbox'], sub: `GTM, GA4, ${EVENT_COUNT} custom events, scraping, a data story.`, photo: 'rostning.webp' },
+  { out: 'og-cro-analytics.jpg', kicker: 'CRO & Analytics · Berghs · Real client', title: ['Brittfurn:', 'more repeat purchases'], sub: 'Three data silos into one CRM.' },
 ];
 
 async function cards() {

@@ -33,6 +33,7 @@ const PAGES = [
   { file: 'course-opera.html', priority: '0.8' },
   { file: 'course-growth-toolbox.html', priority: '0.8' },
   { file: 'course-performance-marketing.html', priority: '0.8' },
+  { file: 'course-cro-analytics.html', priority: '0.8' },
   { file: 'course-seo.html', priority: '0.7', flag: 'SEO_READY' },
   { file: 'toolbox.html', priority: '0.6' },
   { file: 'fororten.html', priority: '0.6' },

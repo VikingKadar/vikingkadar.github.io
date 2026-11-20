@@ -725,7 +725,7 @@ window.CONTENT = {
       { youtube: 'DnVvfATnRh8', title: 'The enrichment workflow (n8n)',  channel: 'cro_enrichment' },
       { youtube: 'qyDOYqhNhTo', title: 'How the team uses it',           channel: 'cro_team' },
     ],
-    resultsLead: 'Results pending. The model is built, but the hypothesis is not proven yet.',
+    resultsLead: 'The model is built, but the hypothesis is not proven yet.',
     // A quote from the client or a teacher. Shown only when text, name AND role are all filled in.
     // TODO Viking: ett riktigt citat, ordagrant, med namn och roll. Aldrig ett påhittat.
     quote: { text: '', name: '', role: '' },
