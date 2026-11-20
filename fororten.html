@@ -91,6 +91,12 @@
 
     /* video */
     .film iframe{width:100%;aspect-ratio:16/9;border:0;background:#000}
+    /* The film is a thumbnail and a play button; the YouTube player only loads on click. */
+    .film .yt{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;background:#000;cursor:pointer;overflow:hidden}
+    .film .yt img{width:100%;height:100%;object-fit:cover;opacity:.9;transition:opacity .3s}
+    .film .yt:hover img{opacity:1}
+    .film .yt .play{position:absolute;left:50%;top:50%;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;background:var(--down);display:grid;place-items:center}
+    .film .yt .play::after{content:"";margin-left:5px;border-style:solid;border-width:10px 0 10px 17px;border-color:transparent transparent transparent #fff}
     .film figcaption{margin-top:12px;font-size:15px;max-width:60ch}
     .film figcaption b{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.4vw,30px);display:block;line-height:1.1;margin-bottom:6px}
 
@@ -200,7 +206,10 @@
 
   <section class="sec" id="film">
     <figure class="film">
-      <iframe src="https://www.youtube-nocookie.com/embed/u7_VxeoVWJ0" title="The suburbs woke up, 10 seconds" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      <button type="button" class="yt" id="yt-film" data-id="u7_VxeoVWJ0" data-title="The suburbs woke up, 10 seconds" aria-label="Play video: The suburbs woke up, 10 seconds">
+        <img src="https://i.ytimg.com/vi/u7_VxeoVWJ0/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+        <span class="play" aria-hidden="true"></span>
+      </button>
       <figcaption><b>Same data, 10 seconds</b>Made to travel in the feed. A ballot in the box, a smile, the balloons rise. The suburbs have woken up.</figcaption>
     </figure>
   </section>
@@ -352,6 +361,18 @@
                   x: { ticks: { color: '#fff', font: { size: 14 } }, grid: { display: false } } },
         plugins: { legend: { display: false }, tooltip: tip(c => sv(c.raw) + ' % turnout') }
       }
+    });
+
+    /* ---------- The film: nothing from YouTube loads until the click ---------- */
+    const yt = document.getElementById('yt-film');
+    if (yt) yt.addEventListener('click', () => {
+      push({ event: 'video_play', channel: 'fororten', video_id: yt.dataset.id, video_title: yt.dataset.title });
+      const frame = document.createElement('iframe');
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + yt.dataset.id + '?autoplay=1&rel=0&playsinline=1';
+      frame.title = yt.dataset.title;
+      frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      frame.allowFullscreen = true;
+      yt.replaceWith(frame);
     });
 
     /* ---------- Tracking: same pattern as index.html ---------- */

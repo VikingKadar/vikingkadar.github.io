@@ -36,9 +36,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="images/wall/portrait.webp" fetchpriority="high">
-  <link rel="preload" as="image" href="images/wall/choco.webp" fetchpriority="high">
-  <link rel="preload" as="image" href="images/wall/gossip.webp" fetchpriority="high">
   <link rel="stylesheet" href="assets/site.css">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Viking Kadar","url":"https://vikingkadar.github.io/","email":"mailto:viking@posterlab.ai","jobTitle":"Growth marketer","description":"AI-native growth marketer studying Growth Marketing at Berghs School of Communication. Open for an internship March to April 2027 and for junior roles.","image":"https://vikingkadar.github.io/images/portrait.webp","sameAs":["https://www.linkedin.com/in/viking-kadar-52895a234/","https://www.tiktok.com/@sweden_ai","https://github.com/VikingKadar"],"affiliation":{"@type":"CollegeOrUniversity","name":"Berghs School of Communication"},"address":{"@type":"PostalAddress","addressLocality":"Stockholm","addressCountry":"SE"}}
@@ -76,10 +73,10 @@
     <!-- 1. HERO: copy on the left, the living wall on the right -->
     <header class="hero grain" id="top">
       <div class="copy">
-        <span class="badge rv"><i aria-hidden="true"></i><span id="hero-badge">Open for internship (Mar–Apr 2027) and junior roles</span></span>
-        <h1 class="disp rv d1"><span id="hero-title">Ideas that move</span> <span class="rotor" id="rotor">NUMBERS</span></h1>
-        <p class="sub rv d2" id="hero-sub">I'm Viking Kadar, an AI-native growth marketer. I make the content, build the tool and measure what it did.</p>
-        <div class="cta rv d3" id="hero-cv">
+        <span class="badge"><i aria-hidden="true"></i><span id="hero-badge">Open for internship (Mar–Apr 2027) and junior roles</span></span>
+        <h1 class="disp"><span id="hero-title">Ideas that move</span> <span class="rotor" id="rotor">NUMBERS</span></h1>
+        <p class="sub" id="hero-sub">I'm Viking Kadar, an AI-native growth marketer. I make the content, build the tool and measure what it did.</p>
+        <div class="cta" id="hero-cv">
           <a class="btn acc" href="#work" id="hero-primary">See the work <span class="ar" aria-hidden="true">→</span></a>
           <a class="btn" href="mailto:viking@posterlab.ai?subject=Internship%20or%20job" id="hero-secondary" data-track="contact_click" data-channel="email_hero">Email me</a>
         </div>
@@ -226,8 +223,9 @@
         wall.appendChild(c);
       });
       if (!wall.children.length) wall.classList.add('hidden');
-      // The two eager images are the first in the first two columns.
-      VK.qa('.wall-col:nth-child(-n+3) a:first-child img', wall).forEach(i => { i.loading = 'eager'; i.setAttribute('fetchpriority', 'high'); });
+      // The first image of each column is on screen at once on a wide screen: load it eagerly,
+      // without high priority, so it never competes with the hero text (the LCP element).
+      VK.qa('.wall-col:nth-child(-n+3) a:first-child img', wall).forEach(i => { i.loading = 'eager'; });
 
       /* ---------- stat strip ---------- */
       const strip = document.getElementById('strip');
