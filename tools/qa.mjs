@@ -5,10 +5,15 @@
  * overflow, counters stuck on zero, and a screenshot per viewport.
  * -------------------------------------------------------------------------
  *     node tools/serve.mjs                 (in another terminal)
- *     node tools/qa.mjs                    all public pages, 375 and 1440
+ *     node tools/qa.mjs                    all public pages, at 375, 768 and 1280 px
  *     node tools/qa.mjs index.html         one page
  *     node tools/qa.mjs --reduced          same, with prefers-reduced-motion
+ *     node tools/qa.mjs --vp 375,1440      other widths
  *     node tools/qa.mjs --shots out/dir    where screenshots go (default tools/qa-shots)
+ *
+ * It also watches the network: any request to the YouTube player
+ * (youtube.com, youtube-nocookie.com, googlevideo.com) before a click is a
+ * failure. Thumbnails from i.ytimg.com are allowed and counted.
  *
  * Needs Chrome or Edge on the machine. Talks to it over the DevTools
  * protocol with Node's built-in WebSocket, so there is nothing to install.
@@ -23,15 +28,25 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 const REDUCED = args.includes('--reduced');
 const shotsIdx = args.indexOf('--shots');
+const vpIdx = args.indexOf('--vp');
 const SHOTS = shotsIdx > -1 ? path.resolve(args[shotsIdx + 1]) : path.join(ROOT, 'tools', 'qa-shots');
-const pagesArg = args.filter((a, i) => !a.startsWith('--') && !(shotsIdx > -1 && i === shotsIdx + 1));
+const valueIdx = new Set([shotsIdx + 1, vpIdx + 1].filter(i => i > 0));
+const pagesArg = args.filter((a, i) => !a.startsWith('--') && !valueIdx.has(i));
 const BASE = process.env.QA_BASE || 'http://localhost:8080/';
 const PAGES = pagesArg.length ? pagesArg : [
   'index.html', 'projects.html', 'berghs.html', 'case-sweden-ai.html', 'case-posterlab.html',
   'case-william-manor.html', 'case-amida.html', 'course-opera.html', 'course-performance-marketing.html',
-  'course-growth-toolbox.html', 'course-seo.html', 'toolbox.html', 'fororten.html', '404.html',
+  'course-growth-toolbox.html', 'course-cro-analytics.html', 'course-seo.html', 'toolbox.html', 'fororten.html', '404.html',
 ];
-const VIEWPORTS = [{ w: 375, h: 812, name: 'mobile' }, { w: 1440, h: 900, name: 'desktop' }];
+const HEIGHT = { 375: 812, 768: 1024, 1280: 800, 1440: 900 };
+const NAME = { 375: 'mobile', 768: 'tablet', 1280: 'desktop', 1440: 'wide' };
+const VIEWPORTS = (vpIdx > -1 ? args[vpIdx + 1] : '375,768,1280').split(',').map(Number).filter(Boolean)
+  .map(w => ({ w, h: HEIGHT[w] || 900, name: NAME[w] || String(w) }));
+
+// Files the site checks for with a HEAD request and hides the button for
+// when they are missing. Their 404 is expected until the file is uploaded.
+const EXPECTED_404 = [/\/cv\/Viking-Kadar-CV\.pdf/];
+const YT_PLAYER = /(^|\.)(youtube\.com|youtube-nocookie\.com|googlevideo\.com)\//i;
 
 const BROWSERS = [
   'C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -87,11 +102,20 @@ for (const page of PAGES) {
   for (const vp of VIEWPORTS) {
     const target = await newTarget();
     const cdp = await connect(target.webSocketDebuggerUrl);
-    const errors = [];
+    const errors = [], expected = [], ytPlayer = [], ytThumbs = new Set();
+    cdp.on('Network.requestWillBeSent', p => {
+      const u = p.request.url;
+      if (YT_PLAYER.test(u.replace(/^https?:\/\//, ''))) ytPlayer.push(u);
+      if (/i\.ytimg\.com\//.test(u)) ytThumbs.add(u);
+    });
     cdp.on('Runtime.exceptionThrown', p => errors.push('exception: ' + (p.exceptionDetails.exception?.description || p.exceptionDetails.text).split('\n')[0]));
     cdp.on('Runtime.consoleAPICalled', p => { if (p.type === 'error') errors.push('console.error: ' + p.args.map(a => a.value || a.description).join(' ')); });
-    cdp.on('Log.entryAdded', p => { if (p.entry.level === 'error' && !/favicon|ERR_BLOCKED_BY_CLIENT|googletagmanager|fonts.g/i.test(p.entry.text + (p.entry.url || ''))) errors.push('log: ' + p.entry.text + ' ' + (p.entry.url || '')); });
-    await cdp.send('Runtime.enable'); await cdp.send('Log.enable'); await cdp.send('Page.enable');
+    cdp.on('Log.entryAdded', p => {
+      if (p.entry.level !== 'error' || /favicon|ERR_BLOCKED_BY_CLIENT|googletagmanager|fonts.g/i.test(p.entry.text + (p.entry.url || ''))) return;
+      if (EXPECTED_404.some(re => re.test(p.entry.url || ''))) { expected.push('expected 404 until uploaded: ' + p.entry.url.replace(/^https?:\/\/[^/]+/, '')); return; }
+      errors.push('log: ' + p.entry.text + ' ' + (p.entry.url || ''));
+    });
+    await cdp.send('Runtime.enable'); await cdp.send('Log.enable'); await cdp.send('Page.enable'); await cdp.send('Network.enable');
     await cdp.send('Emulation.setDeviceMetricsOverride', { width: vp.w, height: vp.h, deviceScaleFactor: 1, mobile: vp.w < 800 });
     if (REDUCED) await cdp.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
     const url = BASE + page;
@@ -138,8 +162,11 @@ for (const page of PAGES) {
     if (r.gtm < 2) problems.push(`GTM id found ${r.gtm}x`);
     if (r.imgsNoDim) problems.push(`${r.imgsNoDim} visible <img> without width/height`);
     if (r.emptyText) problems.push(`${r.emptyText} link/button without text`);
-    const line = `${problems.length ? 'FAIL' : 'ok  '} ${page} @${vp.w}${REDUCED ? ' (reduced)' : ''}  h=${r.height}  events=[${r.dl.join(',')}]`;
+    if (ytPlayer.length) problems.push(`${ytPlayer.length} YouTube player request(s) before any click: ${ytPlayer.slice(0, 2).join(' ')}`);
+    const yt = ytThumbs.size ? `  yt-thumbs=${ytThumbs.size}` : '';
+    const line = `${problems.length ? 'FAIL' : 'ok  '} ${page} @${vp.w}${REDUCED ? ' (reduced)' : ''}  h=${r.height}${yt}  events=[${r.dl.join(',')}]`;
     console.log(line); problems.forEach(p => console.log('     - ' + p));
+    [...new Set(expected)].forEach(p => console.log('     · ' + p));
     if (problems.length) failures++;
     report.push({ page, viewport: vp.name, problems, shot: shotFile, meta: r });
     cdp.close();

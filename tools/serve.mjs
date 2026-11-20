@@ -10,8 +10,13 @@
  */
 import { createServer } from 'node:http';
 import { createReadStream, existsSync, statSync } from 'node:fs';
+import { createGzip } from 'node:zlib';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+// GitHub Pages gzips text files, so this does too. Without it a local
+// Lighthouse run would score the page worse than visitors experience it.
+const GZIP = /\.(html|css|js|mjs|json|xml|txt|svg)$/i;
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PORT = Number(process.argv[2]) || 8080;
@@ -32,7 +37,11 @@ createServer((req, res) => {
   let status = 200;
   if (!existsSync(file)) { status = 404; file = path.join(ROOT, '404.html'); }
   if (!existsSync(file)) { res.writeHead(404); return res.end('Not found'); }
-  res.writeHead(status, { 'Content-Type': TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream', 'Cache-Control': 'no-store' });
+  const headers = { 'Content-Type': TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream', 'Cache-Control': 'no-store' };
+  const gzip = GZIP.test(file) && /\bgzip\b/.test(req.headers['accept-encoding'] || '');
+  if (gzip) { headers['Content-Encoding'] = 'gzip'; headers['Vary'] = 'Accept-Encoding'; }
+  res.writeHead(status, headers);
   if (req.method === 'HEAD') return res.end();
-  createReadStream(file).pipe(res);
+  const stream = createReadStream(file);
+  (gzip ? stream.pipe(createGzip()) : stream).pipe(res);
 }).listen(PORT, () => console.log(`Serving ${ROOT}\n  http://localhost:${PORT}/\nCtrl+C to stop.`));
