@@ -66,12 +66,20 @@
     }
     @media(min-width:1200px){.ads[data-n="4"]{grid-template-columns:repeat(4,1fr)}}
 
-    /* 04: three big numbers; the third spans the row on narrow screens so the grid has no hole.
-       Then the table beside the Choco bars, the analysis, the landing page and the next steps. */
-    @media(max-width:859px){#headline>div:nth-child(3){grid-column:1/-1}}
+    /* 02: the headlines that ran at each stage, under the stage's job. */
+    #flow .heads{list-style:none;margin-top:12px;display:grid;gap:6px}
+    #flow .heads li{font-family:var(--serif);font-style:italic;font-size:15px;line-height:1.25;color:var(--mute)}
+
+    /* 04: the results grid (an odd cell count spans the last cell on two columns),
+       the captions beside the Choco bars, insights beside the honest take. */
+    @media(max-width:859px){#results-grid>div:last-child:nth-child(odd){grid-column:1/-1}}
+    #results-note{margin-top:10px}
     .res-two{margin-top:clamp(28px,4vh,40px)}
-    #stats-tbl td:last-child{text-align:right;white-space:nowrap}
+    .res-two .statcap{margin-top:0}
+    .res-two .statcap + .statcap{margin-top:8px}
     #bars .barrow:first-child{margin-top:0}
+    #insights-wrap .callout{margin-top:0}
+    #results .blk .h3{margin-bottom:clamp(16px,2.5vh,24px);max-width:24ch}
     #beyond:has(#landing-wrap.hidden){grid-template-columns:1fr}
     #landing-wrap img{border-radius:var(--r)}
 
@@ -159,18 +167,24 @@
       <div class="step-head rv">
         <div><p class="kicker">04 · Results &amp; what I'd do next</p><h2 class="disp h2">Results &amp; what I'd do next</h2></div>
       </div>
-      <div id="headline" class="rv"></div>
+      <div id="results-grid" class="rv"></div>
+      <p class="statcap" id="results-note"></p>
       <div class="two res-two">
-        <div class="rv" id="stats-wrap">
-          <div class="tbl-wrap">
-            <table class="tbl small" id="stats-tbl">
-              <thead><tr><th scope="col">Metric</th><th scope="col">Value</th></tr></thead>
-              <tbody id="stats-body"></tbody>
-            </table>
-          </div>
+        <div class="rv" id="caps">
           <p class="statcap" id="statcap"></p>
+          <p class="statcap" id="roascap"></p>
         </div>
         <div class="rv d1" id="bars"></div>
+      </div>
+      <div class="blk two rv" id="insights-wrap">
+        <div id="insights-col">
+          <h3 class="disp h3">Insights</h3>
+          <ul class="list" id="insights"></ul>
+        </div>
+        <div id="honest-wrap">
+          <p class="sublbl">Honest take</p>
+          <blockquote class="callout" id="honest" data-hide="#honest-wrap"></blockquote>
+        </div>
       </div>
       <div class="blk rv" id="analysis-wrap">
         <h3 class="disp h3">The analysis</h3>
@@ -185,6 +199,7 @@
       </div>
       <div class="blk rv" id="next">
         <h3 class="disp h3">Next steps</h3>
+        <p class="lead" id="next-lead" style="margin-bottom:clamp(20px,3vh,32px)"></p>
         <ol class="numbered" id="next-steps"></ol>
       </div>
     </section>
@@ -235,7 +250,7 @@
       /* ---------- header ---------- */
       VK.caseHead('#top', {
         back: { href: 'berghs.html', label: 'All courses', channel: 'performance_top' },
-        title: D.title, kicker: D.kicker,
+        label: D.label, title: D.title, kicker: D.kicker,
         role: D.role, period: D.period, course: D.course, tags: D.tags, media: D.hero,
       });
 
@@ -259,7 +274,11 @@
 
       const stages = (D.stages || []).filter(s => s && s.name);
       const flow = q('#flow');
-      stages.forEach(s => flow.appendChild(el('div', {}, [el('b', {}, s.name), s.job ? el('p', {}, s.job) : null])));
+      // Each stage: its name, its job, and the ad headlines that ran there.
+      stages.forEach(s => flow.appendChild(el('div', {}, [
+        el('b', {}, s.name), s.job ? el('p', {}, s.job) : null,
+        (s.headlines || []).length ? el('ul', { class: 'heads' }, s.headlines.map(h => el('li', {}, '“' + h + '”'))) : null,
+      ])));
       if (!flow.children.length) flow.classList.add('hidden'); else VK.stagger('#flow', 3);
 
       VK.text('#rule', D.rule);
@@ -338,19 +357,26 @@
       if (!shown) hide('#ads-wrap');
 
       /* ---------- 04 results & what I'd do next ----------
-         Three headline numbers count up; the rest sit in a small table
-         beside the three Choco bars. */
-      VK.stats('#headline', D.headline, 'big');
-
-      const tbody = q('#stats-body');
-      (D.stats || []).filter(s => s && s.label && s.text).forEach(s => tbody.appendChild(el('tr', {}, [el('td', {}, s.label), el('td', {}, el('b', {}, s.text))])));
-      if (!tbody.children.length) q('#stats-tbl').closest('.tbl-wrap').classList.add('hidden');
+         One grid of numbers that count up. ROAS joins it only when
+         flags.SHOW_ROAS is true (the number is being double-checked). */
+      const results = (D.results || []).slice();
+      if (VK.isOn('SHOW_ROAS') && D.roas) results.push(D.roas);
+      VK.stats('#results-grid', results);
+      VK.text('#results-note', D.resultsNote);
       VK.text('#statcap', D.statsCaption);
-      if (!tbody.children.length && q('#statcap').classList.contains('hidden')) hide('#stats-wrap');
+      VK.text('#roascap', VK.isOn('SHOW_ROAS') ? D.roasCaption : '');
+      if (q('#statcap').classList.contains('hidden') && q('#roascap').classList.contains('hidden')) hide('#caps');
 
       const bars = q('#bars');
       (D.bars || []).filter(b => b && b.label && b.value != null).forEach(b => bars.appendChild(VK.bar({ label: b.label, value: b.value, text: b.value + (b.unit ? ' ' + b.unit : '') })));
       if (!bars.children.length) bars.classList.add('hidden');
+
+      // Insights beside the honest take.
+      const ins = q('#insights');
+      (D.insights || []).filter(Boolean).forEach(t => ins.appendChild(el('li', {}, t)));
+      if (!ins.children.length) hide('#insights-col');
+      VK.text('#honest', D.honestTake);
+      if (!ins.children.length && !D.honestTake) hide('#insights-wrap');
 
       // The analysis: one box per key in analysisHeads (what I see / think / cannot tell).
       const heads = D.analysisHeads || {}, an = D.analysis || {};
@@ -368,9 +394,10 @@
       VK.mount({ landing: D.landing });
       if (q('#beyond-body').classList.contains('hidden') && !D.landing) hide('#beyond');
 
+      VK.text('#next-lead', D.nextLead);
       const ol = q('#next-steps');
       (D.nextSteps || []).filter(s => s && s.t).forEach(s => ol.appendChild(el('li', {}, [el('b', {}, s.t), s.b || ''])));
-      if (!ol.children.length) hide('#next');
+      if (!ol.children.length && !D.nextLead) hide('#next');
 
       /* ---------- what I learned ---------- */
       const core = q('#core');
