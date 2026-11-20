@@ -57,18 +57,19 @@ window.VK = (function () {
     return i;
   }
 
-  // A silent loop: muted, playsinline, nothing downloaded until it is on screen.
+  // A silent loop: muted, playsinline, preload="none". Nothing plays by
+  // itself: it starts on hover (mouse) or tap, and pauses when it leaves the screen.
   const loopIO = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
-    const v = e.target;
-    if (e.isIntersecting) v.__start && v.__start(); else v.pause();
-  }), { threshold: .25 }) : null;
+    if (!e.isIntersecting) e.target.pause();
+  }), { threshold: 0 }) : null;
 
   function loop(item, o = {}) {
     if (!item || !item.src) { o.onDead && o.onDead(); return null; }
     const box = el('div', { class: 'loop' });
     const v = el('video', { muted: true, loop: true, playsInline: true, preload: 'none' });
     v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('loop', '');
-    if (item.poster) v.poster = item.poster;
+    const poster = item.poster && item.poster.src ? item.poster.src : item.poster;
+    if (poster) v.poster = poster;
     if (item.w) v.width = item.w;
     if (item.h) v.height = item.h;
     if (item.alt) v.setAttribute('aria-label', item.alt);
@@ -76,13 +77,16 @@ window.VK = (function () {
     s.addEventListener('error', () => { box.remove(); o.onDead && o.onDead(); }, { once: true });
     v.appendChild(s);
     let seen = false;
-    v.__start = () => {
+    const start = () => {
       if (reduce()) return;
       const p = v.play();
       if (p && p.catch) p.catch(() => {});
       if (!seen) { seen = true; push({ event: 'video_hover', channel: item.channel || basename(item.src) }); }
     };
-    box.addEventListener('pointerenter', () => v.__start());
+    box.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') start(); });
+    box.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') v.pause(); });
+    // A tap toggles. Inside a link the tap still follows the link, as it should.
+    box.addEventListener('click', e => { if (box.closest('a')) return; e.preventDefault(); v.paused ? start() : v.pause(); });
     box.appendChild(v);
     if (loopIO) loopIO.observe(v);
     return box;
@@ -114,7 +118,7 @@ window.VK = (function () {
     btn.appendChild(el('span', { class: 'play', attrs: { 'aria-hidden': 'true' } }));
     if (item.title && !item.noLabel) btn.appendChild(el('span', { class: 'lbl' }, item.title));
     btn.addEventListener('click', () => {
-      push({ event: 'video_play', channel: item.channel || id });
+      push({ event: 'video_play', channel: item.channel || id, video_id: id, video_title: item.title || '' });
       box.replaceChildren(el('iframe', {
         src: 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1',
         title: item.title || 'Video', allowFullscreen: true,
@@ -519,21 +523,66 @@ window.VK = (function () {
     phone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); running ? stop('phone') : go(); } });
   }
 
-  /* ---------- shared blocks ---------- */
-  // CV buttons appear only if the file answers.
+  /* ---------- the e-mail address, from one place ----------
+     CONTENT.site.email is the only copy. Every mailto: link on the page and
+     every visible address is rewritten from it, and the e-mail buttons in
+     the menu get their label from CONTENT.site.ctaLabel. */
+  const EMAIL_RE = /[^\s@<>"']+@[^\s@<>"']+\.[a-z]{2,}/i;
+  function initMail() {
+    if (!S.email) return;
+    qa('a[href^="mailto:"]').forEach(a => {
+      a.href = mailto();
+      if (EMAIL_RE.test(a.textContent) && !a.children.length) a.textContent = a.textContent.replace(EMAIL_RE, S.email);
+    });
+    if (S.ctaLabel) qa('.nav-cta, .overlay a.btn[href^="mailto:"]').forEach(a => { a.textContent = S.ctaLabel; });
+    const ld = q('script[type="application/ld+json"]');
+    if (ld) { try { const j = JSON.parse(ld.textContent); if (j.email) { j.email = 'mailto:' + S.email; ld.textContent = JSON.stringify(j); } } catch (e) {} }
+  }
+
+  /* ---------- shared blocks ----------
+     CV buttons: one HEAD request per page. When the file answers, a
+     "Download CV" button appears in every slot (hero, menu, contact).
+     When it does not, nothing appears and nothing else is requested. */
+  let cvCheck = null;
+  function cvExists() {
+    if (!S.cv || location.protocol === 'file:') return Promise.resolve(false);
+    if (!cvCheck) cvCheck = fetch(S.cv, { method: 'HEAD', cache: 'no-store' }).then(r => r.ok).catch(() => false);
+    return cvCheck;
+  }
+  function cvButton(channel, className) {
+    const a = el('a', { class: className == null ? 'btn' : className, href: S.cv, data: { track: 'cv_download', channel: channel } }, [S.cvLabel || 'Download CV']);
+    a.setAttribute('download', '');
+    return a;
+  }
+  // targets: [{ sel, channel, className }]
   function cv(targets) {
-    const path = S.cv;
-    if (!path || !targets || !targets.length || location.protocol === 'file:') return;
-    fetch(path, { method: 'HEAD' }).then(res => {
-      if (!res.ok) return;
+    if (!targets || !targets.length) return;
+    cvExists().then(ok => {
+      if (!ok) return;
       targets.forEach(t => {
         const host = typeof t.sel === 'string' ? q(t.sel) : t.sel;
-        if (!host) return;
-        const a = el('a', { class: t.className || 'btn', href: path, data: { track: 'contact_click', channel: 'cv' } }, [t.label || 'Download CV']);
-        a.setAttribute('download', '');
-        host.appendChild(a);
+        if (host && !host.querySelector('[data-track="cv_download"]')) host.appendChild(cvButton(t.channel || 'contact', t.className));
       });
-    }).catch(() => {});
+    });
+  }
+  // Every page: the menu and the contact block. The hero slot exists on the homepage only.
+  function initCV() {
+    cv([
+      { sel: '#hero-cv', channel: 'hero', className: 'btn' },
+      { sel: '#overlay', channel: 'menu', className: 'btn' },
+      ...qa('.cv-slot').map(n => ({ sel: n, channel: 'contact', className: '' })),
+    ]);
+  }
+
+  // A quote from a client or a teacher. It renders only when the text, the
+  // name and the role are all filled in, otherwise the host is hidden.
+  function quote(host, item) {
+    host = typeof host === 'string' ? q(host) : host;
+    if (!host) return;
+    const t = item && String(item.text || '').trim(), n = item && String(item.name || '').trim(), r = item && String(item.role || '').trim();
+    if (!t || !n || !r) { host.classList.add('hidden'); return; }
+    host.classList.add('quote');
+    host.appendChild(el('blockquote', {}, [t, el('cite', {}, n + ', ' + r)]));
   }
 
   // The contact block at the end of every page.
@@ -551,11 +600,10 @@ window.VK = (function () {
     link(S.linkedin, 'LinkedIn', 'linkedin');
     link(S.tiktok, 'TikTok ' + (S.tiktokHandle || ''), 'tiktok');
     link(S.github, 'GitHub', 'github');
-    const cvSlot = el('li', { class: 'cv-slot' });
-    ul.appendChild(cvSlot);
+    // The CV link is added here by initCV() once the file has answered.
+    ul.appendChild(el('li', { class: 'cv-slot' }));
     const mail = el('a', { class: 'mail', href: mailto(), data: { track: 'contact_click', channel: 'email' } }, S.email || '');
     host.append(big, p, ul, mail);
-    cv([{ sel: cvSlot, label: 'Download CV', className: '' }]);
   }
 
   // The "In short" box: three numbered lines.
@@ -570,12 +618,15 @@ window.VK = (function () {
     host.appendChild(ol);
   }
 
-  // Case header. cfg: { title, kicker, num, numValue, numDec, numSuf, numPre, numLabel, role, period, course, tags, media, mediaWide, back:{href,label,channel} }
+  // Case header. cfg: { label, title, kicker, num, numValue, numDec, numSuf, numPre, numLabel, role, period, course, status, tags, media, mediaWide, back:{href,label,channel} }
+  //   label  = the small line above the title ("Berghs · Course · Group project")
+  //   status = an extra chip in the meta row, e.g. "Hypothesis · results pending"
   function caseHead(host, cfg) {
     host = typeof host === 'string' ? q(host) : host;
     if (!host) return;
     const copy = el('div', { class: 'copy' });
     if (cfg.back) copy.appendChild(el('a', { class: 'back', href: cfg.back.href, data: { track: cfg.back.event || 'story_back', channel: cfg.back.channel || '' } }, ['← ', cfg.back.label]));
+    if (cfg.label) copy.appendChild(el('p', { class: 'kicker case-label' }, cfg.label));
     if (cfg.num) {
       const big = el('div', { class: 'bignum' });
       big.appendChild(counter({ value: cfg.numValue, dec: cfg.numDec, pre: cfg.numPre, suf: cfg.numSuf, text: cfg.num }));
@@ -587,6 +638,7 @@ window.VK = (function () {
     const meta = el('div', { class: 'meta' });
     if (cfg.period) meta.appendChild(el('span', { class: 'chip on' }, cfg.period));
     if (cfg.course) meta.appendChild(el('span', { class: 'chip' }, cfg.course));
+    if (cfg.status) meta.appendChild(el('span', { class: 'chip pending' }, cfg.status));
     (cfg.tags || []).forEach(t => meta.appendChild(el('span', { class: 'tag' }, t)));
     if (meta.children.length) copy.appendChild(meta);
     if (cfg.role) copy.appendChild(el('p', { class: 'role' }, cfg.role));
@@ -693,13 +745,15 @@ window.VK = (function () {
     return false;
   }
 
+  // DOMContentLoaded fires after every synchronous script, the page's own
+  // render script included, so the contact block's CV slot exists by then.
   document.addEventListener('DOMContentLoaded', () => {
-    initNav(); initTracking(); initReveal(); initCounters(); initBars(); initTilt(); initCursor(); initLightbox(); initSneaker();
+    initMail(); initNav(); initTracking(); initReveal(); initCounters(); initBars(); initTilt(); initCursor(); initLightbox(); initSneaker(); initCV();
   });
 
   return {
     C, S, F, push, el, q, qa, reduce, fine, mailto, isOn, basename, arrow,
     img, loop, facade, media, mount, text, paras, hideIfEmpty, tags,
-    rotor, ticker, feed, beforeAfter, cv, contact, inShort, caseHead, stats, counter, bar, pagenav, tile, tiles, gallery, tiktoks, gate, stagger,
+    rotor, ticker, feed, beforeAfter, cv, contact, quote, inShort, caseHead, stats, counter, bar, pagenav, tile, tiles, gallery, tiktoks, gate, stagger,
   };
 })();

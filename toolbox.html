@@ -42,7 +42,7 @@
       <li><a href="index.html#about">About</a></li>
     </ul>
     <div class="nav-right">
-      <a class="nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+      <a class="nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20or%20job" data-track="contact_click" data-channel="email_nav">Internship or job? Email me</a>
       <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="overlay">Menu</button>
     </div>
   </nav>
@@ -53,7 +53,7 @@
     <a href="projects.html">Own projects</a>
     <a href="berghs.html">Berghs</a>
     <a href="index.html#about">About</a>
-    <a href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+    <a href="mailto:viking@posterlab.ai?subject=Internship%20or%20job" data-track="contact_click" data-channel="email_nav">Internship or job? Email me</a>
   </div>
 
   <header class="phero" id="top">
@@ -248,6 +248,21 @@
     if (API_DEMO_URL) { dl.href = API_DEMO_URL; dl.target = '_blank'; dl.rel = 'noopener'; } else dl.remove();
     if (API_REPO_URL) { rl.href = API_REPO_URL; rl.target = '_blank'; rl.rel = 'noopener'; } else rl.remove();
     if (!API_DEMO_URL && !API_REPO_URL) document.getElementById('demo').remove();
+  </script>
+  <script src="assets/content.js"></script>
+  <script>
+    /* The e-mail address and the button label come from assets/content.js,
+       the same single source as the rest of the site. */
+    (function () {
+      var S = (window.CONTENT || {}).site || {};
+      if (!S.email) return;
+      var href = 'mailto:' + S.email + (S.emailSubject ? '?subject=' + encodeURIComponent(S.emailSubject) : '');
+      document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
+        a.href = href;
+        if (/@/.test(a.textContent) && !a.children.length) a.textContent = S.email;
+        else if (S.ctaLabel && /Email me/.test(a.textContent)) a.textContent = S.ctaLabel;
+      });
+    })();
   </script>
 </body>
 </html>

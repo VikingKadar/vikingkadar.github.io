@@ -73,7 +73,7 @@
       <li><a href="index.html#about">About</a></li>
     </ul>
     <div class="nav-right">
-      <a class="btn small nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+      <a class="btn small nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20or%20job" data-track="contact_click" data-channel="email_nav">Internship or job? Email me</a>
       <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="overlay">Menu</button>
     </div>
   </nav>
@@ -83,7 +83,7 @@
     <a href="projects.html"><small>02</small>Own projects</a>
     <a href="berghs.html"><small>03</small>Berghs</a>
     <a href="index.html#about"><small>04</small>About</a>
-    <a class="btn acc" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+    <a class="btn acc" href="mailto:viking@posterlab.ai?subject=Internship%20or%20job" data-track="contact_click" data-channel="email_nav">Internship or job? Email me</a>
   </div>
   <div class="cur" id="cur" aria-hidden="true"></div>
 
@@ -101,6 +101,9 @@
     <section class="sec thin" id="work" aria-labelledby="title">
       <div class="cards c4" id="grid"></div>
     </section>
+
+    <!-- LAB: one card, only when flags.SHOW_LAB is true. The game is linked to, never embedded. -->
+    <section class="sec tight hidden" id="lab" aria-label="Lab"></section>
 
     <!-- 3. WHERE IT STARTED: big number, heading + line, four steps, the metro line -->
     <section class="sec paper grain" id="sneakers">
@@ -160,6 +163,32 @@
       VK.tiles('#grid', P.cards, { event: 'project_open', go: 'Open →' });
       VK.stagger('#grid', 3);
       if (!document.getElementById('grid').children.length) document.getElementById('work').classList.add('hidden');
+
+      /* ---------- lab ----------
+         Off by default (flags.SHOW_LAB). A still, a silent clip that only plays on
+         hover or tap (preload="none"), and an external link. Nothing is embedded. */
+      const LB = P.lab || {};
+      if (VK.isOn('SHOW_LAB') && LB.title) {
+        const host = document.getElementById('lab');
+        const thumb = LB.thumb && LB.thumb.src ? LB.thumb : null;
+        const mediaBox = el('div', { class: 'lab-media' });
+        const m = LB.clip && LB.clip.src
+          ? VK.loop(Object.assign({ poster: thumb ? thumb.src : '', channel: 'lab_aura_blocks', w: thumb && thumb.w, h: thumb && thumb.h }, LB.clip), { onDead: () => { const i = VK.img(thumb); mediaBox.replaceChildren(); if (i) mediaBox.appendChild(i); else mediaBox.remove(); } })
+          : VK.img(thumb, { onDead: () => mediaBox.remove() });
+        if (m) mediaBox.appendChild(m);
+        const copy = el('div', {}, [
+          LB.kicker ? el('p', { class: 'kicker' }, LB.kicker) : null,
+          el('h3', {}, LB.title),
+          LB.line ? el('p', {}, LB.line) : null,
+        ]);
+        if (LB.href) {
+          const a = el('a', { class: 'btn', href: LB.href, target: '_blank', rel: 'noopener', data: { track: 'project_open', channel: 'lab_aura_blocks' } }, [(LB.linkLabel || 'Open') + ' ', VK.arrow()]);
+          copy.appendChild(a);
+        }
+        const card = el('div', { class: 'lab rv' }, [m ? mediaBox : null, copy]);
+        host.appendChild(card);
+        host.classList.remove('hidden');
+      }
 
       /* ---------- where it started ---------- */
       const K = P.sneakers || {};

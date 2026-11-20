@@ -12,8 +12,44 @@
 
    Image shape : { src: 'images/x.webp', alt: 'what is in it', w: 1200, h: 800 }
    Video shape : { youtube: 'ID', title: 'Shown on the play button', channel: 'event name' }
+                 Add poster: { src, w, h } to show your own still instead of YouTube's.
    Loop shape  : { src: 'images/clips/x.mp4', poster: 'images/clips/x.webp', alt: '' }
+                 Loops never play by themselves: only on hover or tap.
    ========================================================================== */
+
+/* ---------- The event spec ----------
+   One row per custom event the code pushes to window.dataLayer. The Growth
+   Toolbox page shows this table, and the number "N custom dataLayer events"
+   everywhere on the site is simply how many rows it has.
+   `node tools/count-events.mjs` checks the table against the code. */
+const EVENTS = [
+  { e: 'page_meta',     when: 'On every page load, pushed before the GTM container', p: 'page_type', why: 'Lets me split every report by type of page, so a case page is never averaged together with the homepage.' },
+  { e: 'section_view',  when: 'A section becomes 30 % visible, once per page view', p: 'section_id', why: 'Shows how far into a case people actually get, which tells me where to cut.' },
+  { e: 'scroll_depth',  when: 'At 25, 50, 75 and 100 % of the page, once each', p: 'percent', why: 'Separates a real read from a bounce. A visit that reaches 75 % is worth more than ten that stop at 25 %.' },
+  { e: 'contact_click', when: 'Any email, LinkedIn, TikTok or GitHub link is clicked', p: 'channel', why: 'The only real conversion on this site. I am looking for an internship or a junior role, so a click here is the whole point and everything else is a step towards it.' },
+  { e: 'cv_download',   when: 'A "Download CV" button is clicked: in the hero, the menu or the contact block', p: 'channel: hero | menu | contact', why: 'A downloaded CV is a warmer signal than a page view. It also tells me which spot on the page earns it.' },
+  { e: 'case_open',     when: 'A tile in Selected work, or a case link anywhere, is clicked', p: 'channel', why: 'Tells me which case earns the click, so the strongest one goes first.' },
+  { e: 'course_open',   when: 'A course card or course link is clicked', p: 'channel', why: 'Shows which course an agency actually cares about, as opposed to which one I am proudest of.' },
+  { e: 'project_open',  when: 'A project card, a project link or the Lab card is clicked', p: 'channel', why: 'Separates interest in my own work from interest in schoolwork.' },
+  { e: 'door_open',     when: 'One of the two doors on the homepage is clicked', p: 'channel: projects | berghs', why: 'The first fork in the road. Do visitors want my own work or the school work? That decides what the homepage should lead with.' },
+  { e: 'feed_stop',     when: '"Can you stop the scroll?" is stopped, by the button or a tap on the phone', p: 'channel: the ad or poster it stopped on', why: 'Which piece of creative people stop on when they decide to stop. Feedback on the work, not on the page.' },
+  { e: 'counter_seen',  when: 'The first animated number on a page scrolls into view, once per page', p: 'page_type', why: 'Did the proof get seen at all? A page where this never fires has a hero that is too tall.' },
+  { e: 'skill_open',    when: '"Where I did it" is clicked, under a skill pillar or next to a single skill', p: 'channel: the pillar or the skill', why: 'Which skills agencies want the evidence for. That is what I should put more of on the site.' },
+  { e: 'video_play',    when: 'A film is started. The YouTube player is only loaded on this click', p: 'channel, video_id, video_title', why: 'The films are the heaviest thing here. If nobody plays them, they should not be there.' },
+  { e: 'video_hover',   when: 'A silent loop starts playing on hover or tap, once per loop', p: 'channel', why: 'Tells me whether the moving tiles earn their weight or whether a still would do.' },
+  { e: 'poster_open',   when: 'A poster is opened full size', p: 'poster_title', why: 'Which of the posters holds attention. That is feedback on the idea, not on the page.' },
+  { e: 'ad_open',       when: 'An Aroma Roast ad is opened full size', p: 'channel: the ad id', why: 'Which ad people want to look at closely, which I can compare with which ad actually sold.' },
+  { e: 'posterlab_flip', when: 'The before/after slider on the PosterLab case is dragged, once per page', p: 'none', why: 'Does the product demo get touched? If not, the slider is decoration.' },
+  { e: 'sneaker_run',   when: 'The metro animation on the projects page is tapped', p: 'none', why: 'A curiosity check: do people touch a playful detail, or ignore it. Cheap to measure, honest answer.' },
+  { e: 'data_story_open', when: 'A link to the data story or the API page is clicked', p: 'channel', why: 'Tells me whether the coursework gets read or just listed.' },
+  { e: 'story_back',    when: 'A back link is clicked', p: 'channel', why: 'Shows where people go when they are done reading, and which pages are dead ends.' },
+  { e: 'chart_filter',  when: 'A city is picked in the data story chart', p: 'chart, city', why: 'Which city people look up first.' },
+  { e: 'chart_toggle',  when: 'The estimated final 2026 turnout is switched on or off in the data story', p: 'chart, estimate_shown', why: 'Whether readers want the caveat or only the headline number.' },
+  { e: 'source_click',  when: 'A source under the data story is opened', p: 'channel', why: 'Whether anyone checks the sources. That tells me if the story is trusted.' },
+  { e: 'api_demo_open', when: 'The demo link on the API page is clicked. The link only shows once the demo is published', p: 'channel', why: 'Whether the API gets tried, not just read about.' },
+  { e: 'api_repo_open', when: 'The code link on the API page is clicked. The link only shows once the code is public', p: 'channel', why: 'Whether people want to see how it is built.' },
+];
+
 window.CONTENT = {
 
   /* ---------- Switches ---------- */
@@ -21,23 +57,30 @@ window.CONTENT = {
     CURSOR: true,        // the custom mouse pointer on desktop
     SHOW_AMIDA: true,    // case-amida.html and its cards. false = hidden everywhere
     SEO_READY: false,    // course-seo.html. Flip to true when the SEO sections below are filled in
+    SHOW_ROAS: false,    // the ROAS 0.66 cell on the Aroma Roast case. TODO Viking: dubbelkolla siffran, sätt sedan true
+    SHOW_LAB: false,     // the Lab card (Aura Blocks) on the projects page. Fill in projects.lab first
   },
 
   /* ---------- Site-wide ---------- */
   site: {
     name: 'Viking Kadar',
     url: 'https://vikingkadar.github.io/',
+    // The one place the address lives. Every mailto: link and every visible
+    // address on the site is rewritten from this when the page loads.
     email: 'viking@posterlab.ai',
-    emailSubject: 'Internship Mar–Apr 2027',
-    availability: 'Open for internship · Mar–Apr 2027',
-    ctaLabel: 'Internship? Email me',
+    emailSubject: 'Internship or job',
+    availability: 'Open for internship (Mar–Apr 2027) and junior roles',
+    ctaLabel: 'Internship or job? Email me',
     contactHeadline: 'Let\'s build something',
-    contactLine: 'Six weeks, March to April 2027. Creative or social, Stockholm or abroad. One email is enough, I reply fast.',
+    contactLine: 'Internship March–April 2027, or a junior or part-time role. Growth, content, social or AI and automation. Stockholm or abroad.',
     linkedin: 'https://www.linkedin.com/in/viking-kadar-52895a234/',
     tiktok: 'https://www.tiktok.com/@sweden_ai',
     tiktokHandle: '@sweden_ai',
     github: 'https://github.com/VikingKadar',
-    cv: '',              // TODO Viking: lägg cv.pdf i roten och skriv 'cv.pdf' här, så dyker "Download CV" upp av sig själv.
+    // The "Download CV" buttons (hero, menu, contact) ask the server for this
+    // file first and only appear when it answers.
+    cv: '/cv/Viking-Kadar-CV.pdf',   // TODO Viking: ladda upp PDF:en till cv/Viking-Kadar-CV.pdf i repot.
+    cvLabel: 'Download CV',
     footer: 'Viking Kadar, Growth Marketing, Berghs School of Communication',
     footerNote: 'Built in plain HTML, CSS and JavaScript. Published via GitHub Pages.',
   },
@@ -54,7 +97,7 @@ window.CONTENT = {
      ========================================================================== */
   home: {
     hero: {
-      badge: 'Open for internship · Mar–Apr 2027',
+      badge: 'Open for internship (Mar–Apr 2027) and junior roles',
       title: 'Ideas that move',
       words: ['NUMBERS', 'VIEWS', 'BELTS', 'SNEAKERS', 'PEOPLE'],   // the red word, changes every 2 s
       sub: 'I\'m Viking Kadar, an AI-native growth marketer. I make the content, build the tool and measure what it did.',
@@ -81,7 +124,7 @@ window.CONTENT = {
       { value: 41.8, dec: 1, suf: 'M',  text: '41.8M',    label: 'views on my own TikTok',                       href: 'case-sweden-ai.html' },
       { value: 500,                       text: '500',      label: 'belts sold out',                                href: 'case-william-manor.html' },
       { value: 1.3,  dec: 1, pre: 'SEK ', suf: 'M', text: 'SEK 1.3M', label: 'in sneaker sales as a teenager',   href: 'projects.html#sneakers' },
-      { value: 2,                         text: '2',        label: 'real-client briefs (Royal Swedish Opera, Aroma Roast)', href: 'berghs.html' },
+      { value: 3,                         text: '3',        label: 'real-client briefs (Royal Swedish Opera, Aroma Roast, Brittfurn)', href: 'berghs.html' },
     ],
 
     // "Can you stop the scroll?" The phone feed is built from performance.ads
@@ -95,22 +138,29 @@ window.CONTENT = {
       see: 'See the case →',
     },
 
-    // Selected work: the bento grid. size 'lg' = a big tile, 'sm' = a small one.
+    // Selected work: the bento grid. size 'lg' = a big tile (two columns), 'sm' = one column.
+    // Three columns on a wide screen: keep the 'lg' tiles so that every row adds up to 3.
+    workIntro: 'Five pieces of work. Each one has a number attached.',
     work: [
       { id: 'sweden_ai', size: 'lg', href: 'case-sweden-ai.html', title: 'Sweden AI',
         line: 'My own TikTok. Idea, production and editing, all me.',
         num: '41.8M', numLabel: 'views', tags: ['#Content', '#Hooks', '#Organic'],
         // TODO Viking: en skärmdump eller stillbild från kontot. Saknas filen visas siffran stort i stället.
         img: { src: '' /* TODO Viking: t.ex. 'images/swedenai-cover.webp' */, alt: 'The Sweden AI TikTok account', w: 1200, h: 1500 } },
+      { id: 'brittfurn', size: 'sm', href: 'course-cro-analytics.html', title: 'Brittfurn',
+        line: 'Real client. Three data silos into one CRM, with AI-built customer profiles.',
+        num: '3 → 1', tags: ['#CRM', '#n8n', '#AIAutomation', '#CRO'],
+        // TODO Viking: skärmdumpen av n8n-flödet. Skriv in sökvägen när filen ligger i images/. Utan bild visas "3 → 1" stort.
+        img: { src: '' /* TODO Viking: t.ex. 'images/cro-n8n-flow.png' */, alt: 'The n8n workflow that builds a taste and interest profile for every customer', w: 1600, h: 900 } },
       { id: 'aromaroast', size: 'sm', href: 'course-performance-marketing.html', title: 'Aroma Roast',
-        line: 'Real client, live on Meta. Concept and all the ad creative.',
-        num: '6', numLabel: 'ads, 3 stages', tags: ['#MetaAds', '#AIProduction', '#Funnel'],
+        line: '10,296 impressions on SEK 972.',
+        num: '0.99%', numLabel: 'CTR', tags: ['#MetaAds', '#AIProduction', '#Funnel'],
         img: { src: 'images/aroma/choco.webp', alt: 'Aroma Roast ad: a coffee bag pressed into a chocolate cake', w: 1024, h: 1280 } },
       { id: 'opera', size: 'sm', href: 'course-opera.html', title: 'The Royal Opera',
         line: 'How do you get 20-year-olds to pick the opera over Netflix?',
         num: '3', numLabel: 'posters, 2 AI films', tags: ['#Concept', '#AIFilm', '#Geofencing'],
         img: { src: 'images/fotboll.webp', alt: 'Royal Opera poster: an opera singer in tails in front of a stand with flares', w: 1200, h: 1783 } },
-      { id: 'posterlab', size: 'lg', href: 'case-posterlab.html', title: 'PosterLab',
+      { id: 'posterlab', size: 'sm', href: 'case-posterlab.html', title: 'PosterLab',
         line: 'My own AI company. Upload a photo, get a painting.',
         num: 'V2', numLabel: 'rebuilt around zero friction', tags: ['#PLG', '#AI', '#Ecommerce'],
         // TODO Viking: en hjältebild för PosterLab (t.ex. en färdig tavla). Saknas filen visas texten stort i stället.
@@ -133,7 +183,7 @@ window.CONTENT = {
           { src: 'images/wall/choco.webp',    alt: 'Aroma Roast ad', w: 540, h: 675 },
           { src: 'images/wall/rostning.webp', alt: 'The suburbs woke up, data story', w: 540, h: 302 },
         ],
-        fallback: [{ num: '3', label: 'courses done' }, { num: '2', label: 'real clients' }, { num: '19', label: 'events tracked' }] },
+        fallback: [{ num: '5', label: 'courses done' }, { num: '3', label: 'real clients' }, { num: String(EVENTS.length), label: 'events tracked' }] },
     ],
 
     // Watch: four films. vertical: true = shown 9:16.
@@ -145,20 +195,32 @@ window.CONTENT = {
       { youtube: 'u7_VxeoVWJ0', title: 'The suburbs woke up – data story',           channel: 'fororten',    href: 'fororten.html',                     vertical: false },
     ],
 
-    // What I can do. live = run for real, learned = covered at Berghs.
+    // What I can do. live = run for real (filled dot), learned = covered at Berghs (empty dot).
+    // A row can be { label, href, where } to get its own "Where I did it → <where>" link.
     skills: [
       { id: 'analytics', title: 'Analytics & data', href: 'course-growth-toolbox.html', where: 'Growth Toolbox',
-        live: ['Google Tag Manager', 'GA4', '19 custom dataLayer events', 'Looker Studio', 'Chart.js', 'Web scraping (Node.js + Cheerio)'],
-        learned: ['UTM conventions', 'KPI hierarchy', 'CRO'] },
+        live: ['Google Tag Manager', 'GA4', EVENTS.length + ' custom dataLayer events', 'Looker Studio', 'Chart.js', 'Web scraping (Node.js + Cheerio)',
+          { label: 'CRM and CLV segmentation', href: 'course-cro-analytics.html', where: 'CRO & Analytics', id: 'crm_clv' }],
+        learned: ['UTM conventions', 'KPI hierarchy', { label: 'CRO', href: 'course-cro-analytics.html', where: 'CRO & Analytics', id: 'cro' }] },
       { id: 'content', title: 'Content & growth', href: 'course-performance-marketing.html', where: 'Performance Marketing',
         live: ['Meta Ads Manager', 'TikTok organic (41.8M views)', 'Stop / Interest / Action funnel', 'AI ad creative'],
         learned: ['Google Ads (search, PMax, YouTube)', { label: 'ChatGPT Ads', badge: 'New' }, 'SEO & GEO', 'UGC and influencer briefs'] },
       { id: 'build', title: 'Build & AI', href: 'projects.html', where: 'My own projects',
-        live: ['HTML / CSS / JS', 'GitHub Pages', 'Claude Code', 'n8n', 'Shopify', 'Seedream API', 'Gemini API'],
+        live: ['HTML / CSS / JS', 'GitHub Pages', 'Claude Code', { label: 'n8n', href: 'course-cro-analytics.html', where: 'CRO & Analytics', id: 'n8n' }, 'Shopify', 'Seedream API', 'Gemini API'],
         learned: [],
         production: ['Midjourney', 'Seedance', 'Kling', 'Nano Banana', 'Higgsfield', 'ElevenLabs'] },
     ],
     skillsLegend: { live: 'Run live', learned: 'Learned', production: 'AI production', where: 'Where I did it →' },
+
+    // Certificates, shown as a small line under the pillars. Never mark one as done before it is.
+    // TODO Viking: när certet är klart, byt status till t.ex. 'Certified (March 2027)'.
+    certs: [
+      { name: 'Google Analytics Certification', status: 'in progress' },
+    ],
+
+    // A quote from a client or a teacher. Shown only when text, name AND role are all filled in.
+    // TODO Viking: ett riktigt citat, ordagrant, med personens namn och roll. Aldrig ett påhittat.
+    quote: { text: '', name: '', role: '' },
 
     ticker: ['Google Tag Manager', 'GA4', 'Looker Studio', 'Chart.js', 'Node.js', 'Cheerio', 'Meta Ads Manager', 'TikTok', 'Google Ads', 'ChatGPT Ads',
       'HTML / CSS / JS', 'GitHub Pages', 'Claude Code', 'n8n', 'Shopify', 'Seedream API', 'Gemini API',
@@ -194,6 +256,18 @@ window.CONTENT = {
         line: 'An AI product I\'m building. A growth loop that runs on email.', tags: ['#AIProduct', '#GeminiAPI', '#GrowthLoop'],
         img: { src: '' /* TODO Viking: t.ex. 'images/amida-hero.webp' */, alt: 'The Amida web app', w: 1200, h: 1500 } },
     ],
+    // The Lab card. Hidden until flags.SHOW_LAB is true.
+    // The game is only linked to, never embedded or hosted in this repo.
+    lab: {
+      kicker: 'Lab',
+      title: 'Aura Blocks',
+      line: '',           // TODO Viking: en mening om vad Aura Blocks är.
+      thumb: { src: '' /* TODO Viking: t.ex. 'images/lab/aura-blocks.webp' */, alt: 'Aura Blocks', w: 1200, h: 750 },
+      // Silent MP4, max 3 MB. Plays on hover or tap, never by itself. Uses the thumb as its poster.
+      clip: { src: '' /* TODO Viking: t.ex. 'images/lab/aura-blocks.mp4' */, alt: 'Aura Blocks in play' },
+      href: '',           // TODO Viking: extern länk till spelet.
+      linkLabel: 'Open Aura Blocks',
+    },
     sneakers: {
       title: 'Where it started',
       sub: 'Sneakers, Stockholm, age 15.',
@@ -215,6 +289,7 @@ window.CONTENT = {
     title: 'Berghs, course by course',
     sub: 'Growth Marketing, Berghs School of Communication, 2026–2027.',
     // TODO Viking: kolla kursnamn och datum i Canvas.
+    gridTitle: 'One page per course',
     timeline: [
       { id: 'communication', title: 'Communication According to Berghs', when: 'Aug 2026', status: 'done' },
       { id: 'opera', title: 'The Royal Opera', sub: 'Cross-programme brief', when: 'Aug 2026', status: 'done', href: 'course-opera.html',
@@ -228,7 +303,10 @@ window.CONTENT = {
         img: { src: 'images/wall/choco.webp', alt: 'Aroma Roast ad', w: 540, h: 675 } },
       { id: 'seo', title: 'SEO & Content Marketing', sub: 'Byggalliansen', when: 'Oct 2026', status: 'done', href: 'course-seo.html', flag: 'SEO_READY',
         line: 'Search, GEO and a content strategy for a network of local builders.', tags: ['#SEO', '#GEO', '#Content'] },
-      { id: 'cro', title: 'CRO & Analytics', when: 'Nov 2026', status: 'ongoing' },
+      // TODO Viking: sätt status 'done' när kursen är klar.
+      { id: 'cro', title: 'CRO & Analytics', sub: 'Brittfurn', when: 'Nov 2026', status: 'ongoing', href: 'course-cro-analytics.html',
+        line: 'Real client. Three data silos into one CRM, with AI-built customer profiles.', tags: ['#CRM', '#n8n', '#AIAutomation', '#CRO'],
+        img: { src: '' /* TODO Viking: t.ex. 'images/cro-n8n-flow.png' */, alt: 'The n8n enrichment workflow', w: 1600, h: 900 }, bigText: '3 → 1' },
       { id: 'internship', title: 'Internship', when: 'Mar–Apr 2027', status: 'next' },
     ],
     statusLabel: { done: 'Done', ongoing: 'In progress', next: 'Next' },
@@ -412,6 +490,7 @@ window.CONTENT = {
      PERFORMANCE MARKETING / AROMA ROAST  (course-performance-marketing.html)
      ========================================================================== */
   performance: {
+    label: 'Berghs · Performance Marketing · Group project · Live on Meta',
     title: 'Aroma Roast',
     kicker: 'Six ads, three stages, one clear winner.',
     role: 'Group 4: Clara, Tuva, Lowe, Viking and Rahel. My part: the creative concept and all of the ad creative.',
@@ -436,10 +515,14 @@ window.CONTENT = {
       caption: '' },   // TODO Viking: vad visar filmen? Tom sträng = ingen bildtext.
     landing: null,     // TODO Viking: skärmdump av landningssidan, t.ex. { src: 'images/aroma/landing.webp', alt: 'Aroma Roast landing page', w: 1200, h: 800 }
     adsHeading: 'Six ads, three stages, one clear winner.',
+    // headlines = the ad headlines that ran at each stage, shown in the funnel.
     stages: [
-      { id: 'stop',     name: 'Stop',     job: 'Stop the scroll',     result: 'Awareness ads: zero purchases and almost no spend. Meta moved the budget elsewhere on its own.' },
-      { id: 'interest', name: 'Interest', job: 'Spark the craving',   result: 'Choco Roast took 75 % of the budget, 84 % of link clicks and all 3 purchases.' },
-      { id: 'action',   name: 'Action',   job: 'Make buying easy',    result: '' },   // TODO Viking: fyll i från Ads Manager om du har siffror.
+      { id: 'stop',     name: 'Stop',     job: 'Stop the scroll',     result: 'Awareness ads: zero purchases and almost no spend. Meta moved the budget elsewhere on its own.',
+        headlines: ['A win in every cup', 'Next stop: coffee break. Without the caffeine.'] },
+      { id: 'interest', name: 'Interest', job: 'Spark the craving',   result: 'Choco Roast took 75 % of the budget, 84 % of link clicks and all 3 purchases.',
+        headlines: ['The flavour combo you didn\'t know you were missing'] },
+      { id: 'action',   name: 'Action',   job: 'Make buying easy',    result: '',   // TODO Viking: fyll i från Ads Manager om du har siffror.
+        headlines: ['Start the day the right way. Order today!'] },
     ],
     // sv = the headline as it ran, en = translation, thinking = the idea. win = the winner.
     ads: [
@@ -463,24 +546,31 @@ window.CONTENT = {
       { id: 'v-barbie',  stage: 'interest', img: 'v-barbie.jpg',  w: 356, h: 634,  youtube: '', title: 'The Barbie morning', thinking: 'Borrowed recognition from pop culture.', result: '' },
     ],
     rule: 'The further down the funnel, the less play and the clearer the call to action.',
-    tests: ['Playful ↔ product focus', 'Chocolate ↔ caramel', 'Still ↔ video', 'Soft message ↔ clear CTA'],
-    // Results: three headline numbers big, the rest in a small table.
-    headline: [
-      { value: 7192, text: '7,192', label: 'Reach' },
-      { value: 0.99, dec: 2, suf: ' %', text: '0.99 %', label: 'CTR' },
-      { value: 3, text: '3', label: 'days to find the winning ad', note: 'Winning ad found in 3 days' },
+    tests: ['Playful vs product-focused', 'Chocolate vs caramel', 'Still image vs video'],
+    // Results: one grid, counted up when it scrolls into view.
+    results: [
+      { value: 7192,  text: '7,192',    label: 'Reach' },
+      { value: 10296, text: '10,296',   label: 'Impressions' },
+      { value: 102,   text: '102',      label: 'Clicks' },
+      { value: 0.99,  dec: 2, suf: '%', text: '0.99%', label: 'CTR' },
+      { value: 9.53,  dec: 2, pre: 'SEK ', text: 'SEK 9.53', label: 'CPC' },
+      { value: 972,   pre: 'SEK ', text: 'SEK 972', label: 'Spend' },
+      { value: 3,     text: '3',        label: 'Purchases' },
+      { value: 324,   pre: 'SEK ', text: 'SEK 324', label: 'CPA' },
+      { value: 2.9,   dec: 1, suf: '%', text: '2.9%', label: 'Click → purchase' },
     ],
-    stats: [
-      { text: '10,296',   label: 'Impressions' },
-      { text: '102',      label: 'Link clicks' },
-      { text: '9.53 SEK', label: 'CPC' },
-      { text: '3',        label: 'Purchases' },
-      { text: '324 SEK',  label: 'CPA, cost per purchase' },
-      { text: '2.9 %',    label: 'Click to purchase' },
-      { text: '0.66',     label: 'ROAS, SEK back per SEK spent' },
-      { text: '972 SEK',  label: 'Total spend' },
+    resultsNote: 'Frequency 1.4 · CPM ≈ SEK 94 (calculated)',
+    // Shown only when flags.SHOW_ROAS is true.
+    roas: { value: 0.66, dec: 2, text: '0.66', label: 'ROAS' },
+    roasCaption: 'A ROAS under 1 means the test lost money, which is what a three-day test usually does.',
+    statsCaption: 'Meta Ads Manager, three days live. Meta recommends around two weeks for the algorithm to learn, so these numbers are a compass, not a verdict.',
+    insights: [
+      'The chocolate ad took over 80% of the clicks (about 85 of 102).',
+      'A clear product still beat video.',
+      'Taste, in the middle of the funnel, is what made people buy.',
     ],
-    statsCaption: 'Meta Ads Manager, three days live. Meta recommends around two weeks for the algorithm to learn, so these numbers are a compass, not a verdict. A ROAS under 1 means the test lost money, which is what a three-day test usually does. Break-even ROAS for the brand was 3. Three days and 972 SEK is a test, not a verdict: the job was to find what to scale.',
+    honestTake: 'A SEK 970 test. Below break-even (target ROAS 3), so we treat it as learning, not a win. Small budget, and late purchases weren\'t tracked.',
+    nextLead: 'Keep the same look, a clearer CTA and new hooks. On the site: the hero image says nothing about taste, and the subscription plus "−10%" should sit right above "Add to cart".',
     bars: [
       { label: 'Choco Roast: share of budget',      value: 75,  unit: '%' },
       { label: 'Choco Roast: share of link clicks', value: 84,  unit: '%' },
@@ -541,7 +631,7 @@ window.CONTENT = {
     course: 'Growth Toolbox, Berghs',
     tags: ['#GTM', '#GA4', '#Scraping', '#DataStory'],
     hero: { src: 'images/rostning.webp', alt: 'The suburbs woke up: the hero image of the data story', w: 1200, h: 671 },
-    num: '19', numValue: 19, numLabel: 'custom events on this site',
+    num: String(EVENTS.length), numValue: EVENTS.length, numLabel: 'custom events on this site',
     inShort: [
       'Built this portfolio in plain HTML, published it via GitHub Pages and put custom dataLayer events behind Google Tag Manager. Then scraped 20 sources into an API and turned election data into a story.',
       'Every event on this site is listed below, with what it fires on and why it is worth measuring. The data story and the API project have their own pages.',
@@ -563,7 +653,7 @@ window.CONTENT = {
       { what: 'Content assignment', status: 'done', href: 'CONTENT_ASSIGNMENT_URL', label: 'Open the assignment', note: 'Handed in separately.' },
       { what: 'API mashup', status: 'documented', href: 'toolbox.html#api', label: 'Peptide Data API', note: 'Twenty sources scraped and put behind one API, documented on its own page.', api: true },
       { what: 'Data story', status: 'done', href: 'fororten.html', label: 'The suburbs woke up', note: 'Swedish election turnout 2022 against 2026, in Chart.js, with its own tracking.' },
-      { what: 'Distinction: my own dataLayer events', status: 'done', href: '#measure', label: 'The event table', note: 'Nineteen events, each one tied to a question worth answering.' },
+      { what: 'Distinction: my own dataLayer events', status: 'done', href: '#measure', label: 'The event table', note: EVENTS.length + ' events, each one tied to a question worth answering.' },
       { what: 'Distinction: a web app that fetches an API, published on the site', status: 'done', href: 'API_DEMO_URL', label: 'Open the demo', note: 'The API itself is documented on the Peptide Data API page.' },
     ],
     statusLabel: { done: 'Done', documented: 'Documented' },
@@ -583,29 +673,63 @@ window.CONTENT = {
     next: 'Finish the Looker Studio dashboard on top of these events and publish the API demo, so every row in the deliverables table has something to click.',
   },
 
-  /* ---------- The event spec, shared by the Growth Toolbox page ---------- */
-  events: [
-    { e: 'page_meta',     when: 'On every page load, pushed before the GTM container', p: 'page_type', why: 'Lets me split every report by type of page, so a case page is never averaged together with the homepage.' },
-    { e: 'section_view',  when: 'A section becomes 30 % visible, once per page view', p: 'section_id', why: 'Shows how far into a case people actually get, which tells me where to cut.' },
-    { e: 'scroll_depth',  when: 'At 25, 50, 75 and 100 % of the page, once each', p: 'percent', why: 'Separates a real read from a bounce. A visit that reaches 75 % is worth more than ten that stop at 25 %.' },
-    { e: 'contact_click', when: 'Any email, LinkedIn, TikTok, GitHub or CV link is clicked', p: 'channel', why: 'The only real conversion on this site. I am looking for an internship, so a click here is the whole point and everything else is a step towards it.' },
-    { e: 'case_open',     when: 'A tile in Selected work, or a case link anywhere, is clicked', p: 'channel', why: 'Tells me which case earns the click, so the strongest one goes first.' },
-    { e: 'course_open',   when: 'A course card or course link is clicked', p: 'channel', why: 'Shows which course an agency actually cares about, as opposed to which one I am proudest of.' },
-    { e: 'project_open',  when: 'A project card or project link is clicked', p: 'channel', why: 'Separates interest in my own work from interest in schoolwork.' },
-    { e: 'door_open',     when: 'One of the two doors on the homepage is clicked', p: 'channel: projects | berghs', why: 'The first fork in the road. Do visitors want my own work or the school work? That decides what the homepage should lead with.' },
-    { e: 'feed_stop',     when: '"Can you stop the scroll?" is stopped, by the button or a tap on the phone', p: 'channel: the ad or poster it stopped on', why: 'Which piece of creative people stop on when they decide to stop. Feedback on the work, not on the page.' },
-    { e: 'counter_seen',  when: 'The first animated number on a page scrolls into view, once per page', p: 'page_type', why: 'Did the proof get seen at all? A page where this never fires has a hero that is too tall.' },
-    { e: 'skill_open',    when: '"Where I did it" under a skill pillar is clicked', p: 'channel: analytics | content | build', why: 'Which of the three skills agencies want the evidence for. That is what I should put more of on the site.' },
-    { e: 'video_play',    when: 'A film is started, YouTube facade or local file', p: 'channel', why: 'The films are the heaviest thing here. If nobody plays them, they should not load.' },
-    { e: 'video_hover',   when: 'A silent loop starts playing on hover or on scroll, once per loop', p: 'channel', why: 'Tells me whether the moving tiles earn their weight or whether a still would do.' },
-    { e: 'poster_open',   when: 'A poster or ad is opened full size', p: 'poster_title', why: 'Which of the posters holds attention. That is feedback on the idea, not on the page.' },
-    { e: 'ad_open',       when: 'An Aroma Roast ad is opened full size', p: 'channel: the ad id', why: 'Which ad people want to look at closely, which I can compare with which ad actually sold.' },
-    { e: 'posterlab_flip', when: 'The before/after slider on the PosterLab case is dragged, once per page', p: 'none', why: 'Does the product demo get touched? If not, the slider is decoration.' },
-    { e: 'sneaker_run',   when: 'The metro animation on the projects page is tapped', p: 'none', why: 'A curiosity check: do people touch a playful detail, or ignore it. Cheap to measure, honest answer.' },
-    { e: 'data_story_open', when: 'A link to the data story or the API page is clicked', p: 'channel', why: 'Tells me whether the coursework gets read or just listed.' },
-    { e: 'story_back',    when: 'A back link is clicked', p: 'channel', why: 'Shows where people go when they are done reading, and which pages are dead ends.' },
-    { e: 'chart_filter, chart_toggle, source_click', when: 'On the data story: filtering a city, toggling the estimate, opening a source', p: 'varies', why: 'Which city people look up and whether anyone checks the sources. The last one tells me if the story is trusted.' },
-  ],
+  /* ---------- The event spec: the EVENTS list at the top of this file ---------- */
+  events: EVENTS,
+
+  /* ==========================================================================
+     CRO & ANALYTICS / BRITTFURN  (course-cro-analytics.html)
+     ========================================================================== */
+  cro: {
+    label: 'CRO & Analytics · Berghs · Real client · Group project',
+    title: 'Brittfurn: more repeat purchases',
+    intro: 'Get existing luxury customers to buy again, with a model built on how they actually behave.',
+    num: '3 → 1', numLabel: 'data silos into one CRM',
+    period: 'Nov 2026',
+    course: 'CRO & Analytics, Berghs',
+    status: 'Hypothesis · results pending',
+    tags: ['#CRM', '#n8n', '#AIAutomation', '#CRO'],
+    role: 'Group project, we did the strategy together. I co-built the CRM and built the n8n enrichment workflow.',
+    // TODO Viking: skärmdumpen av n8n-flödet. Skriv in sökvägen när filen ligger i images/, annars döljs bilden.
+    // Kolla att den inte visar riktiga kundnamn.
+    flowImage: { src: '' /* TODO Viking: t.ex. 'images/cro-n8n-flow.png' */, alt: 'The n8n workflow that builds a taste and interest profile for every customer', w: 1600, h: 900 },
+    inShort: [
+      'Three data silos into one CRM, with AI-built customer profiles.',
+      'Four CLV segments: Infinity, Rich Skryt, Lyxare and Guldkant.',
+      'Hypothesis · results pending.',
+    ],
+    problem: [
+      'Customer data lives in three different systems',
+      'The customer register only exists in the owner\'s head',
+      'Mailouts are generic, so nobody opens them and nobody shows up to events',
+      'Every luxury customer is treated the same, even though they\'re not',
+    ],
+    hypothesis: 'Personal communication per customer segment drives more repeat purchases than one mailout to everyone.',
+    built: [
+      { t: 'One source of truth', b: 'Exported from Visma and moved everything into CRM 2.0.' },
+      { t: 'Enriched profiles', b: 'An n8n workflow builds a taste and interest profile for every customer.' },
+      { t: 'Four CLV segments', b: 'Infinity, Rich Skryt, Lyxare and Guldkant.' },
+      { t: 'Communication model', b: 'The right message to the right customer at the right moment.' },
+      { t: '"My home" customer account', b: 'Customers see their furniture and their style in one place.' },
+      { t: 'Style quiz and style guide', b: 'Gives us taste data and a reason to come back.' },
+    ],
+    privacy: 'Enrichment only runs on customers who have opted in.',
+    tools: ['n8n', 'Claude Code', 'Visma export', 'CRM 2.0'],
+    // The three films. Titles checked against YouTube's own (oEmbed), in this order:
+    //   xsLHthoaLG0 "Brittfurn Client Intelligence v2", DnVvfATnRh8 "brittfurn Kundprofil workflow animation v2 1",
+    //   qyDOYqhNhTo "brittfurn CRM 3 Super CRM".
+    // TODO Viking: kolla att ingen film (eller miniatyr) visar riktiga kunddata. YouTubes miniatyr för qyDOYqhNhTo
+    //   visar en namngiven kundprofil med köp. Är den riktig: byt miniatyr på YouTube, eller lägg en egen
+    //   poster: { src: 'images/cro-video-3.webp', w: 1280, h: 720 } på raden nedan.
+    videos: [
+      { youtube: 'xsLHthoaLG0', title: 'The CRM we built',               channel: 'cro_crm' },
+      { youtube: 'DnVvfATnRh8', title: 'The enrichment workflow (n8n)',  channel: 'cro_enrichment' },
+      { youtube: 'qyDOYqhNhTo', title: 'How the team uses it',           channel: 'cro_team' },
+    ],
+    resultsLead: 'Results pending. The model is built, but the hypothesis is not proven yet.',
+    // A quote from the client or a teacher. Shown only when text, name AND role are all filled in.
+    // TODO Viking: ett riktigt citat, ordagrant, med namn och roll. Aldrig ett påhittat.
+    quote: { text: '', name: '', role: '' },
+  },
 
   /* ==========================================================================
      SEO & CONTENT MARKETING  (course-seo.html, only when flags.SEO_READY is true)

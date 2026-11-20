@@ -120,7 +120,9 @@ button{font:inherit;color:inherit}
 .tags li,.tag{font-size:12px;font-weight:500;letter-spacing:.02em;border:1px solid var(--line2);border-radius:999px;padding:5px 10px;color:var(--mute);white-space:nowrap}
 .chip{display:inline-block;font-size:12px;font-weight:500;padding:4px 10px;border:1px solid var(--line2);border-radius:999px;color:var(--mute)}
 .chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
-.badge{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line2);border-radius:999px;padding:8px 14px;color:var(--ink)}
+.badge{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line2);border-radius:999px;padding:8px 14px;color:var(--ink);max-width:100%;line-height:1.35}
+.badge i{flex:0 0 auto}
+@media(max-width:480px){.badge{font-size:11px;letter-spacing:.05em;border-radius:14px}}
 .badge i{width:8px;height:8px;border-radius:50%;background:#3DDC84;box-shadow:0 0 0 0 rgba(61,220,132,.7);animation:pulse 2.2s ease-out infinite}
 @keyframes pulse{70%{box-shadow:0 0 0 9px rgba(61,220,132,0)}100%{box-shadow:0 0 0 0 rgba(61,220,132,0)}}
 .new{font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:var(--acc);color:#fff;border-radius:999px;padding:2px 7px;margin-left:8px;vertical-align:middle;font-weight:500}
@@ -206,13 +208,15 @@ button{font:inherit;color:inherit}
 .tile .go{position:absolute;top:clamp(16px,2vw,24px);right:clamp(16px,2vw,24px);font-size:13px;font-weight:500;background:var(--acc);color:#fff;padding:9px 14px;border-radius:999px;transform:translateX(16px);opacity:0;transition:transform .4s var(--ease),opacity .4s var(--ease)}
 .tile:hover .go,.tile:focus-visible .go{transform:none;opacity:1}
 /* No picture: the number sits in the upper part of the tile, clear of the text at the bottom. */
-.tile.typo .pic{display:grid;place-items:center;padding:0 6% 36%;background:radial-gradient(120% 90% at 20% 10%,rgba(255,59,47,.38),transparent 60%),var(--panel)}
-.tile.typo .pic .big{font-family:var(--disp);font-size:clamp(4.5rem,15vw,12rem);line-height:.85;color:var(--ink);opacity:.95;letter-spacing:-.01em;text-transform:uppercase;text-align:center;overflow-wrap:anywhere}
-.cards .tile.typo .pic{place-items:start center;padding:11% 6% 0}
-.cards .tile.typo .pic .big{font-size:clamp(4rem,7vw,6.5rem)}
+/* The number is anchored to the top of the tile, so it never runs into the text at the bottom,
+   whatever the tile's shape. One line, sized to the tile's width. */
+.tile.typo .pic{display:grid;place-items:start center;padding:clamp(18px,6%,44px) 6% 0;background:radial-gradient(120% 90% at 20% 10%,rgba(255,59,47,.38),transparent 60%),var(--panel)}
+.tile.typo .pic .big{font-family:var(--disp);font-size:clamp(4rem,16vw,7.5rem);line-height:.85;color:var(--ink);opacity:.95;letter-spacing:-.01em;text-transform:uppercase;text-align:center;white-space:nowrap}
+@media(min-width:760px){.tile.typo .pic .big{font-size:clamp(4rem,8vw,7rem)}.tile.typo.lg .pic .big{font-size:clamp(5rem,12vw,10.5rem)}}
+@media(min-width:1100px){.tile.typo .pic .big{font-size:clamp(4rem,6.2vw,7rem)}.tile.typo.lg .pic .big{font-size:clamp(5rem,10vw,11rem)}}
 .tile.typo .num small{margin-left:0;font-size:14px;color:var(--acc);text-transform:uppercase;letter-spacing:.12em;font-weight:500}
 @media(min-width:760px){.bento{grid-template-columns:repeat(2,1fr)}.bento .tile.lg{grid-column:span 2}}
-@media(min-width:1100px){.bento{grid-template-columns:repeat(3,1fr);grid-auto-rows:clamp(300px,34vw,560px)}.bento .tile{min-height:0}.bento .tile.lg{grid-column:span 2}.bento .tile:nth-child(4){grid-column:2/4}.bento .tile:nth-child(3){grid-column:1/2}}
+@media(min-width:1100px){.bento{grid-template-columns:repeat(3,1fr);grid-auto-rows:clamp(300px,34vw,560px)}.bento .tile{min-height:0}.bento .tile.lg{grid-column:span 2}}
 
 /* ---------- 9. Watch row and video facades ---------- */
 .vid{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden;border-radius:var(--r)}
@@ -243,6 +247,10 @@ button{font:inherit;color:inherit}
 .pillar h3{font-family:var(--serif);font-size:clamp(1.5rem,2.4vw,2.1rem);line-height:1.05;margin-bottom:18px}
 .pillar ul{list-style:none;display:grid;gap:9px;font-size:15px}
 .pillar li{display:flex;align-items:center;gap:12px}
+.pillar li.has-where{align-items:flex-start}
+.pillar li.has-where .dot{margin-top:.42em}
+.pillar li .row-where{display:block;font-size:12px;font-weight:500;color:var(--acc);text-decoration:none;margin-top:3px}
+.pillar li .row-where:hover{text-decoration:underline}
 .pillar li .dot{flex:0 0 auto;width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink)}
 .pillar li .dot.live{background:var(--acc);border-color:var(--acc)}
 .pillar .grp{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:16px 0 8px;font-weight:500}
@@ -250,6 +258,10 @@ button{font:inherit;color:inherit}
 .pillar:hover .where,.pillar.open .where,.pillar:focus-within .where{max-height:80px;margin-top:18px}
 .pillar .where a{display:inline-flex;align-items:center;gap:8px;font-weight:500;text-decoration:none;color:var(--acc);border-bottom:1px solid currentColor;padding-bottom:2px}
 .legend{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:var(--mute);margin-bottom:22px}
+.certs{list-style:none;display:flex;flex-wrap:wrap;gap:8px 24px;font-size:13px;color:var(--mute);margin-top:18px}
+.certs li{display:inline-flex;align-items:center;gap:8px}
+.certs li::before{content:"";width:9px;height:9px;border-radius:2px;border:1.5px solid var(--ink)}
+.certs b{font-weight:500;color:var(--ink)}
 .legend span{display:inline-flex;align-items:center;gap:8px}
 .legend .dot{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink)}
 .legend .dot.live{background:var(--acc);border-color:var(--acc)}
@@ -421,6 +433,7 @@ table.tbl.small{min-width:0;font-size:14px} table.tbl.small td,table.tbl.small t
 .shortwrap{max-width:360px;margin:0 auto}
 .shortwrap figcaption{font-size:14px;margin-top:12px;text-align:center;color:var(--mute)}
 .quote{border-top:1px solid var(--line);padding-top:32px;display:grid;grid-template-columns:1fr;gap:24px 64px}
+.quote:not(:has(ul)){grid-template-columns:1fr!important}
 .quote blockquote{margin:0;font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.6rem);line-height:1.12;max-width:24ch}
 .quote cite{display:block;font-family:var(--sans);font-style:normal;font-size:14px;color:var(--mute);margin-top:14px}
 .quote ul{list-style:none;display:grid;gap:10px;font-size:15px}
@@ -575,3 +588,20 @@ html.cursor input,html.cursor textarea,html.cursor select,html.cursor iframe{cur
   .feed-card.idle{opacity:1;transform:none;pointer-events:auto}
   .hero h1 .rotor.out{opacity:1;transform:none}
 }
+
+/* ---------- v2.1 additions ---------- */
+.case-head .case-label{margin-bottom:14px}
+.chip.pending{border-color:var(--acc);color:var(--acc)}
+.overlay .btn + .btn{margin-top:10px}
+
+/* Lab card (projects page, behind flags.SHOW_LAB) */
+.lab{display:grid;grid-template-columns:1fr;gap:20px 40px;align-items:center;border:1px solid var(--line);border-radius:var(--r);padding:clamp(18px,2.6vw,28px);background:var(--panel)}
+.lab .lab-media{border-radius:6px;overflow:hidden;background:var(--panel2);aspect-ratio:16/10}
+.lab .lab-media img,.lab .lab-media video,.lab .lab-media .loop{width:100%;height:100%;object-fit:cover;aspect-ratio:auto}
+.lab h3{font-family:var(--disp);text-transform:uppercase;font-size:clamp(1.8rem,3.6vw,3rem);line-height:.92;margin:6px 0 10px}
+.lab p{color:var(--mute);margin-bottom:16px}
+@media(min-width:860px){.lab{grid-template-columns:1.1fr 1fr}}
+
+/* CRO case: the results-pending stamp */
+.pending-stamp{display:inline-flex;align-items:center;gap:12px;font-family:var(--disp);text-transform:uppercase;font-size:clamp(1.6rem,3.4vw,2.8rem);line-height:1;color:var(--acc);border:2px solid var(--acc);border-radius:10px;padding:12px 18px;margin-bottom:20px}
+.pending-stamp i{width:12px;height:12px;border-radius:50%;background:var(--acc);animation:pulse 2.2s ease-out infinite;box-shadow:0 0 0 0 rgba(255,59,47,.6)}

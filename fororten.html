@@ -129,7 +129,7 @@
     <a href="projects.html">Own projects</a>
     <a href="berghs.html">Berghs</a>
     <a href="index.html#about">About</a>
-    <a href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+    <a href="mailto:viking@posterlab.ai?subject=Internship%20or%20job" data-track="contact_click" data-channel="email_nav">Internship or job? Email me</a>
   </nav>
 
   <header class="hero" id="top">
@@ -364,6 +364,21 @@
       const d = Math.round((window.scrollY + innerHeight) / document.documentElement.scrollHeight * 100);
       marks.forEach(m => { if (d >= m && !hit.has(m)) { hit.add(m); push({ event: 'scroll_depth', percent: m, page: 'fororten' }); } });
     }, { passive: true });
+  </script>
+  <script src="assets/content.js"></script>
+  <script>
+    /* The e-mail address and the button label come from assets/content.js,
+       the same single source as the rest of the site. */
+    (function () {
+      var S = (window.CONTENT || {}).site || {};
+      if (!S.email) return;
+      var href = 'mailto:' + S.email + (S.emailSubject ? '?subject=' + encodeURIComponent(S.emailSubject) : '');
+      document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
+        a.href = href;
+        if (/@/.test(a.textContent) && !a.children.length) a.textContent = S.email;
+        else if (S.ctaLabel && /Email me/.test(a.textContent)) a.textContent = S.ctaLabel;
+      });
+    })();
   </script>
 </body>
 </html>

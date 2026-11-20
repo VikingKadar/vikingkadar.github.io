@@ -60,6 +60,8 @@
     #courses{border-top:1px solid var(--line)}
     /* Three cards in two columns: the last one takes the whole row instead of leaving a hole. */
     @media(min-width:700px) and (max-width:1099px){#grid .tile:last-child:nth-child(odd){grid-column:1/-1}}
+    /* Four cards on a wide screen: two rows of two, never three plus one. */
+    @media(min-width:1100px){#grid:has(> .tile:nth-child(4):last-child){grid-template-columns:repeat(2,1fr)}}
   </style>
 </head>
 <body>
@@ -76,7 +78,7 @@
       <li><a href="index.html#about">About</a></li>
     </ul>
     <div class="nav-right">
-      <a class="btn small nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+      <a class="btn small nav-cta" href="mailto:viking@posterlab.ai?subject=Internship%20or%20job" data-track="contact_click" data-channel="email_nav">Internship or job? Email me</a>
       <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="overlay">Menu</button>
     </div>
   </nav>
@@ -86,7 +88,7 @@
     <a href="projects.html"><small>02</small>Own projects</a>
     <a href="berghs.html"><small>03</small>Berghs</a>
     <a href="index.html#about"><small>04</small>About</a>
-    <a class="btn acc" href="mailto:viking@posterlab.ai?subject=Internship%20Mar%E2%80%93Apr%202027" data-track="contact_click" data-channel="email_nav">Internship? Email me</a>
+    <a class="btn acc" href="mailto:viking@posterlab.ai?subject=Internship%20or%20job" data-track="contact_click" data-channel="email_nav">Internship or job? Email me</a>
   </div>
   <div class="cur" id="cur" aria-hidden="true"></div>
 
@@ -109,7 +111,7 @@
     <!-- 3. ONE PAGE PER FINISHED COURSE: picture tiles via VK.tiles. -->
     <section class="sec grain" id="courses">
       <div class="head rv">
-        <h2 class="disp h2">One page per finished course</h2>
+        <h2 class="disp h2" id="grid-title">One page per course</h2>
       </div>
       <div class="cards c3" id="grid"></div>
     </section>
@@ -166,7 +168,8 @@
 
       /* ---------- one page per finished course ---------- */
       // The period rides along as the first chip; the tiles carry no big number.
-      const items = (D.timeline || []).filter(e => e && e.href).map(e => ({ id: e.id, href: e.href, title: e.title, line: e.line, tags: [e.when].concat(e.tags || []).filter(Boolean), img: e.img, flag: e.flag }));
+      VK.text('#grid-title', D.gridTitle);
+      const items = (D.timeline || []).filter(e => e && e.href).map(e => ({ id: e.id, href: e.href, title: e.title, line: e.line, tags: [e.when].concat(e.tags || []).filter(Boolean), img: e.img, bigText: e.bigText, flag: e.flag }));
       VK.tiles('#grid', items, { event: 'course_open', go: 'Open the course →' });
       const grid = document.getElementById('grid');
       if (grid.classList.contains('hidden')) document.getElementById('courses').classList.add('hidden'); else VK.stagger('#grid', 3);
